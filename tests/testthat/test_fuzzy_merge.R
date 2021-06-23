@@ -68,7 +68,7 @@ testthat::test_that("weighted jaccard match works", {
     suffixes = c("_1", "_2"),
     fuzzy_settings = list(
       method = "wgt_jaccard", p = 0.1, maxDist = 0.5,
-      matchNA = FALSE, nthread = 1
+      matchNA = FALSE, nthread = 2
     )
   )
   expect_true(is.data.table(result))
