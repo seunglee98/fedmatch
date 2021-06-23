@@ -4,7 +4,9 @@
 \name{State_FIPS}
 \alias{State_FIPS}
 \title{State_FIPS}
-\format{An object of class \code{data.frame} with 50 rows and 2 columns.}
+\format{
+An object of class \code{data.table} (inherits from \code{data.frame}) with 50 rows and 2 columns.
+}
 \usage{
 State_FIPS
 }

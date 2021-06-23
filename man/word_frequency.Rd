@@ -2,7 +2,7 @@
 % Please edit documentation in R/word_frequency.R
 \name{word_frequency}
 \alias{word_frequency}
-\title{word_frequency}
+\title{Compute frequency of words in a corpus}
 \usage{
 word_frequency(string)
 }
@@ -13,22 +13,8 @@ word_frequency(string)
 data frame with word frequency
 }
 \description{
-A function to count occurences in a set of strings; function does minimal cleaning (remove punctuation and extra spaces);
-}
-\examples{
-# with simple vector
-names = c("company name 1", "company name 2", "company 3")
-word_frequency(names)
-
-# with a dataframe
-col1 = c(1,2,3)
-df1 = cbind(col1, names)
-word_frequency(df1[,2])
-
-# more complicated example
-names = c("company name 1", "company &    3 inc.", "co nm 1,, lp")
-df2 = cbind(col1, names)
-word_frequency(df2[,2])
-
-
+\code{word_frequency} counts the frequency of words in a set of strings.
+Also does minimal cleaning (removes punctuation and extra spaces). Useful for
+determining what words are common and may need to be replaced or removed with
+\code{clean_strings}.
 }

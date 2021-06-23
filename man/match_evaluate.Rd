@@ -2,11 +2,19 @@
 % Please edit documentation in R/match_evaluate.R
 \name{match_evaluate}
 \alias{match_evaluate}
-\title{match_evaluate}
+\title{evaluate a matched dataset}
 \usage{
-match_evaluate(matches, data1, data2, unique_key_1, unique_key_2,
-  suffixes = c(".x", ".y"), tier = NULL, tier_order = NULL,
-  aggregate_by = "unique", quality_vars = NULL, dupe_ratio = FALSE)
+match_evaluate(
+  matches,
+  data1,
+  data2,
+  unique_key_1,
+  unique_key_2,
+  suffixes = c(".x", ".y"),
+  tier = "tier",
+  tier_order = NULL,
+  quality_vars = NULL
+)
 }
 \arguments{
 \item{matches}{data.frame. Merged dataset.}
@@ -23,25 +31,30 @@ match_evaluate(matches, data1, data2, unique_key_1, unique_key_2,
 
 \item{tier}{character vector. Default=NULL. The variable that defines a tier.}
 
-\item{tier_order}{character vector. Default=NULL. Variable that defines the order of tiers, if needed.}
-
-\item{aggregate_by}{character vector. Default='unique'. Variable aggregated to calculate statistics. If equal to 'unique', aggregation is count, if otherwise, sum.}
+\item{tier_order}{character vector. Default= "tier". Variable that defines the order of tiers, if needed.}
 
 \item{quality_vars}{character vector. Variables you want to use to calculate the quality of each tier. Calculates mean.}
 }
 \value{
-data.frame. Table describing each tier according to aggregate_by variables and quality_vars variables.
+data.table. Table describing each tier according to aggregate_by variables and quality_vars variables.
 }
 \description{
-evaluate a matched dataset
+\code{match_evaluate} takes in matches and outputs summary statistics for those matches, including
+the number of matches in each tier and the percent matched from each dataset.
 }
-\examples{
-x = data.frame('id'=1:5,'name'=c('a','b','c','d','d'), 'amount' = 101:105)
-y = data.frame('id'=6:10,'name'=c('b','c','d','e','f'), 'amount' = rep(102,5))
-matches = merge_plus(x,y,by='name',unique_key_1='id','unique_key_2'='id', matchscore_settings = list('amount'=list('compare_type'='difference',weight=1)), evaluate=NULL)$'matches'
-match_evaluate(matches, x, y, 'id.x', 'id.y')  
+\details{
+The most straightforward way to use \code{match_evaluate} is to pass it to the \code{evaluate}
+argument of \code{tier_match} or \code{merge_plus}. This will have \code{merge_plus}
+return a data.table with the evaluation information, alongside the matches themselves.
 
+I
 
+\code{match_evaluate} returns the number of matches in each tier, the number of
+unique matches in each tier, and the percent matched for each dataset. If no tiers are supplied,
+the entire dataset will be used as one "tier."
+The argument \code{quality_vars} allows for the calculation of averages of any columns in the dataset, by tier.
+The most straightforward case would be a matchscore, which can again all be done
+in \code{merge_plus} with the scoring argument. This lets you see the average matchscore by tier.
 }
 \seealso{
 merge_plus

@@ -4,7 +4,9 @@
 \name{corporate_words}
 \alias{corporate_words}
 \title{corporate_words}
-\format{An object of class \code{data.frame} with 54 rows and 2 columns.}
+\format{
+An object of class \code{data.table} (inherits from \code{data.frame}) with 54 rows and 2 columns.
+}
 \usage{
 corporate_words
 }

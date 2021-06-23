@@ -4,7 +4,9 @@
 \name{articles}
 \alias{articles}
 \title{articles}
-\format{An object of class \code{data.frame} with 23 rows and 2 columns.}
+\format{
+An object of class \code{data.table} (inherits from \code{data.frame}) with 23 rows and 2 columns.
+}
 \usage{
 articles
 }

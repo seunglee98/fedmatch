@@ -2,29 +2,44 @@
 % Please edit documentation in R/calculate_weights.R
 \name{calculate_weights}
 \alias{calculate_weights}
-\title{calculate_weights}
+\title{Calculate weights for computing matchscore}
 \usage{
-calculate_weights(data, variables, compare_types = "stringdist",
-  suffixes = c(".x", ".y"), non_negative = FALSE)
+calculate_weights(
+  data,
+  variables,
+  compare_type = "stringdist",
+  suffixes = c(".x", ".y"),
+  non_negative = FALSE
+)
 }
 \arguments{
 \item{data}{data.frame. Verified data. Should have all of the variables you want to calculate weights for from both datasets, named the same with data-specific suffixes.}
 
 \item{variables}{character vector of the variable names of the variables you want to calculate weights for.}
 
+\item{compare_type}{character vector. One of 'stringdist' (for string variables) 'ratio','difference' (for numerics) 'indicator' (0-1 dummy indicating if the two are the same),'in' (0-1 dummy indicating if data1 is IN data2), and 'substr' (numeric indicating how many digits are the same.)}
+
 \item{suffixes}{character vector. Suffixes of of the variables that indicate what data they are from. Default is same as the default for base R merge, c('.x','.y')}
 
 \item{non_negative}{logical. Do you want to allow negative weights?}
-
-\item{compare_type}{character vector. One of 'stringdist' (for string variables) 'ratio','difference' (for numerics) 'indicator' (0-1 dummy indicating if the two are the same),'in' (0-1 dummy indicating if data1 is IN data2), and 'substr' (numeric indicating how many digits are the same.)}
 }
 \value{
 list with m probabilities, u probabilites, w weights, and settings, the list argument requried as an input for score_settings in merge_plus using the calculate weights.
 }
 \description{
-calculate weights for comparison variables based on m and u probabilities estimated from a verified dataset. See \url{https://en.wikipedia.org/wiki/Record_linkage}
+Calculate weights for comparison variables based on \eqn{m} and \eqn{u}
+probabilities estimated from a verified dataset.
 }
-\examples{
-See match_template.R in examples folder -- end of the file. 
-
+\details{
+This function uses the classic Record Linkage methodology first developed by Felligi and Sunter.
+See \href{https://en.wikipedia.org/wiki/Record_linkage}{Record Linkage}. \eqn{m} is the
+probability of a given link between observations is a true match, while \eqn{u} is the probability
+of an unlinked pair of observations being a true match. \code{calculate_weights}
+computes a preliminary weight for each variable by computing
+\deqn{w = \log_2 (\frac{m}{u}),}
+then making these weights sum to 1. Thus, the weights that have higher \eqn{m}
+and lower \eqn{u} probabilities will get higher weights, which makes sense given
+the definitions. These weights can then be easily passed into the \code{score_settings}
+argument of \code{merge_plus} or \code{tier_match}, or into the \code{wgts} argument of
+\code{multivar_match}.
 }

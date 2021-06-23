@@ -2,16 +2,23 @@
 % Please edit documentation in R/clean_strings.R
 \name{clean_strings}
 \alias{clean_strings}
-\title{clean_strings}
+\title{String cleaning for easier matching}
 \usage{
-clean_strings(string, sp_char_words = NULL, common_words = NULL,
-  remove_char = NULL, remove_words = FALSE, stem = FALSE,
-  replace_null = NULL)
+clean_strings(
+  string,
+  sp_char_words = data.table::data.table(character = c("\\\\&", "\\\\$", "\\\\\%",
+    "\\\\@"), replacement = c("and", "dollar", "percent", "at")),
+  common_words = NULL,
+  remove_char = NULL,
+  remove_words = FALSE,
+  stem = FALSE,
+  replace_null = NULL
+)
 }
 \arguments{
 \item{string}{character or character vector of strings}
 
-\item{sp_char_words}{character vector. Data.frame where first column is special characaters and second column is full words.}
+\item{sp_char_words}{character vector. Data.frame where first column is special characters and second column is full words. The default is}
 
 \item{common_words}{data.frame. Data.frame where first column is abbreviations and second column is full words.}
 
@@ -20,30 +27,21 @@ clean_strings(string, sp_char_words = NULL, common_words = NULL,
 \item{remove_words}{logical. If TRUE, removes all abbreviations and replacement words in common_words}
 
 \item{stem}{logical. If TRUE, words are stemmed}
+
+\item{replace_null}{character vector. If not NULL, the value with which to replace empty or blank strings.}
 }
 \value{
 cleaned strings
 }
 \description{
-default string cleaning process for "name_match"
+\code{clean_strings} takes a string vector and cleans it according to user-given options.
 }
-\examples{
-# basic cleaning example
-sample_str = c("Holding Co. A @ B St, 3 ))", "Company B & C 4, Inc.", "make $, inc.")
-sample_clean1 = clean_strings(sample_str)
+\details{
+This function takes a variety of options, each of which changes the behavior.
+Without the default settings, \code{clean_strings} will do the following:
+make the string lowercase; replace special characters &, $, \\%, @ , with their
+names ("and", "dollar", "percent", "at"); convert tabs to spaces and removes extra spaces.
+This default cleaning puts the strings in a standard format to allow for easier matching.
 
-# defining common words with a package database
-sample_clean2 = clean_strings(sample_str, common_words=corporate_words)
-
-# dropping common words in a database
-sample_clean3 = clean_strings(sample_str, common_words=corporate_words, remove_words=TRUE)
-
-# sunco example
-sample_clean4 = clean_strings("co cosuncosunco co co", common_words = cbind(c("co"), c("company")))
-
-# changing special characters to words(Note that @ and & are dropped with punctuation)
-drop_char = cbind(c("\\\\$", "\\\\\%"), c("dollar", "percent"))
-sample_clean5 = clean_strings(sample_str, sp_char_words = drop_char)
-
-
+The other options allow for the removal or replacement of other words or characters.
 }

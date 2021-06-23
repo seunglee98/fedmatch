@@ -1,23 +1,38 @@
 Package: fedmatch
-Title: Record linkage functions in R
-Version: 1.0.0.0
-Authors@R: c(person("Melanie", "Friedrichs", email = "melanie.r.friedrichs@gmail.com", role = c("aut", "cre")),
-             person("Blake", "Marsh", email = "blake.marsh@kc.frb.org", role = c("aut")))
-Description: Functions for merging two unlinked datasets. 
-            The central function of this package is "merge_plus",which extends base R merge functionality to include fuzzy string matching, match scoring based on the similarity of common variables between the two datasets, filtering based on a calculated match score or a user-inputed function, match evaluation (see match_evaluate), and safe merge checks. 
-              Other functions include: 
-               -match_evaluate, which produces standard matching statistics including percent matched, and duplicate ratios, 
-               -tier_match, which is a wrapper for merge_plus that allows you match two datasets in sequential tiers with gradually looser parameters,
-                -calculate_weights, a function that estimates the ability of a common variable to correctly identify a match or a non-match based on the record linkage literature, 
-               -clean_strings, a general string cleaning function optimized for company names.  
-              See "match_template.R" in the "examples" folder for a self-contained tutorial on the functionality of this package and template for your own matching program. 
+Title: Fast, Flexible, and User-Friendly Record Linkage Methods 
+Version: 2.0.0
+Authors@R: c(person("Melanie", "Friedrichs", email = "melanie.r.friedrichs@gmail.com", role = c("aut")),
+             person("Chris", "Webster", email = "chris0webster@gmail.com", role = c("aut", "cre")),
+             person("Blake", "Marsh", email = "blake.marsh@kc.frb.org", role = c("aut")),
+             person("Jacob", "Dice", email = "Jacob.Dice@kc.frb.org", role = c("aut")),
+             person("Seung", "Lee", email = "seung.j.lee@frb.gov", role = c("aut")))
+Description: fedmatch provides a flexible set of tools for matching two un-linked data sets.
+    The package provides three ways to match data: exact matches, fuzzy matches, and multi-variable matches. 
+    It also allows an easy combination of these three matches
 Depends:
-    R (>= 3.3.1)
-License: GNU GENERAL PUBLIC LICENSE
+    R (>= 4.0.0)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
     stringdist,
     SnowballC,
-    gtools
-RoxygenNote: 6.0.1
+    gtools,
+    stringr,
+    purrr,
+    Rcpp,
+    parallel,
+    forcats,
+    data.table,
+    magrittr,
+    scales
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = T)
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+LinkingTo: 
+    Rcpp,
+    BH

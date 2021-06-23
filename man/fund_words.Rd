@@ -4,7 +4,9 @@
 \name{fund_words}
 \alias{fund_words}
 \title{fund_words}
-\format{An object of class \code{data.frame} with 63 rows and 2 columns.}
+\format{
+An object of class \code{data.frame} with 63 rows and 2 columns.
+}
 \usage{
 fund_words
 }

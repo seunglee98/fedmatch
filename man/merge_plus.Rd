@@ -2,40 +2,67 @@
 % Please edit documentation in R/merge_plus.R
 \name{merge_plus}
 \alias{merge_plus}
-\title{merge_plus}
+\title{Merge two datasets either by exact, fuzzy, or multivar-based matching}
 \usage{
-merge_plus(data1, data2, by = NULL, by.x = by, by.y = by,
-  suffixes = c(".x", ".y"), check_merge = TRUE, unique_key_1, unique_key_2,
-  match_type = "exact", amatch.args = list(method = "jw", p = 0.1, maxDist =
-  0.05, matchNA = FALSE), score_settings = NULL, filter = NULL,
-  filter.args = list(), evaluate = match_evaluate, evaluate.args = list())
+merge_plus(
+  data1,
+  data2,
+  by = NULL,
+  by.x = NULL,
+  by.y = NULL,
+  suffixes = c(".x", ".y"),
+  check_merge = TRUE,
+  unique_key_1,
+  unique_key_2,
+  match_type = "exact",
+  fuzzy_settings = build_fuzzy_settings(),
+  score_settings = NULL,
+  filter = NULL,
+  filter.args = list(),
+  evaluate = match_evaluate,
+  evaluate.args = list(),
+  allow.cartesian = FALSE,
+  multivar_settings = build_multivar_settings()
+)
 }
 \arguments{
 \item{data1}{data.frame. First to-merge dataset.}
 
 \item{data2}{data.frame. Second to-merge dataset.}
 
-\item{by}{character string. Variables to merge on (common across data 1 and data 2). See \code{merge}}
+\item{by}{character string. Variables to merge on (common across data 1 and
+data 2). See \code{merge}}
 
 \item{by.x}{character string. Variable to merge on in data1. See \code{merge}}
 
 \item{by.y}{character string. Variable to merge on in data2. See \code{merge}}
 
-\item{suffixes}{character vector with length==2. Suffix to add to like named variables after the merge. See \code{merge}}
+\item{suffixes}{character vector with length==2. Suffix to add to like named
+variables after the merge. See \code{merge}}
 
-\item{check_merge}{logical. Checks that your unique_keys are indeed unique, and prevents merge from running if merge would result in data.frames larger than 5 million rows}
+\item{check_merge}{logical. Checks that your unique_keys are indeed unique.}
 
-\item{unique_key_1}{character vector. Primary key of data1 that uniquely identifies each row (can be multiple fields)}
+\item{unique_key_1}{character vector. Primary key of data1 that uniquely
+identifies each row (can be multiple fields)}
 
-\item{unique_key_2}{character vector. Primary key of data2 that uniquely identifies each row (can be multiple fields)}
+\item{unique_key_2}{character vector. Primary key of data2 that uniquely
+identifies each row (can be multiple fields)}
 
-\item{score_settings}{list. score settings. See vingette matchscore}
+\item{match_type}{string. If 'exact', match is exact, if 'fuzzy', match is
+fuzzy. If 'multivar,' match is multivar-based. See \code{multivar_match},}
 
-\item{filter}{function or numeric. Filters a merged data1-data2 dataset. If a function, should take in
-a data.frame (data1 and data2 merged by name1 and name2) and spit out a trimmed verion
-of the data.frame (fewer rows). Think of this function as applying other conditions
-to matches, other than a match by name. The first argument of filter should be the data.frame.
-If numeric, will drop all observations with a matchscore lower than or equal to filter.}
+\item{fuzzy_settings}{additional arguments for amatch, to be used if match_type
+= 'fuzzy'. Suggested defaults provided. (see amatch, method='jw')}
+
+\item{score_settings}{list. Score settings for post-hoc matchscores.}
+
+\item{filter}{function or numeric. Filters a merged data1-data2 dataset. If a
+function, should take in a data.frame (data1 and data2 merged by name1 and
+name2) and spit out a trimmed verion of the data.frame (fewer rows). Think
+of this function as applying other conditions to matches, other than a
+match by name. The first argument of filter should be the data.frame. If
+numeric, will drop all observations with a matchscore lower than or equal
+to filter.}
 
 \item{filter.args}{list. Arguments passed to filter, if a function}
 
@@ -43,25 +70,20 @@ If numeric, will drop all observations with a matchscore lower than or equal to 
 
 \item{evaluate.args}{ist. Arguments passed to evaluate}
 
-\item{match_type.}{string. If 'exact', match is exact, if 'fuzzy', match is fuzzy.}
+\item{allow.cartesian}{whether or not to allow many-many matches, see data.table::merge()}
 
-\item{amatch.args.}{additional arguments for amatch, to be used if match_type = 'fuzzy'. Suggested defaults provided. (see amatch, method='jw')}
+\item{multivar_settings}{list of settings to go to the multivar match if match_type
+== 'multivar'. See \code{multivar-match}.}
 }
 \value{
-list with matches, filtered matches (if applicable), data1 and data2 minus matches, and match evaluation
+list with matches, filtered matches (if applicable), data1 and data2
+minus matches, and match evaluation
 }
 \description{
-merge two datasets, plus.
-}
-\examples{
-x = data.frame('id'=1:5,'name'=c('a','b','c','d','d'), 'amount' = 101:105)
-y = data.frame('id'=6:10,'name'=c('b','c','d','e','f'), 'amount' = rep(102,5))
-merge_plus(x,y,by='name',unique_key_1='id','unique_key_2'='id')
-merge_plus(x,y,by='name',unique_key_1='id','unique_key_2'='id',
-           matchscore_settings = list('amount'=list('compare_type'='difference',weight=1)),
-           filter=.5)
-
-
+\code{merge_plus} is a wrapper for a standard merge, a fuzzy string match,
+and a a ``multivar'' match based on several columns of the data. Parameters allow
+for control for fine-tuning of the match. This is primarily used as the
+workhorse for the \code{tier_match} function.
 }
 \seealso{
 match_evaluate

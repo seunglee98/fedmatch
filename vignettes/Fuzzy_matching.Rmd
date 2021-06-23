@@ -1,0 +1,27 @@
+---
+title: "Fuzzy matching"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Fuzzy matching}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(fedmatch)
+```
+
+# Weighted Jaccard
+*An important technical note:* to get the Weighted Jaccard method to run quickly, you need to ensure that R is configured to use multiple threads in conjunction with C++. On linux, this can be done by making a file called 'Makevars' (no file extension) in ~/.R/ , with the following two lines of text: 
+
+- PKG_CXXFLAGS = "-fopenmp"
+- PKG_LIBS = "-fopenmp"
+
+These flags 
