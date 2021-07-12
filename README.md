@@ -7,8 +7,8 @@ The goal of fedmatch is to match un-linked datasets. It provides a
 variety of tools that allow a user to build a custom matching algorithm
 for their specific application. To get started, see the “Introduction to
 Fedmatch” vignette by installing fedmatch and running
-`vignette("Intro-to-fedmatch")`. F for more advanced uses, see the rest
-of the vignettes by running `vignette(package = "fedmatch")`.
+`vignette("Intro-to-fedmatch")`. For more advanced uses, see the rest of
+the vignettes by running `vignette(package = "fedmatch")`.
 
 ## Installation
 
@@ -18,14 +18,6 @@ You can install the development version from
 ``` r
 install.packages("devtools")
 devtools::install_github("seunglee98/fedmatch")
-```
-
-## Example
-
-See the vignettes for more details,
-
-``` r
-library(fedmatch)
 ```
 
 # Citation
