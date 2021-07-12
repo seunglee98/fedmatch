@@ -32,7 +32,7 @@ Finance and Economics Discussion Series 2018-085. Washington: Board of
 Governors of the Federal Reserve System,
 <https://doi.org/10.17016/FEDS.2018.085>.
 
-\#Contacts
+# Contacts
 
 -   <melanie.r.friedrichs@gmail.com>
 -   <blake.marsh@kc.frb.org>
