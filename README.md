@@ -3,10 +3,12 @@
 
 # fedmatch
 
-<!-- badges: start -->
-<!-- badges: end -->
-
-The goal of fedmatch is to match un-linked datasets.
+The goal of fedmatch is to match un-linked datasets. It provides a
+variety of tools that allow a user to build a custom matching algorithm
+for their specific application. To get started, see the “Introduction to
+Fedmatch” vignette by installing fedmatch and running
+`vignette("Intro-to-fedmatch")`. F for more advanced uses, see the rest
+of the vignettes by running `vignette(package = "fedmatch")`.
 
 ## Installation
 
@@ -14,17 +16,16 @@ You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("seunglee98/fedmatch")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+See the vignettes for more details,
 
 ``` r
 library(fedmatch)
-## basic example code
 ```
 
 # Citation
@@ -39,5 +40,9 @@ Finance and Economics Discussion Series 2018-085. Washington: Board of
 Governors of the Federal Reserve System,
 <https://doi.org/10.17016/FEDS.2018.085>.
 
-Contacts: - <melanie.r.friedrichs@gmail.com> - <blake.marsh@kc.frb.org>
-- <seung.j.lee@frb.gov> - <chris.webster@frb.gov>
+\#Contacts
+
+-   <melanie.r.friedrichs@gmail.com>
+-   <blake.marsh@kc.frb.org>
+-   <seung.j.lee@frb.gov>
+-   <chris.webster@frb.gov>

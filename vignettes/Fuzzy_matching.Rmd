@@ -18,10 +18,73 @@ knitr::opts_chunk$set(
 library(fedmatch)
 ```
 
-# Weighted Jaccard
-*An important technical note:* to get the Weighted Jaccard method to run quickly, you need to ensure that R is configured to use multiple threads in conjunction with C++. On linux, this can be done by making a file called 'Makevars' (no file extension) in ~/.R/ , with the following two lines of text: 
+# Intro
 
-- PKG_CXXFLAGS = "-fopenmp"
-- PKG_LIBS = "-fopenmp"
+Fuzzy matching is an essential part of the matching process. After trying all the name cleaning that you can with `clean_strings`, you have gotten the 'low hanging fruit' of your match, and now you need to move on to non-exact matches. `merge_plus` has a built-in setting for this called 'fuzzy' matching. It lets you match on strings that are similar, but not exactly the same.
 
-These flags 
+# Fuzzy matching theory
+
+The basic idea behind fuzzy matching is to compute a numerical 'distance' between every potential string comparison, and then for each string in data set 1, pick the 'closest' string in data set 2. One can also specify a threshold such that every match is of a certain quality. The concept of 'distance' can be defined in several methods, explained below. Each method will define a similarity $s$, $0 \leq s \leq 1$ , such that higher values will mean the strings are more similar, and a corresponding distance \$d = 1 - s\$.
+
+## Jaro-Winkler
+
+The most common method of matching strings with `fedmatch` uses the Jaro-Winkler string distance. The Jaro similarity is defined as
+
+$$s_j = \begin{cases} 0 &  \text{if } m = 0 \\ \frac{1}{3} \left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m} \right) & \text{otherwise} \end{cases},$$
+
+where $|s_i|$ is the length of the $i$th string, $m$ is the number of characters that match, and $t$ is the number of transpositions (the number of letters to be interchanged to place them in the proper order.) For example, if $s_1$ is "abcd" and $s_2$ is "acbd", then the number of transpositions is 1, the matching characters are 4, and the similarity is $\frac{1}{3}\left( 1 + 1 + \frac{3}{4} \right) \approx .917$.
+
+Winkler's modification to this similarity is to weight the start of the strings more heavily. Thus, if the strings share a common prefix, the similarity will be higher. The Jaro-Winkler similarity is
+
+$$s_w = s_j + l p (1-s_j),$$
+
+where $l$ is the shared prefix length (up to four characters, so $0 \leq l \leq 4$ ), and $p$ is just user-defined constant, $0 < p \leq .25$, that defines how heavily to weight the shared prefix. $p=.1$ is the default used by `fedmatch`.
+
+## Weighted Jaccard Similarity
+
+Another string distance metric is called the Jaccard Similarity. If $A$ is the set of letters in one string, and $B$ is the set of letters in another string, then the Jaccard similarity $J$ is defined as
+
+$$J = \frac{A \bigcap B}{A \bigcup B}.$$
+
+Thus, if the two strings share all of the same letters, then the distance is 0, or the similarity is 1.
+
+We take one step further and innovate to create a new measure of string distance, which we call the *Weighted Jaccard* distance. Rather than looking at the sets of letters in each string, we look at the set of words in each string. Then, we construct a corpus of all of the words in the two columns to be matched and compute the term frequency-inverse document frequency (TF-IDF) for each word. TF-IDF is a measure of word importance that accounts for how frequently a word appears in a corpus. For example, the word 'Corporation' appears frequently in the names of companies in common data sets, and so its TF-IDF would be low. But, the word 'Apple' probably only appears in a few company names out of the many thousands in the data, so its TF-IDF score would be high.
+
+Once we have the TF-IDF score for every word, we take the log of these scores to help attenuate the influence of outliers. If these logged scores are called $w_i$, where $i$ denotes a given word, then the Weighted Jaccard similarity is computed as
+
+$$ J_w = \frac{ \sum w_i, \forall i \text{ in } A \bigcap B}{ \sum w_i, \forall i \text{ in } A \bigcup B} $$ Thus, if the two strings share many words that are uniquely identifying in the corpus, the Weighted Jaccard similarity will be higher. We have found this method of matching is able to pick up many more matches when used in conjunction with the Jaro-Winkler distance. To our knowledge, such a Weighted Jaccard method has never been used before, and is one of the key innovations that makes `fedmatch` unique.\
+
+## Other similarity metrics
+
+Because fedmatch uses `stringdist::amatch` for all other options
+
+# Using fuzzy matching in fedmatch
+
+## Basic Syntax
+
+As shown in the 'Intro to fedmatch' vignette, the basic syntax of using fuzzy match is just the same as exact matching, but changing the 'match_type' argument in `merge_plus`:
+
+```{r}
+fuzzy_result <- merge_plus(data1 = corp_data1, 
+                          data2 = corp_data2,
+                          by.x = "Company",
+                          by.y = "Name", match_type = "fuzzy", 
+                          unique_key_1 = "unique_key_1",
+                          unique_key_2 = "unique_key_2")
+print(fuzzy_result$matches)
+```
+
+Note that 'Bershire Hathaway' matched to 'Bershire Hataway,' which makes sense - the names are only off by one character. All of the settings of fuzzy matching are controlled in the 'fuzzy_settings' argument of `merge_plus`, and these settings can be easily modified with the function `build_fuzzy_settings`. `build_fuzzy_settings` returns a list that is properly formatted for `merge_plus`.The options and their defaults are:
+
+-   `method` , default "jw", determines the string distance metric to use.
+
+### An important technical Note
+
+*An important technical note:* to get the Weighted Jaccard method to run quickly, you need to ensure that R is configured to use multiple threads in conjunction with C++. On linux, this can be done by making a file called 'Makevars' (no file extension) in \~/.R/ , with the following two lines of text:
+
+-   PKG_CXXFLAGS = "-fopenmp"
+-   PKG_LIBS = "-fopenmp"
+
+These flags ensure that your C++ is set up to use the OpenMP libraries required to use multiple threads. On Windows, the process may be more difficult. See the [here](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Customizing-package-compilation) and [here](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#OpenMP-support) for more documentation. If, for some reason, you can't get this to work, rest assured that the Weighted Jaccard match will still run just fine, it just may take a long time for large data sets.
+
+## 
