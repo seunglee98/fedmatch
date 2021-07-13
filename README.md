@@ -29,6 +29,9 @@ install.packages("path_to_fedmatch", repos = NULL)
 
 # Citation
 
+This package is licensed under the terms of the MIT license. See the
+LICENSE.md file for details.
+
 If you use this package for your research, please cite the technical
 paper:
 
