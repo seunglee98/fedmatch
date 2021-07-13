@@ -20,6 +20,13 @@ install.packages("devtools")
 devtools::install_github("seunglee98/fedmatch")
 ```
 
+Or, you can download the zip file from github, either by cloning it or
+downloading it manually and unzipping it, then running:
+
+``` r
+install.packages("path_to_fedmatch", repos = NULL)
+```
+
 # Citation
 
 If you use this package for your research, please cite the technical
