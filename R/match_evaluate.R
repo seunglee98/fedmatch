@@ -33,11 +33,10 @@
 #' @export
 #'
 
-match_evaluate <- function(matches, data1, data2, unique_key_1, unique_key_2, suffixes = c(".x", ".y"),
+match_evaluate <- function(matches, data1, data2, unique_key_1, unique_key_2, suffixes = c("_1", "_1"),
                            tier = "tier", tier_order = NULL,
                            quality_vars = NULL) {
   setDT(matches)
-  # print(unique(matches[, .(tier)]))
   if (!is.null(tier_order)) {
     matches[, tier := forcats::fct_relevel(tier, tier_order)]
     matches <- matches[order(tier)]

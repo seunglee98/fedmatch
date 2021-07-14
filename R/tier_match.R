@@ -19,7 +19,7 @@
 #' @param fuzzy_settings additional arguments for amatch, to be used if match_type = 'fuzzy'. Suggested defaults provided. (see amatch, method='jw')
 #' @param clean Function to clean strings prior to match. see \code{clean_strings}.
 #' @param clean.args list. Arguments passed to clean.
-#' @param score_settings list. score settings. See vingette matchscore
+#' @param score_settings list. Settings for post-hoc matchscoring. See \code{build_score_settings}.
 #' @param filter function or numeric. Filters a merged data1-data2 dataset. If a function, should take in
 #'       a data.frame (data1 and data2 merged by name1 and name2) and spit out a trimmed verion
 #'       of the data.frame (fewer rows). Think of this function as applying other conditions
@@ -39,7 +39,7 @@
 #'
 #' @seealso merge_plus clean_strings
 #'
-tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffixes = c(".x", ".y"),
+tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffixes = c("_1", "_2"),
                        check_merge = TRUE, unique_key_1, unique_key_2,
                        tiers = list(), takeout = "both",
                        match_type = "exact",
@@ -203,10 +203,12 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
         if (is.null(data1_keys_remove)) {
           data1_keys_remove <- data.table(a = tier_result[["matches"]][[unique_key_1]])
           setnames(data1_keys_remove, unique_key_1)
-        } else {
+        } else if (takeout == "neither") {
           data1_keys_remove_new <- data.table(a = tier_result[["matches"]][[unique_key_1]])
           setnames(data1_keys_remove_new, unique_key_1)
           data1_keys_remove <- rbind(data1_keys_remove, data1_keys_remove_new)
+        } else {
+          stop("'takeout' must be one of 'data1', 'data2', 'both', or 'neither'.")
         }
       }
     }

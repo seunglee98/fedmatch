@@ -35,26 +35,29 @@ The syntax of `tier_match` is providing a core list of arguments to the function
 
 ```{r}
 tier_list <- list(
-  a = list(match_type = "exact"),
-  b = list(match_type = "fuzzy"),
-  c = list(match_type = "multivar", multivar_settings = list(
+  a = build_tier(match_type = "exact"),
+  b = build_tier(match_type = "fuzzy"),
+  c = build_tier(match_type = "multivar", multivar_settings = build_multivar_settings(
     logit = NULL, missing = F, wgts = 1,
     compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
     top = 1, threshold = NULL
   ))
+
 )
+# tier_list
 ```
 
 This list will perform three matches: 'a', an exact match; 'b', a fuzzy match, and 'c', a multivar match. We can get a bit fancier and add more settings to each, if we'd like. Remember that each element of each tier has to be an argument for `merge_plus`.
 
 ```{r}
 tier_list_v2 <- list(
-  a = list(match_type = "exact", clean = clean_strings),
-  b = list(match_type = "fuzzy", clean = clean_strings,
-           fuzzy_settings = list(method = "wgt_jaccard",
+  a = build_tier(match_type = "exact", clean = clean_strings),
+  b = build_tier(match_type = "fuzzy", clean = clean_strings,
+           fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard",
                                  maxDist = .7,
                                  nthread = 1)),
-  c = list(match_type = "multivar", multivar_settings = list(
+  c = build_tier(match_type = "multivar", 
+                 multivar_settings = build_multivar_settings(
     logit = NULL, missing = F, wgts = 1,
     compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
     top = 1, threshold = NULL
@@ -65,8 +68,6 @@ tier_list_v2 <- list(
 Let's take a look at the rest of the syntax for `tier_match`:
 
 ```{r}
-# corp_data1
-# corp_data2[, Nam]
 result <- tier_match(corp_data1, corp_data2,
   by.x = "Company", by.y = "Name",
   unique_key_1 = "unique_key_1", unique_key_2 = "unique_key_2",
@@ -76,10 +77,19 @@ result <- tier_match(corp_data1, corp_data2,
                                         wgts = 1,
                                         score_type = "stringdist")
 )
-# result$matches
 ```
 
-There are two types of arguments for `tier_match`: those that can be passed to `merge_plus`, and those that are unique to `tier_match`. If anything of the `merge_plus` arguments are listed in `tier_match` directly (rather than in `tier_list`), those arguments are used in every tier. In this example, we are always matching on 'Company' and 'Name,' so those are placed in the arguments for tier_match directly.
+There are two types of arguments for `tier_match`: those that can be passed to `merge_plus`, and those that are unique to `tier_match`. If anything of the `merge_plus` arguments are listed in `tier_match` directly (rather than in `tier_list`), those arguments are used in every tier. In this example, we are always matching on 'Company' and 'Name,' so those are placed in the arguments for tier_match directly. The rest of the arguments are as follows:
+
+- `tiers` is the tier list create by iterations of `build_tier()`
+- `takeout` is a character vector, either "neither", "both", "data1", or "data2". These settings describe whether or not to take out matches in between each tier, and if so, what dataset to remove the matches for.
+- `verbose` is a boolean. If `TRUE`, prints tier names and time taken to match each tier.
+
+
+
+
+
+
 
 The result for tier_match is a list with 4 items: the matched dataset, the unmatched data, and a match evaluation.
 Here's what the matches look like:

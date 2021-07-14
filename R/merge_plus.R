@@ -22,11 +22,11 @@
 #' @param match_type string. If 'exact', match is exact, if 'fuzzy', match is
 #'   fuzzy. If 'multivar,' match is multivar-based. See \code{multivar_match},
 #' @param fuzzy_settings additional arguments for amatch, to be used if match_type
-#'   = 'fuzzy'. Suggested defaults provided. (see amatch, method='jw')
-#' @param score_settings list. Score settings for post-hoc matchscores.
+#'   = 'fuzzy'. Suggested defaults provided. See \code{build_fuzzy_settings}.
+#' @param score_settings list. Score settings for post-hoc matchscores. See \code{build_score_settings}
 
 #' @param multivar_settings list of settings to go to the multivar match if match_type
-#' == 'multivar'. See \code{multivar-match}.
+#' == 'multivar'. See \code{multivar-match} and \code{build_multivar_settings}.
 #' @param filter function or numeric. Filters a merged data1-data2 dataset. If a
 #'   function, should take in a data.frame (data1 and data2 merged by name1 and
 #'   name2) and spit out a trimmed verion of the data.frame (fewer rows). Think
@@ -46,7 +46,7 @@
 #' @export merge_plus
 
 merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
-                       suffixes = c(".x", ".y"),
+                       suffixes = c("_1", "_2"),
                        check_merge = TRUE, unique_key_1, unique_key_2,
                        match_type = "exact",
                        fuzzy_settings = build_fuzzy_settings(),

@@ -39,7 +39,7 @@ multivar_match <- function(data1, data2,
                            logit = NULL, missing = F, wgts = NULL, compare_type = "diff",
                            blocks = NULL, blocks.x = NULL, blocks.y = NULL,
                            nthread = 1,
-                           top = 1, threshold = NULL, suffixes = c(".x", ".y")) {
+                           top = 1, threshold = NULL, suffixes = c("_1", "_2")) {
   #----------------------------------
   # check that all inputs are valid
   #----------------------------------

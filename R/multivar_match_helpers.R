@@ -3,7 +3,7 @@ compare_row <- function(row_x, data2,
                         by.x, by.y,
                         logit = NULL, missing = F, wgts = NULL, compare_type = "diff",
                         blocks.x = NULL, blocks.y = NULL,
-                        top = NULL, threshold = NULL, suffixes = c(".x", ".y"), k, unique_key_1) {
+                        top = NULL, threshold = NULL, suffixes = c("_1", "_2"), k, unique_key_1) {
 
   #----------------------
   # Rename with suffixes

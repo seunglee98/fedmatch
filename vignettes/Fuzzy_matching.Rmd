@@ -74,9 +74,13 @@ fuzzy_result <- merge_plus(data1 = corp_data1,
 print(fuzzy_result$matches)
 ```
 
-Note that 'Bershire Hathaway' matched to 'Bershire Hataway,' which makes sense - the names are only off by one character. All of the settings of fuzzy matching are controlled in the 'fuzzy_settings' argument of `merge_plus`, and these settings can be easily modified with the function `build_fuzzy_settings`. `build_fuzzy_settings` returns a list that is properly formatted for `merge_plus`.The options and their defaults are:
+Note that 'Bershire Hathaway' matched to 'Bershire Hataway,' which makes sense - the names are only off by one character. All of the settings of fuzzy matching are controlled in the 'fuzzy_settings' argument of `merge_plus`, and these settings can be easily modified with the function `build_fuzzy_settings`. `build_fuzzy_settings` returns a list that is properly formatted for `merge_plus`.The options and their defaults are: 
 
--   `method` , default "jw", determines the string distance metric to use.
+- `method` , default "jw", determines the string distance metric to use.
+- `p` , default 0.1, is a numeric vector of length 1, that determines the factor $p$ in the Jaro-Winkler string distance. Only used if `method == "jw"`.
+- maxDist, default 0.05, is a numeric vector of length 1 that determines the maximum allowable string distance that qualifies as a match.
+- matchNA, default `FALSE`, is a boolean to determine whether to count NAs as a match (see `stringdist::amatch` for details.)
+- nthread, number of threads to use in the underlying C code. If using any method besides "wgt_jaccard", uses `stringdist    
 
 ### An important technical Note
 

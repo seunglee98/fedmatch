@@ -28,7 +28,7 @@
 #'
 #'
 calculate_weights <- function(data, variables, compare_type = "stringdist",
-                              suffixes = c(".x", ".y"), non_negative = FALSE) {
+                              suffixes = c("_1", "_2"), non_negative = FALSE) {
 
   # Preliminaries
   class(data) <- "data.frame"
