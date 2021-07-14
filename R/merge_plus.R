@@ -161,7 +161,7 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
       }
       variables_to_score <- paste0(score.x, "_score")
       matchscore <- NULL # due to NSE notes in R CMD check
-      matches[, matchscore := 0]
+      matches$matchscore <- 0
       for (i in 1:length(score_settings[["wgts"]])) {
         if (score.x[i] == score.y[i]) {
           variable_x <- paste0(score.x[i], suffixes[1])

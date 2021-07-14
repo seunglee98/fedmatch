@@ -1,8 +1,8 @@
 ---
-title: "Fuzzy matching"
+title: "Fuzzy Matching"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Fuzzy matching}
+  %\VignetteIndexEntry{Fuzzy Matching}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -80,15 +80,15 @@ Note that 'Bershire Hathaway' matched to 'Bershire Hataway,' which makes sense -
 - `p` , default 0.1, is a numeric vector of length 1, that determines the factor $p$ in the Jaro-Winkler string distance. Only used if `method == "jw"`.
 - maxDist, default 0.05, is a numeric vector of length 1 that determines the maximum allowable string distance that qualifies as a match.
 - matchNA, default `FALSE`, is a boolean to determine whether to count NAs as a match (see `stringdist::amatch` for details.)
-- nthread, number of threads to use in the underlying C code. If using any method besides "wgt_jaccard", uses `stringdist    
+- nthread, number of threads to use in the underlying C code. If using any method besides "wgt_jaccard", uses `stringdist::amatch' to parallelize. If using "wgt_jaccard", instead uses built in C++ code to parallelize.
 
-### An important technical Note
+### An important technical note
 
-*An important technical note:* to get the Weighted Jaccard method to run quickly, you need to ensure that R is configured to use multiple threads in conjunction with C++. On linux, this can be done by making a file called 'Makevars' (no file extension) in \~/.R/ , with the following two lines of text:
+To get the Weighted Jaccard method to run quickly, you need to ensure that R is configured to use multiple threads in conjunction with C++. On linux, this can be done by making a file called 'Makevars' (no file extension) in \~/.R/ , with the following two lines of text:
 
 -   PKG_CXXFLAGS = "-fopenmp"
 -   PKG_LIBS = "-fopenmp"
 
-These flags ensure that your C++ is set up to use the OpenMP libraries required to use multiple threads. On Windows, the process may be more difficult. See the [here](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Customizing-package-compilation) and [here](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#OpenMP-support) for more documentation. If, for some reason, you can't get this to work, rest assured that the Weighted Jaccard match will still run just fine, it just may take a long time for large data sets.
+These flags ensure that your C++ is set up to use the OpenMP libraries required to use multiple threads (I think - I am not actually an expert here. Lots of googling is your friend.) On Windows, the process may be more difficult. See the [here](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Customizing-package-compilation) and [here](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#OpenMP-support) for more documentation. If, for some reason, you can't get this to work, rest assured that the Weighted Jaccard match will still run just fine, it just may take a long time for large data sets.
 
-## 
+##  

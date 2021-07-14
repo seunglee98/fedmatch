@@ -10,7 +10,7 @@ tier_match(
   by = NULL,
   by.x = NULL,
   by.y = NULL,
-  suffixes = c(".x", ".y"),
+  suffixes = c("_1", "_2"),
   check_merge = TRUE,
   unique_key_1,
   unique_key_2,
@@ -59,7 +59,7 @@ tier_match(
 
 \item{clean.args}{list. Arguments passed to clean.}
 
-\item{score_settings}{list. score settings. See vingette matchscore}
+\item{score_settings}{list. Settings for post-hoc matchscoring. See \code{build_score_settings}.}
 
 \item{filter}{function or numeric. Filters a merged data1-data2 dataset. If a function, should take in
 a data.frame (data1 and data2 merged by name1 and name2) and spit out a trimmed verion

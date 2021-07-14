@@ -14,23 +14,26 @@ data.table::setDT(corp_data2)
 
 ## -----------------------------------------------------------------------------
 tier_list <- list(
-  a = list(match_type = "exact"),
-  b = list(match_type = "fuzzy"),
-  c = list(match_type = "multivar", multivar_settings = list(
+  a = build_tier(match_type = "exact"),
+  b = build_tier(match_type = "fuzzy"),
+  c = build_tier(match_type = "multivar", multivar_settings = build_multivar_settings(
     logit = NULL, missing = F, wgts = 1,
     compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
     top = 1, threshold = NULL
   ))
+
 )
+# tier_list
 
 ## -----------------------------------------------------------------------------
 tier_list_v2 <- list(
-  a = list(match_type = "exact", clean = clean_strings),
-  b = list(match_type = "fuzzy", clean = clean_strings,
-           fuzzy_settings = list(method = "wgt_jaccard",
+  a = build_tier(match_type = "exact", clean = clean_strings),
+  b = build_tier(match_type = "fuzzy", clean = clean_strings,
+           fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard",
                                  maxDist = .7,
                                  nthread = 1)),
-  c = list(match_type = "multivar", multivar_settings = list(
+  c = build_tier(match_type = "multivar", 
+                 multivar_settings = build_multivar_settings(
     logit = NULL, missing = F, wgts = 1,
     compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
     top = 1, threshold = NULL
@@ -38,8 +41,6 @@ tier_list_v2 <- list(
 )
 
 ## -----------------------------------------------------------------------------
-# corp_data1
-# corp_data2[, Nam]
 result <- tier_match(corp_data1, corp_data2,
   by.x = "Company", by.y = "Name",
   unique_key_1 = "unique_key_1", unique_key_2 = "unique_key_2",
@@ -49,10 +50,9 @@ result <- tier_match(corp_data1, corp_data2,
                                         wgts = 1,
                                         score_type = "stringdist")
 )
-# result$matches
 
 ## -----------------------------------------------------------------------------
-result$matches
+result$matches[1:5]
 
 ## -----------------------------------------------------------------------------
 result$match_evaluation

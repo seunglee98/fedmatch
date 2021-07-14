@@ -10,7 +10,7 @@ merge_plus(
   by = NULL,
   by.x = NULL,
   by.y = NULL,
-  suffixes = c(".x", ".y"),
+  suffixes = c("_1", "_2"),
   check_merge = TRUE,
   unique_key_1,
   unique_key_2,
@@ -52,9 +52,9 @@ identifies each row (can be multiple fields)}
 fuzzy. If 'multivar,' match is multivar-based. See \code{multivar_match},}
 
 \item{fuzzy_settings}{additional arguments for amatch, to be used if match_type
-= 'fuzzy'. Suggested defaults provided. (see amatch, method='jw')}
+= 'fuzzy'. Suggested defaults provided. See \code{build_fuzzy_settings}.}
 
-\item{score_settings}{list. Score settings for post-hoc matchscores.}
+\item{score_settings}{list. Score settings for post-hoc matchscores. See \code{build_score_settings}}
 
 \item{filter}{function or numeric. Filters a merged data1-data2 dataset. If a
 function, should take in a data.frame (data1 and data2 merged by name1 and
@@ -73,7 +73,7 @@ to filter.}
 \item{allow.cartesian}{whether or not to allow many-many matches, see data.table::merge()}
 
 \item{multivar_settings}{list of settings to go to the multivar match if match_type
-== 'multivar'. See \code{multivar-match}.}
+== 'multivar'. See \code{multivar-match} and \code{build_multivar_settings}.}
 }
 \value{
 list with matches, filtered matches (if applicable), data1 and data2

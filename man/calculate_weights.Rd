@@ -8,7 +8,7 @@ calculate_weights(
   data,
   variables,
   compare_type = "stringdist",
-  suffixes = c(".x", ".y"),
+  suffixes = c("_1", "_2"),
   non_negative = FALSE
 )
 }

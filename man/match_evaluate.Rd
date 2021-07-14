@@ -10,7 +10,7 @@ match_evaluate(
   data2,
   unique_key_1,
   unique_key_2,
-  suffixes = c(".x", ".y"),
+  suffixes = c("_1", "_1"),
   tier = "tier",
   tier_order = NULL,
   quality_vars = NULL

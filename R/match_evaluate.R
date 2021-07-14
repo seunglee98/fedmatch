@@ -52,16 +52,14 @@ match_evaluate <- function(matches, data1, data2, unique_key_1, unique_key_2, su
   # create copies before changing names, see ?setnames
   data1 <- copy(data1)
   data2 <- copy(data2)
-
   match_evaluation <- matches[
     , list(
       matches = .N,
-      in_tier_unique_1 = uniqueN(.SD[, unique_key_1, with = F]),
-      in_tier_unique_2 = uniqueN(.SD[, unique_key_2, with = F])
+      in_tier_unique_1 = uniqueN(.SD[[1]]),
+      in_tier_unique_2 = uniqueN(.SD[[2]])
     ),
-    list(tier = tier)
+    by = list(tier), .SDcols = c(unique_key_1, unique_key_2)
   ]
-
   match_evaluation[, `:=`(
     pct_matched_1 = in_tier_unique_1 / uniqueN(data1[[unique_key_1]]),
     pct_matched_2 = in_tier_unique_2 / uniqueN(data2[[unique_key_2]])
@@ -92,10 +90,10 @@ match_evaluate <- function(matches, data1, data2, unique_key_1, unique_key_2, su
     in_tier_unique_1 <- in_tier_unique_2 <- NULL # due to NSE notes in R CMD check
     match_evaluation_total <- matches[, list(
       matches = .N,
-      in_tier_unique_1 = uniqueN(.SD[, unique_key_1, with = F]),
-      in_tier_unique_2 = uniqueN(.SD[, unique_key_2, with = F]),
+      in_tier_unique_1 = uniqueN(.SD[[1]]),
+      in_tier_unique_2 = uniqueN(.SD[[2]]),
       tier = "all"
-    )]
+    ), .SDcols = c(unique_key_1, unique_key_2)]
 
     match_evaluation_total[, `:=`(
       pct_matched_1 = in_tier_unique_1 / uniqueN(data1[[unique_key_1]]),

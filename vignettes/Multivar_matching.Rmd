@@ -1,9 +1,9 @@
 ---
-title: "multivar_match"
+title: "Multivar Matching"
 author: Chris Webster
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Multivar_matching}
+  %\VignetteIndexEntry{Multivar Matching}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

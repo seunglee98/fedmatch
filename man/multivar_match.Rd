@@ -22,7 +22,7 @@ multivar_match(
   nthread = 1,
   top = 1,
   threshold = NULL,
-  suffixes = c(".x", ".y")
+  suffixes = c("_1", "_2")
 )
 }
 \arguments{
