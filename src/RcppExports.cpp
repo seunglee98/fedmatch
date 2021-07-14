@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // wgt_jaccard
 Rcpp::List wgt_jaccard(Rcpp::StringVector corpus, Rcpp::NumericVector wgts, Rcpp::StringVector x, Rcpp::StringVector y, int nthreads);
 RcppExport SEXP _fedmatch_wgt_jaccard(SEXP corpusSEXP, SEXP wgtsSEXP, SEXP xSEXP, SEXP ySEXP, SEXP nthreadsSEXP) {
