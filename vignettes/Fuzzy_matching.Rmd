@@ -24,7 +24,7 @@ Fuzzy matching is an essential part of the matching process. After trying all th
 
 # Fuzzy matching theory
 
-The basic idea behind fuzzy matching is to compute a numerical 'distance' between every potential string comparison, and then for each string in data set 1, pick the 'closest' string in data set 2. One can also specify a threshold such that every match is of a certain quality. The concept of 'distance' can be defined in several methods, explained below. Each method will define a similarity $s$ $0 \\leq s \\leq 1$ , such that higher values will mean the strings are more similar, and a corresponding distance \$d = 1 - s\$.
+The basic idea behind fuzzy matching is to compute a numerical 'distance' between every potential string comparison, and then for each string in data set 1, pick the 'closest' string in data set 2. One can also specify a threshold such that every match is of a certain quality. The concept of 'distance' can be defined in several methods, explained below. Each method will define a similarity $s$ $0 \\leq s \\leq 1$ , such that higher values will mean the strings are more similar, and a corresponding distance $d = 1 - s$.
 
 ## Jaro-Winkler
 
