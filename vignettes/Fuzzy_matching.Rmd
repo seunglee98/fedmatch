@@ -24,13 +24,13 @@ Fuzzy matching is an essential part of the matching process. After trying all th
 
 # Fuzzy matching theory
 
-The basic idea behind fuzzy matching is to compute a numerical 'distance' between every potential string comparison, and then for each string in data set 1, pick the 'closest' string in data set 2. One can also specify a threshold such that every match is of a certain quality. The concept of 'distance' can be defined in several methods, explained below. Each method will define a similarity $s$, $0 \leq s \leq 1$ , such that higher values will mean the strings are more similar, and a corresponding distance \$d = 1 - s\$.
+The basic idea behind fuzzy matching is to compute a numerical 'distance' between every potential string comparison, and then for each string in data set 1, pick the 'closest' string in data set 2. One can also specify a threshold such that every match is of a certain quality. The concept of 'distance' can be defined in several methods, explained below. Each method will define a similarity $s$ $0 \\leq s \\leq 1$ , such that higher values will mean the strings are more similar, and a corresponding distance \$d = 1 - s\$.
 
 ## Jaro-Winkler
 
 The most common method of matching strings with `fedmatch` uses the Jaro-Winkler string distance. The Jaro similarity is defined as
 
-$$s_j = \begin{cases} 0 &  \text{if } m = 0 \\ \frac{1}{3} \left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m} \right) & \text{otherwise} \end{cases},$$
+$$s_j = \begin{cases} 0 &  \text{if } m = 0 \\ \frac{1}{3} \left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m} \right) & \text{otherwise} \end{cases}$$
 
 where $|s_i|$ is the length of the $i$th string, $m$ is the number of characters that match, and $t$ is the number of transpositions (the number of letters to be interchanged to place them in the proper order.) For example, if $s_1$ is "abcd" and $s_2$ is "acbd", then the number of transpositions is 1, the matching characters are 4, and the similarity is $\frac{1}{3}\left( 1 + 1 + \frac{3}{4} \right) \approx .917$.
 
