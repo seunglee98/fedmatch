@@ -27,6 +27,7 @@ clean_strings <- function(string,
                           ),
                           common_words = NULL,
                           remove_char = NULL, remove_words = FALSE, stem = FALSE, replace_null = NULL) {
+  string_orig <- NULL # due to NSE notes in R CMD check
   string_table <- data.table::data.table(string_orig = string)
   # define the default inputs;
   ## special character to words default

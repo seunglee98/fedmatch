@@ -55,12 +55,12 @@ match_evaluate <- function(matches, data1, data2, unique_key_1, unique_key_2, su
   data2 <- copy(data2)
 
   match_evaluation <- matches[
-    , .(
+    , list(
       matches = .N,
-      in_tier_unique_1 = uniqueN(.SD[[..unique_key_1]]),
-      in_tier_unique_2 = uniqueN(.SD[[..unique_key_2]])
+      in_tier_unique_1 = uniqueN(.SD[, unique_key_1, with = F]),
+      in_tier_unique_2 = uniqueN(.SD[, unique_key_2, with = F])
     ),
-    .(tier = tier)
+    list(tier = tier)
   ]
 
   match_evaluation[, `:=`(
@@ -90,10 +90,11 @@ match_evaluate <- function(matches, data1, data2, unique_key_1, unique_key_2, su
 
   # now make total evaluation
   if (uniqueN(matches[, tier]) > 1) {
-    match_evaluation_total <- matches[, .(
+    in_tier_unique_1 <- in_tier_unique_2 <- NULL # due to NSE notes in R CMD check
+    match_evaluation_total <- matches[, list(
       matches = .N,
-      in_tier_unique_1 = uniqueN(.SD[[..unique_key_1]]),
-      in_tier_unique_2 = uniqueN(.SD[[..unique_key_2]]),
+      in_tier_unique_1 = uniqueN(.SD[, unique_key_1, with = F]),
+      in_tier_unique_2 = uniqueN(.SD[, unique_key_2, with = F]),
       tier = "all"
     )]
 
@@ -110,7 +111,7 @@ match_evaluate <- function(matches, data1, data2, unique_key_1, unique_key_2, su
     match_evaluation <- unique(match_evaluation)
   }
   if (!is.null(quality_vars)) {
-    quality_dt <- matches[, lapply(.SD, mean, na.rm = T), by = .(tier), .SDcols = quality_vars]
+    quality_dt <- matches[, lapply(.SD, mean, na.rm = T), by = list(tier), .SDcols = quality_vars]
     match_evaluation <- merge(match_evaluation, quality_dt, by = "tier")
   }
 
