@@ -33,9 +33,9 @@ merge_plus(
 \item{by}{character string. Variables to merge on (common across data 1 and
 data 2). See \code{merge}}
 
-\item{by.x}{character string. Variable to merge on in data1. See \code{merge}}
+\item{by.x}{length-1 character vector. Variable to merge on in data1. See \code{merge}}
 
-\item{by.y}{character string. Variable to merge on in data2. See \code{merge}}
+\item{by.y}{length-1 character vector. Variable to merge on in data2. See \code{merge}}
 
 \item{suffixes}{character vector with length==2. Suffix to add to like named
 variables after the merge. See \code{merge}}
