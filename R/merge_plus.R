@@ -10,8 +10,8 @@
 #' @param data2 data.frame. Second to-merge dataset.
 #' @param by character string. Variables to merge on (common across data 1 and
 #'   data 2). See \code{merge}
-#' @param by.x character string. Variable to merge on in data1. See \code{merge}
-#' @param by.y character string. Variable to merge on in data2. See \code{merge}
+#' @param by.x length-1 character vector. Variable to merge on in data1. See \code{merge}
+#' @param by.y length-1 character vector. Variable to merge on in data2. See \code{merge}
 #' @param suffixes character vector with length==2. Suffix to add to like named
 #'   variables after the merge. See \code{merge}
 #' @param unique_key_1 character vector. Primary key of data1 that uniquely
@@ -45,7 +45,6 @@
 #'
 #' @export merge_plus
 
-
 merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
                        suffixes = c(".x", ".y"),
                        check_merge = TRUE, unique_key_1, unique_key_2,
@@ -58,12 +57,11 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
   # see ?setnames for why this is necessary
   data1 <- data.table(data1)
   data2 <- data.table(data2)
-
+  # checks
   if (unique_key_1 == unique_key_2) {
     stop("Unique keys must be different names.")
   }
 
-  # Merge datasets data1 and data2 by name1 and name2;
   if (!is.null(by) & (!is.null(by.x) | !is.null(by.y))) {
     stop("both 'by' and ('by.x' or 'by.y') were supplied, this is not allowed")
   }
@@ -99,6 +97,9 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
   }
 
   if (match_type == "exact") {
+    if (length(by.x) > 1 | length(by.y) > 1 | length(by) > 1) {
+      stop("For exact matching, 'by'(or 'by.x', and 'by.y') must be length-1 character vectors. If desired, try combining columns with paste0.")
+    }
     matches <- merge(data1, data2,
       by.x = by.x,
       by.y = by.y, suffixes = suffixes, allow.cartesian = allow.cartesian
@@ -111,8 +112,8 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
       matches[[by.y]] <- matches[[by.x]]
     }
   } else if (match_type == "fuzzy") {
-    if (length(by.x) != 1 | length(by.y) != 1) {
-      stop("Fuzzy match can only accept 'by' variables of length 1.")
+    if (length(by.x) > 1 | length(by.y) > 1 | length(by) > 1) {
+      stop("For fuzzy matching, 'by'(or 'by.x', and 'by.y') must be length-1 character vectors. If desired, try combining columns with paste0.")
     }
     matches <- fuzzy_match(data1, data2,
       by.x = by.x, by.y = by.y, suffixes = suffixes,
