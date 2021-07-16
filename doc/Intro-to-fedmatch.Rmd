@@ -55,7 +55,7 @@ Without any additional arguments, `clean_strings` does the following:
 - Convert tabs to spaces
 - Remove extra spaces
 
-As described in the manual for `clean_strings`, one can specify further arguments to remove words or try different replacements. Fedmatch comes with a set of words that are commonly used for this, but you can use whatever you'd like. 
+As described in the manual for `clean_strings`, one can specify further arguments to remove words or try different replacements. Fedmatch comes with a set of words that are commonly used for this, but you can use whatever you'd like. (You can also use `word_frequency` to look for common words in your data.)
 
 ```{r}
 fedmatch::corporate_words[1:5]

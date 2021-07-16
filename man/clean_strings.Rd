@@ -10,8 +10,7 @@ clean_strings(
   common_words = NULL,
   remove_char = NULL,
   remove_words = FALSE,
-  stem = FALSE,
-  replace_null = NULL
+  stem = FALSE
 )
 }
 \arguments{
@@ -26,8 +25,6 @@ clean_strings(
 \item{remove_words}{logical. If TRUE, removes all abbreviations and replacement words in common_words}
 
 \item{stem}{logical. If TRUE, words are stemmed}
-
-\item{replace_null}{character vector. If not NULL, the value with which to replace empty or blank strings.}
 }
 \value{
 cleaned strings

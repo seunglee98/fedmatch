@@ -17,8 +17,8 @@ tier_match(
   tiers = list(),
   takeout = "both",
   match_type = "exact",
-  clean = NULL,
-  clean.args = list(),
+  clean = F,
+  clean_settings = build_clean_settings(),
   score_settings = NULL,
   filter = NULL,
   filter.args = list(),
@@ -55,9 +55,9 @@ tier_match(
 
 \item{match_type}{string. If 'exact', match is exact, if 'fuzzy', match is fuzzy.}
 
-\item{clean}{Function to clean strings prior to match. see \code{clean_strings}.}
+\item{clean}{Boolean, T/F, whether or not to clean strings prior to the match.}
 
-\item{clean.args}{list. Arguments passed to clean.}
+\item{clean_settings}{list. Settings for string cleaning. See \code{clean_strings} and \code{build_clean_settings}.}
 
 \item{score_settings}{list. Settings for post-hoc matchscoring. See \code{build_score_settings}.}
 

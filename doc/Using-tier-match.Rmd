@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = F}
 library(fedmatch)
 library(data.table)
 data("corp_data1", package = "fedmatch")
@@ -55,7 +55,8 @@ tier_list_v2 <- list(
   b = build_tier(match_type = "fuzzy", clean = clean_strings,
            fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard",
                                  maxDist = .7,
-                                 nthread = 1)),
+                                 nthread = 1),
+           clean_settings = build_clean_settings(remove_words = T)),
   c = build_tier(match_type = "multivar", 
                  multivar_settings = build_multivar_settings(
     logit = NULL, missing = F, wgts = 1,
@@ -94,8 +95,12 @@ Here's what the matches look like:
 result$matches[1:5]
 ```
 
-As you can see, the matches dataset has a column called 'tier' that indicates which tier the match was from. It also adds any additional columns added by the matching process. In this example, we see 'Company_score', created from the from the post-hoc scoring; 'wgt_jaccard_sim', the Weighted Jaccard similarity, created when using the 'wgt_jaccard' setting of `fuzzy_match` (see the fuzzy_match)
+As you can see, the matches dataset has a column called 'tier' that indicates which tier the match was from. It also adds any additional columns added by the matching process. In this example, we see 'Company_score', created from the from the post-hoc scoring; 'wgt_jaccard_sim', the Weighted Jaccard similarity, created when using the 'wgt_jaccard' setting of `fuzzy_match` (see the 'Fuzzy-matching' vignette for more details); and  'Company_compare', created from the multivar matching tier.
+
+We also have a match evaluation, now filled out with more details broken down by tier:
 
 ```{r}
 result$match_evaluation
 ```
+
+We can use this evaluation to figure out which tiers did the 'best' job matching, getting the most unique matches.

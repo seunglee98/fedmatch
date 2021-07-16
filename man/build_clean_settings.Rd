@@ -9,8 +9,7 @@ build_clean_settings(
   common_words = NULL,
   remove_char = NULL,
   remove_words = FALSE,
-  stem = FALSE,
-  replace_null = NULL
+  stem = FALSE
 )
 }
 \arguments{
@@ -23,13 +22,11 @@ build_clean_settings(
 \item{remove_words}{logical. If TRUE, removes all abbreviations and replacement words in common_words}
 
 \item{stem}{logical. If TRUE, words are stemmed}
-
-\item{replace_null}{character vector. If not NULL, the value with which to replace empty or blank strings.}
 }
 \value{
 list with settings to pass to \code{clean_strings}
 }
 \description{
-\code{build_score_settings} is a convenient way to make the proper list for the
-\code{clean_settings} argument of \code{merge_plus}.
+\code{build_clean_settings} is a convenient way to make the proper list for the
+\code{clean_settings} argument of \code{tier_match}.
 }

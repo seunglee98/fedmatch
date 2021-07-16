@@ -141,12 +141,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fedmatch)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corp_data1&quot;</span>, <span class="at">package =</span> <span class="st">&quot;fedmatch&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corp_data2&quot;</span>, <span class="at">package =</span> <span class="st">&quot;fedmatch&quot;</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data1)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data2)</span></code></pre></div>
 <div id="overview" class="section level1">
 <h1>Overview</h1>
 <p><code>tier_match</code> is the ultimate wrapper function in <code>fedmatch.</code> <code>tier_match</code> puts together all of the pieces from the package into one function, letting the user perform many matches in one call. The function is excellent both as an exploratory tool, while the user is still figuring out how they want to execute their matches, and as a final matching tool that can be used in production code.</p>
@@ -155,56 +149,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="syntax" class="section level1">
 <h1>Syntax</h1>
 <p>The syntax of <code>tier_match</code> is providing a core list of arguments to the function itself, and then passing a named list to the tier match. Each element in this list is itself a list, each of which is a tier to match on, and it contains all of the arguments necessary for that tier. All of these arguments will be passed to ‘merge_plus’ in sequence, and each of the matches from each tier are saved and combined.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tier_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;exact&quot;</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">b =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;fuzzy&quot;</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>, <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">logit =</span> <span class="cn">NULL</span>, <span class="at">missing =</span> F, <span class="at">wgts =</span> <span class="dv">1</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">compare_type =</span> <span class="st">&quot;stringdist&quot;</span>, <span class="at">blocks =</span> <span class="cn">NULL</span>, <span class="at">blocks.x =</span> <span class="cn">NULL</span>, <span class="at">blocks.y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">top =</span> <span class="dv">1</span>, <span class="at">threshold =</span> <span class="cn">NULL</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># tier_list</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tier_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;exact&quot;</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">b =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;fuzzy&quot;</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>, <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">logit =</span> <span class="cn">NULL</span>, <span class="at">missing =</span> F, <span class="at">wgts =</span> <span class="dv">1</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">compare_type =</span> <span class="st">&quot;stringdist&quot;</span>, <span class="at">blocks =</span> <span class="cn">NULL</span>, <span class="at">blocks.x =</span> <span class="cn">NULL</span>, <span class="at">blocks.y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">top =</span> <span class="dv">1</span>, <span class="at">threshold =</span> <span class="cn">NULL</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># tier_list</span></span></code></pre></div>
 <p>This list will perform three matches: ‘a’, an exact match; ‘b’, a fuzzy match, and ‘c’, a multivar match. We can get a bit fancier and add more settings to each, if we’d like. Remember that each element of each tier has to be an argument for <code>merge_plus</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tier_list_v2 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;exact&quot;</span>, <span class="at">clean =</span> clean_strings),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">b =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;fuzzy&quot;</span>, <span class="at">clean =</span> clean_strings,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fuzzy_settings =</span> <span class="fu">build_fuzzy_settings</span>(<span class="at">method =</span> <span class="st">&quot;wgt_jaccard&quot;</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">maxDist =</span> .<span class="dv">7</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">nthread =</span> <span class="dv">1</span>)),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>, </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">logit =</span> <span class="cn">NULL</span>, <span class="at">missing =</span> F, <span class="at">wgts =</span> <span class="dv">1</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">compare_type =</span> <span class="st">&quot;stringdist&quot;</span>, <span class="at">blocks =</span> <span class="cn">NULL</span>, <span class="at">blocks.x =</span> <span class="cn">NULL</span>, <span class="at">blocks.y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">top =</span> <span class="dv">1</span>, <span class="at">threshold =</span> <span class="cn">NULL</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tier_list_v2 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;exact&quot;</span>, <span class="at">clean =</span> clean_strings),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">b =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;fuzzy&quot;</span>, <span class="at">clean =</span> clean_strings,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fuzzy_settings =</span> <span class="fu">build_fuzzy_settings</span>(<span class="at">method =</span> <span class="st">&quot;wgt_jaccard&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">maxDist =</span> .<span class="dv">7</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">nthread =</span> <span class="dv">1</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">clean_settings =</span> <span class="fu">build_clean_settings</span>(<span class="at">remove_words =</span> T)),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> <span class="fu">build_tier</span>(<span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">logit =</span> <span class="cn">NULL</span>, <span class="at">missing =</span> F, <span class="at">wgts =</span> <span class="dv">1</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">compare_type =</span> <span class="st">&quot;stringdist&quot;</span>, <span class="at">blocks =</span> <span class="cn">NULL</span>, <span class="at">blocks.x =</span> <span class="cn">NULL</span>, <span class="at">blocks.y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">top =</span> <span class="dv">1</span>, <span class="at">threshold =</span> <span class="cn">NULL</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Let’s take a look at the rest of the syntax for <code>tier_match</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">tier_match</span>(corp_data1, corp_data2,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">by.x =</span> <span class="st">&quot;Company&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;Name&quot;</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">unique_key_1 =</span> <span class="st">&quot;unique_key_1&quot;</span>, <span class="at">unique_key_2 =</span> <span class="st">&quot;unique_key_2&quot;</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tiers =</span> tier_list_v2, <span class="at">takeout =</span> <span class="st">&quot;neither&quot;</span>, <span class="at">verbose =</span> T,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">score_settings =</span> <span class="fu">build_score_settings</span>(<span class="at">score_var_x =</span> <span class="st">&quot;Company&quot;</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">score_var_y =</span> <span class="st">&quot;Name&quot;</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">wgts =</span> <span class="dv">1</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">score_type =</span> <span class="st">&quot;stringdist&quot;</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matching tier &#39;a&#39;...</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in `[.data.table`(matches, , `:=`(matchscore, 0)):</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Invalid .internal.selfref detected and fixed by taking a (shallow) copy of the</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data.table so that := can add this new column by reference. At an earlier point,</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; this data.table has been copied by R (or was created manually using structure()</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; or similar). Avoid names&lt;- and attr&lt;- which in R currently (and oddly) may</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; setnames and ?setattr. If this message doesn&#39;t help, please report your use case</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; to the data.table issue tracker so the root cause can be fixed or this message</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; improved.</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0.02 secs.</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matching tier &#39;b&#39;...</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0.04 secs.</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matching tier &#39;c&#39;...</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0.09 secs.</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">tier_match</span>(corp_data1, corp_data2,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">by.x =</span> <span class="st">&quot;Company&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;Name&quot;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">unique_key_1 =</span> <span class="st">&quot;unique_key_1&quot;</span>, <span class="at">unique_key_2 =</span> <span class="st">&quot;unique_key_2&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tiers =</span> tier_list_v2, <span class="at">takeout =</span> <span class="st">&quot;neither&quot;</span>, <span class="at">verbose =</span> T,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">score_settings =</span> <span class="fu">build_score_settings</span>(<span class="at">score_var_x =</span> <span class="st">&quot;Company&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">score_var_y =</span> <span class="st">&quot;Name&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">wgts =</span> <span class="dv">1</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">score_type =</span> <span class="st">&quot;stringdist&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matching tier &#39;a&#39;...</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0.01 secs.</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matching tier &#39;b&#39;...</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0.02 secs.</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matching tier &#39;c&#39;...</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time elapsed: 0.09 secs.</span></span></code></pre></div>
 <p>There are two types of arguments for <code>tier_match</code>: those that can be passed to <code>merge_plus</code>, and those that are unique to <code>tier_match</code>. If anything of the <code>merge_plus</code> arguments are listed in <code>tier_match</code> directly (rather than in <code>tier_list</code>), those arguments are used in every tier. In this example, we are always matching on ‘Company’ and ‘Name,’ so those are placed in the arguments for tier_match directly. The arguments unique to <code>tier_match</code> and their defaults are:</p>
 <ul>
 <li><code>tiers</code> is the tier list create by iterations of <code>build_tier()</code>. Required, no default.</li>
@@ -213,37 +199,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The other arguments are all present in <code>merge_plus</code>, see documentation there for details.</p>
 <p>The result for tier_match is a list with 4 items: the matched dataset, the unmatched data, and a match evaluation. Here’s what the matches look like:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>matches[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Company Country State  SIC Revenue unique_key_1 country state_code</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:          walmart     USA    OH 3300     485            1     USA         OH</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:          walmart     USA    OH 3300     485            1     USA         OH</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:          Walmart     USA    OH 3300     485            1     USA         OH</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4: Bershire Hataway     USA       2222     223            2     USA         NE</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:            apple     USA    CA 3384     215            3     USA         CA</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    SIC_code earnings unique_key_2              Name matchscore Company_score</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:     3380  490,000            1           walmart  1.0000000     1.0000000</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:     3380  490,000            1           walmart  1.0000000     1.0000000</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:     3380  490,000            1           Walmart  1.0000000     1.0000000</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:     2220  220,000            2 Bershire Hathaway  0.9882353     0.9882353</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:       NA  220,000            3    apple computer  0.8714286     0.8714286</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tier wgt_jaccard_sim Company_compare</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:    a              NA              NA</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:    b       1.0000000              NA</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:    c              NA       1.0000000</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:    c              NA       0.9882353</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:    b       0.3333333              NA</span></span></code></pre></div>
-<p>As you can see, the matches dataset has a column called ‘tier’ that indicates which tier the match was from. It also adds any additional columns added by the matching process. In this example, we see ‘Company_score’, created from the from the post-hoc scoring; ‘wgt_jaccard_sim’, the Weighted Jaccard similarity, created when using the ‘wgt_jaccard’ setting of <code>fuzzy_match</code> (see the fuzzy_match)</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>match_evaluation</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:    a       2                2                2           0.2           0.2</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:    b       7                7                7           0.7           0.7</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:    c      10               10               10           1.0           1.0</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:  all      19               17               17           1.7           1.7</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:            2            2</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:            5            5</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:            3            2</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:           NA           NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>matches[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Company Country State  SIC Revenue unique_key_1 country state_code</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:          Walmart     USA    OH 3300     485            1     USA         OH</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:          Walmart     USA    OH 3300     485            1     USA         OH</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:          Walmart     USA    OH 3300     485            1     USA         OH</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4: Bershire Hataway     USA       2222     223            2     USA         NE</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:            Apple     USA    CA 3384     215            3     USA         CA</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    SIC_code earnings unique_key_2              Name matchscore Company_score</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:     3380  490,000            1           Walmart  1.0000000     1.0000000</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:     3380  490,000            1           Walmart  1.0000000     1.0000000</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:     3380  490,000            1           Walmart  1.0000000     1.0000000</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:     2220  220,000            2 Bershire Hathaway  0.9882353     0.9882353</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:       NA  220,000            3    Apple Computer  0.8714286     0.8714286</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tier wgt_jaccard_sim Company_compare</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:    a              NA              NA</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:    b       1.0000000              NA</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:    c              NA       1.0000000</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:    c              NA       0.9882353</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:    b       0.3333333              NA</span></span></code></pre></div>
+<p>As you can see, the matches dataset has a column called ‘tier’ that indicates which tier the match was from. It also adds any additional columns added by the matching process. In this example, we see ‘Company_score’, created from the from the post-hoc scoring; ‘wgt_jaccard_sim’, the Weighted Jaccard similarity, created when using the ‘wgt_jaccard’ setting of <code>fuzzy_match</code> (see the ‘Fuzzy-matching’ vignette for more details); and ‘Company_compare’, created from the multivar matching tier.</p>
+<p>We also have a match evaluation, now filled out with more details broken down by tier:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>match_evaluation</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:    a       2                2                2           0.2           0.2</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:    b       7                7                7           0.7           0.7</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:    c      10               10                9           1.0           0.9</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:  all      19               10                9           1.0           0.9</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:            2            2</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:            5            5</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:            3            2</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:           NA           NA</span></span></code></pre></div>
+<p>We can use this evaluation to figure out which tiers did the ‘best’ job matching, getting the most unique matches.</p>
 </div>
 
 

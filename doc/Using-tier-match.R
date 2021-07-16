@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----setup--------------------------------------------------------------------
+## ----setup, include = F-------------------------------------------------------
 library(fedmatch)
 library(data.table)
 data("corp_data1", package = "fedmatch")
@@ -31,7 +31,8 @@ tier_list_v2 <- list(
   b = build_tier(match_type = "fuzzy", clean = clean_strings,
            fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard",
                                  maxDist = .7,
-                                 nthread = 1)),
+                                 nthread = 1),
+           clean_settings = build_clean_settings(remove_words = T)),
   c = build_tier(match_type = "multivar", 
                  multivar_settings = build_multivar_settings(
     logit = NULL, missing = F, wgts = 1,

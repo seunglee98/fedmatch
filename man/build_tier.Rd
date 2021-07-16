@@ -15,7 +15,7 @@ build_tier(
   filter.args = NULL,
   evaluate = NULL,
   evaluate.args = NULL,
-  clean.args = NULL,
+  clean_settings = NULL,
   clean = NULL,
   allow.cartesian = F,
   multivar_settings = build_multivar_settings()
@@ -50,7 +50,7 @@ to filter.}
 
 \item{evaluate.args}{ist. Arguments passed to evaluate}
 
-\item{clean.args}{list. Arguments passed to clean.}
+\item{clean_settings}{list. Arguments passed to clean.}
 
 \item{clean}{Function to clean strings prior to match. see \code{clean_strings}.}
 

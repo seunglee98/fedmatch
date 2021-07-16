@@ -15,7 +15,6 @@
 #' @param remove_char character vector. string of specific characters (for example, "letters") to be removed
 #' @param remove_words logical. If TRUE, removes all abbreviations and replacement words in common_words
 #' @param stem logical. If TRUE, words are stemmed
-#' @param replace_null character vector. If not NULL, the value with which to replace empty or blank strings.
 #' @return cleaned strings
 #'
 #' @export
@@ -24,7 +23,7 @@ clean_strings <- function(string,
                           sp_char_words = fedmatch::sp_char_words,
                           common_words = NULL,
                           remove_char = NULL, remove_words = FALSE,
-                          stem = FALSE, replace_null = NULL) {
+                          stem = FALSE) {
   string_orig <- NULL # due to NSE notes in R CMD check
   string_table <- data.table::data.table(string_orig = string)
   # define the default inputs;
@@ -105,11 +104,6 @@ clean_strings <- function(string,
   # stemming
   if (stem == TRUE) {
     string_table[, clean_str := SnowballC::wordStem(clean_str, "english")]
-  }
-  # replace NULL strings;
-
-  if (!is.null(replace_null)) {
-    string_table[!is.na(clean_str) & (clean_str %in% c("", " ") | is.null(clean_str)), clean_str := replace_null]
   }
 
   ## Return a vector

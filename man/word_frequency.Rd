@@ -10,7 +10,7 @@ word_frequency(string)
 \item{string}{character vector}
 }
 \value{
-data frame with word frequency
+data.table with word frequency
 }
 \description{
 \code{word_frequency} counts the frequency of words in a set of strings.

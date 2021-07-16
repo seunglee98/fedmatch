@@ -174,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Convert tabs to spaces</li>
 <li>Remove extra spaces</li>
 </ul>
-<p>As described in the manual for <code>clean_strings</code>, one can specify further arguments to remove words or try different replacements. Fedmatch comes with a set of words that are commonly used for this, but you can use whatever you’d like.</p>
+<p>As described in the manual for <code>clean_strings</code>, one can specify further arguments to remove words or try different replacements. Fedmatch comes with a set of words that are commonly used for this, but you can use whatever you’d like. (You can also use <code>word_frequency</code> to look for common words in your data.)</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fedmatch<span class="sc">::</span>corporate_words[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     abbr     long.names</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1: accep     acceptance</span></span>

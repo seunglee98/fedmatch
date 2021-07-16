@@ -18,8 +18,7 @@ knitr::opts_chunk$set(
 
 The goal of fedmatch is to match un-linked datasets. It provides a variety of tools that allow a user to build a custom matching algorithm for their specific application. To get started, see the "Introduction to Fedmatch" vignette by installing fedmatch and running `vignette("Intro-to-fedmatch")`. For more advanced uses, see the rest of the vignettes by running `vignette(package = "fedmatch")`.
 
-## Installation
-
+# Installation
 
 You can install the development version from [GitHub](https://github.com/) with:
 

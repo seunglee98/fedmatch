@@ -10,7 +10,7 @@ Fedmatch” vignette by installing fedmatch and running
 `vignette("Intro-to-fedmatch")`. For more advanced uses, see the rest of
 the vignettes by running `vignette(package = "fedmatch")`.
 
-## Installation
+# Installation
 
 You can install the development version from
 [GitHub](https://github.com/) with:

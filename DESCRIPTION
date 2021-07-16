@@ -6,9 +6,9 @@ Authors@R: c(person("Melanie", "Friedrichs", email = "melanie.r.friedrichs@gmail
              person("Blake", "Marsh", email = "blake.marsh@kc.frb.org", role = c("aut")),
              person("Jacob", "Dice", email = "Jacob.Dice@kc.frb.org", role = c("aut")),
              person("Seung", "Lee", email = "seung.j.lee@frb.gov", role = c("aut")))
-Description: fedmatch provides a flexible set of tools for matching two un-linked data sets. 
+Description: Provides a flexible set of tools for matching two un-linked data sets. 
     fedmatch provides three ways to match data: exact matches, fuzzy matches, and multi-variable matches. 
-    It also allows an easy combination of these three matches.
+    It also allows an easy combination of these three matches via the tier matching function.
 Depends:
     R (>= 4.0.0)
 License: MIT + file LICENSE
