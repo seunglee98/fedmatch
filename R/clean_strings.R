@@ -21,12 +21,10 @@
 #' @export
 
 clean_strings <- function(string,
-                          sp_char_words = data.table::data.table(
-                            "character" = c("\\&", "\\$", "\\%", "\\@"),
-                            "replacement" = c("and", "dollar", "percent", "at")
-                          ),
+                          sp_char_words = fedmatch::sp_char_words,
                           common_words = NULL,
-                          remove_char = NULL, remove_words = FALSE, stem = FALSE, replace_null = NULL) {
+                          remove_char = NULL, remove_words = FALSE,
+                          stem = FALSE, replace_null = NULL) {
   string_orig <- NULL # due to NSE notes in R CMD check
   string_table <- data.table::data.table(string_orig = string)
   # define the default inputs;

@@ -29,3 +29,7 @@
 #' World_Bank_Codes
 #' @description World Bank 3-Character Country Codes for 213 countries
 "World_Bank_Codes"
+
+#' sp_char_words
+#' @description Common special characters and their replacements for string cleaning
+"sp_char_words"

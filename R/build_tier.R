@@ -16,7 +16,7 @@
 #' @param fuzzy_settings additional arguments for amatch, to be used if match_type
 #'   = 'fuzzy'. Suggested defaults provided. (see amatch, method='jw')
 #' @param score_settings list. Score settings for post-hoc matchscores.
-#' @param clean.args list. Arguments passed to clean.
+#' @param clean_settings list. Arguments passed to clean.
 #' @param clean Function to clean strings prior to match. see \code{clean_strings}.
 #' @param multivar_settings list of settings to go to the multivar match if match_type
 #' == 'multivar'. See \code{multivar-match}.
@@ -44,7 +44,7 @@ build_tier <- function(by.x = NULL,
                        filter.args = NULL,
                        evaluate = NULL,
                        evaluate.args = NULL,
-                       clean.args = NULL,
+                       clean_settings = NULL,
                        clean = NULL,
                        allow.cartesian = F,
                        multivar_settings = build_multivar_settings()) {
@@ -59,7 +59,7 @@ build_tier <- function(by.x = NULL,
     filter.args = filter.args,
     evaluate = evaluate,
     evaluate.args = evaluate.args,
-    clean.args = clean.args,
+    clean_settings = clean_settings,
     clean = clean,
     allow.cartesian = allow.cartesian,
     multivar_settings = multivar_settings

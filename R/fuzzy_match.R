@@ -20,7 +20,6 @@
 #' @param unique_key_2 character vector. Primary key of data2 that uniquely identifies each row (can be multiple fields)
 #' @param fuzzy_settings list of arguments to pass to to the fuzzy matching function. See \code{amatch}.
 #' @import data.table
-#' @export
 
 fuzzy_match <- function(data1,
                         data2,

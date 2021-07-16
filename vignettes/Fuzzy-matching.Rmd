@@ -89,6 +89,21 @@ To get the Weighted Jaccard method to run quickly, you need to ensure that R is 
 -   PKG_CXXFLAGS = "-fopenmp"
 -   PKG_LIBS = "-fopenmp"
 
-These flags ensure that your C++ is set up to use the OpenMP libraries required to use multiple threads (I think - I am not actually an expert here. Lots of googling is your friend.) On Windows, the process may be more difficult. See the [here](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Customizing-package-compilation) and [here](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#OpenMP-support) for more documentation. If, for some reason, you can't get this to work, rest assured that the Weighted Jaccard match will still run just fine, it just may take a long time for large data sets.
+These flags ensure that your C++ is set up to use the OpenMP libraries required to use multiple threads (I think - I am not actually an expert here. Lots of Googling is your friend.) On Windows, the process may be more difficult. See the [here](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Customizing-package-compilation) and [here](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#OpenMP-support) for more documentation. If, for some reason, you can't get this to work, rest assured that the Weighted Jaccard match will still run just fine, it just may take a long time for large data sets.
 
-##  
+## An example - weighted Jaccard match
+
+### Weighted Jaccard Match
+```{r}
+wgt_jaccard_match <- merge_plus(data1 = corp_data1, 
+                          data2 = corp_data2,
+                          by.x = "Company",
+                          by.y = "Name", match_type = "fuzzy", 
+                          fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard",
+                                                                maxDist = .5),
+                          unique_key_1 = "unique_key_1",
+                          unique_key_2 = "unique_key_2")
+print(wgt_jaccard_match)
+```
+
+Note that we have an extra column, 'wgt_jaccard_sim', that shows the similarity score for the weighted Jaccard method.

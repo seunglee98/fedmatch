@@ -37,7 +37,7 @@ test_that("tier_match can handle unique keys being NOT named unique_key_1 and un
         compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
         top = 1, threshold = NULL
       )),
-      d = list(match_type = "exact", clean.args = list(remove_words = T))
+      d = list(match_type = "exact", clean_settings = list(remove_words = T))
     )
     corp_data1[, unique_k_1 := unique_key_1][, unique_key_1 := NULL]
     corp_data2[, unique_k_2 := unique_key_2][, unique_key_2 := NULL]
@@ -69,7 +69,7 @@ test_that("tier_match can handle by's being the same", {
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(match_type = "exact", clean.args = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = T))
   )
   # tier_list <- list(a = list(match_type = "exact"))
   # tier_list <- list(a = list(match_type = "fuzzy"),
@@ -109,7 +109,7 @@ test_that("tier_match can handle by's being the same with scoring", {
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(match_type = "exact", clean.args = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = T))
   )
   # tier_list <- list(a = list(match_type = "exact"))
   # tier_list <- list(a = list(match_type = "fuzzy"),
@@ -158,7 +158,7 @@ test_that("sequential word dropping works", {
       top = 1, threshold = NULL
     )),
     d = list(
-      match_type = "exact", clean.args = list(remove_words = T),
+      match_type = "exact", clean_settings = list(remove_words = T),
       sequential_words = sequential_words_df
     )
   )
@@ -200,7 +200,7 @@ test_that("sequential word dropping doesn't mess up future tiers", {
   tier_list <- list(
     a = list(
       match_type = "exact",
-      clean.args = list(remove_words = T),
+      clean_settings = list(remove_words = T),
       sequential_words = sequential_words_df
     ),
     b = list(match_type = "exact")

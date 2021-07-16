@@ -64,7 +64,7 @@ testthat::test_that("multivar works as part of a tier match", {
         top = 1, threshold = NULL
       )
     ),
-    d = list(match_type = "exact", clean.args = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = T))
   )
   # tier_list[["c"]][["by.y"]]
   corp_data1

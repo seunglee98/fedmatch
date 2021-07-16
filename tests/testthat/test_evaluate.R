@@ -34,7 +34,7 @@ test_that("match_evaluate returns matches that are correct, different unique key
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(match_type = "exact", clean.args = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = T))
   )
   corp_data1[, unique_k_1 := unique_key_1][, unique_key_1 := NULL]
   corp_data2[, unique_k_2 := unique_key_2][, unique_key_2 := NULL]
@@ -70,7 +70,7 @@ test_that("match_evaluate returns new unique matches", {
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(match_type = "exact", clean.args = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = T))
   )
   corp_data1[, unique_k_1 := unique_key_1][, unique_key_1 := NULL]
   corp_data2[, unique_k_2 := unique_key_2][, unique_key_2 := NULL]
