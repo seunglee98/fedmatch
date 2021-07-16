@@ -17,8 +17,8 @@
 #' @param tiers list(). tier is a list of lists, where each list holds the parameters for creating that tier. All arguments to tier_match listed after this argument can either be supplied directly to tier_match, or indirectly via tiers.
 #' @param match_type string. If 'exact', match is exact, if 'fuzzy', match is fuzzy.
 #' @param fuzzy_settings additional arguments for amatch, to be used if match_type = 'fuzzy'. Suggested defaults provided. (see amatch, method='jw')
-#' @param clean Function to clean strings prior to match. see \code{clean_strings}.
-#' @param clean_settings list. Arguments passed to clean.
+#' @param clean Boolean, T/F, whether or not to clean strings prior to the match.
+#' @param clean_settings list. Settings for string cleaning. See \code{clean_strings} and \code{build_clean_settings}.
 #' @param score_settings list. Settings for post-hoc matchscoring. See \code{build_score_settings}.
 #' @param filter function or numeric. Filters a merged data1-data2 dataset. If a function, should take in
 #'       a data.frame (data1 and data2 merged by name1 and name2) and spit out a trimmed verion
@@ -43,7 +43,7 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
                        check_merge = TRUE, unique_key_1, unique_key_2,
                        tiers = list(), takeout = "both",
                        match_type = "exact",
-                       clean = NULL, clean_settings = list(),
+                       clean = F, clean_settings = build_clean_settings(),
                        score_settings = NULL, filter = NULL, filter.args = list(),
                        evaluate = match_evaluate, evaluate.args = list(),
                        allow.cartesian = T,
@@ -143,9 +143,9 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
     }
     # clean the by's
 
-    if (is.function(tier_settings[["clean"]]) & length(tier_settings[["by.x"]]) == 1) {
-      data1[[tier_settings[["by.x"]]]] <- do.call(tier_settings[["clean"]], c(list(string = data1[[tier_settings[["by.x"]]]]), tier_settings[["clean_settings"]]))
-      data2[[tier_settings[["by.y"]]]] <- do.call(tier_settings[["clean"]], c(list(string = data2[[tier_settings[["by.y"]]]]), tier_settings[["clean_settings"]]))
+    if (clean == T & length(tier_settings[["by.x"]]) == 1) {
+      data1[[tier_settings[["by.x"]]]] <- do.call(clean_strings, c(list(string = data1[[tier_settings[["by.x"]]]]), tier_settings[["clean_settings"]]))
+      data2[[tier_settings[["by.y"]]]] <- do.call(clean_strings, c(list(string = data2[[tier_settings[["by.y"]]]]), tier_settings[["clean_settings"]]))
     }
     # run the match
     tier_result <- merge_plus(

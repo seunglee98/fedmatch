@@ -1,7 +1,7 @@
 #' Building settings for string cleaning
 #'
 #' `build_score_settings` is a convenient way to make the proper list for the
-#' `clean_settings` argument of `merge_plus`.
+#' `clean_settings` argument of `tier_match`.
 #'
 #' @param sp_char_words character vector. Data.frame where first column is special characters and second column is full words. The default is
 #' @param common_words data.frame. Data.frame where first column is abbreviations and second column is full words.
