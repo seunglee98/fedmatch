@@ -19,7 +19,7 @@ test_that("tier_match can handle unique keys being named unique_key_1 and unique
     tiers = tier_list, takeout = "neither", verbose = TRUE
   )
 
-
+  # result
   # result$match_evaluation
   expect_true(is.data.table(result$matches))
 })
@@ -104,7 +104,8 @@ test_that("tier_match can handle by's being the same with scoring", {
   tier_list <- list(
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
-    c = list(match_type = "multivar", multivar_settings = list(
+    c = list(match_type = "multivar", multivar_settings = build_multivar_settings(
+
       logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
@@ -130,7 +131,7 @@ test_that("tier_match can handle by's being the same with scoring", {
     unique_key_1 = "unique_k_1", unique_key_2 = "unique_k_2",
     tiers = tier_list, takeout = "neither",
     suffixes = c("_1", "_2"),
-    score_settings = score_settings
+    score_settings = score_settings, verbose = T
   )
   result
   result$matches[, .(name_compare, name_score)] %>% rowSums(na.rm = TRUE)
@@ -258,9 +259,9 @@ test_that("dropping observations between tiers works", {
   result <- tier_match(corp_data1, corp_data2,
     by.x = "name", by.y = "name",
     unique_key_1 = "unique_k_1", unique_key_2 = "unique_k_2",
-    tiers = tier_list, takeout = "both",
+    tiers = tier_list, takeout = "data2",
     suffixes = c("_1", "_2"),
-    score_settings = score_settings
+    score_settings = score_settings, verbose = T
   )
   result$matches
 
