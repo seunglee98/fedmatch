@@ -199,17 +199,19 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
           data2_keys_remove <- rbind(data2_keys_remove, data2_keys_remove_new)
         }
       }
-      if (takeout %in% c("data1", "both")) {
+      else if (takeout %in% c("data1", "both")) {
         if (is.null(data1_keys_remove)) {
           data1_keys_remove <- data.table(a = tier_result[["matches"]][[unique_key_1]])
           setnames(data1_keys_remove, unique_key_1)
-        } else if (takeout == "neither") {
+        } else {
           data1_keys_remove_new <- data.table(a = tier_result[["matches"]][[unique_key_1]])
           setnames(data1_keys_remove_new, unique_key_1)
           data1_keys_remove <- rbind(data1_keys_remove, data1_keys_remove_new)
-        } else {
-          stop("'takeout' must be one of 'data1', 'data2', 'both', or 'neither'.")
         }
+      } else if (takeout == "neither") {
+      }
+        else {
+          stop("'takeout' must be one of 'data1', 'data2', 'both', or 'neither'.")
       }
     }
     if (verbose == TRUE) {
