@@ -76,7 +76,7 @@ clean_strings(name_vec, common_words = data.table::data.table(word = c("general"
 
 You can also use a related function, `word_frequency`, to look for the most common strings in your data:
 ```{r}
-word_frequency(sample(c("hi", "Hello", "bye    "), 1e4, replace = T))
+word_frequency(sample(c("hi", "Hello", "bye    "), 1e4, replace = TRUE))
 ```
 
 ## Remove characters and words
@@ -86,7 +86,7 @@ remove_words and remove_char are booleans that let you simply remove the words i
 clean_strings(name_vec, sp_char_words = new_sp_char, remove_char = c("a", "c"))
 clean_strings(name_vec, common_words = data.table::data.table(word = c("general", "company"),
                                                               replacement = c("bananas", "oranges")),
-              remove_words = T)
+              remove_words = TRUE)
 ```
 
 
@@ -95,7 +95,7 @@ clean_strings(name_vec, common_words = data.table::data.table(word = c("general"
 `stem` is a boolean that lets you stem words, using `SnowballC::wordStem`. 'stemming' words means removing common suffixes:
 
 ```{r}
-clean_strings(c( "call", "calling", "called"), stem = T)
+clean_strings(c( "call", "calling", "called"), stem = TRUE)
 ```
 See the documentation in `SnowballC::wordStem` for details.
 

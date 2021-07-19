@@ -6,7 +6,7 @@ test_that("match_evaluate returns matches that are correct number", {
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
     c = list(match_type = "multivar", multivar_settings = list(
-      logit = NULL, missing = F, wgts = 1,
+      logit = NULL, missing = FALSE, wgts = 1,
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     ))
@@ -30,11 +30,11 @@ test_that("match_evaluate returns matches that are correct, different unique key
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
     c = list(match_type = "multivar", multivar_settings = list(
-      logit = NULL, missing = F, wgts = c(1),
+      logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(match_type = "exact", clean_settings = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
   )
   corp_data1[, unique_k_1 := unique_key_1][, unique_key_1 := NULL]
   corp_data2[, unique_k_2 := unique_key_2][, unique_key_2 := NULL]
@@ -66,11 +66,11 @@ test_that("match_evaluate returns new unique matches", {
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
     c = list(match_type = "multivar", multivar_settings = list(
-      logit = NULL, missing = F, wgts = c(1),
+      logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(match_type = "exact", clean_settings = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
   )
   corp_data1[, unique_k_1 := unique_key_1][, unique_key_1 := NULL]
   corp_data2[, unique_k_2 := unique_key_2][, unique_key_2 := NULL]

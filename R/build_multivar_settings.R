@@ -12,10 +12,10 @@
 #' @param top integer. Number of matches to return for each observation.
 #' @param threshold numeric. Minimum score for a match to be included in the result.
 #' @param nthread integer. Number of cores to use when computing all combinations. See \code{parallel::makecluster()}
-
+#' @return a list containing options for the 'multivar_settings' argument of \code{merge_plus}.
 #' @export
 
-build_multivar_settings <- function(logit = NULL, missing = F, wgts = NULL,
+build_multivar_settings <- function(logit = NULL, missing = FALSE, wgts = NULL,
                                     compare_type = "diff", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
                                     top = 1, threshold = NULL, nthread = 1) {
   final_list <- list(

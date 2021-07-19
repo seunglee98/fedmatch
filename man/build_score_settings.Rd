@@ -23,6 +23,9 @@ build_score_settings(
 
 \item{score_type}{character vector.}
 }
+\value{
+a list containing options for the 'score_settings' argument of \code{merge_plus}.
+}
 \description{
 \code{build_score_settings} is a convenient way to make the proper list for the
 \code{score_settings} argument of \code{merge_plus} Each vector in build_score_settings

@@ -1,7 +1,7 @@
 
 compare_row <- function(row_x, data2,
                         by.x, by.y,
-                        logit = NULL, missing = F, wgts = NULL, compare_type = "diff",
+                        logit = NULL, missing = FALSE, wgts = NULL, compare_type = "diff",
                         blocks.x = NULL, blocks.y = NULL,
                         top = NULL, threshold = NULL, suffixes = c("_1", "_2"), k, unique_key_1) {
 
@@ -71,7 +71,7 @@ compare_row <- function(row_x, data2,
   # define missing values
   #-----------------------
 
-  if (missing == T) {
+  if (missing == TRUE) {
     variables_to_missing <- paste0(by.x, "_missing")
 
     for (i in 1:k) {
@@ -122,7 +122,7 @@ compare_row <- function(row_x, data2,
   #-----------------------
   if (by.x[1] != by.y[1]) {
     df_c <- copy(df_c)
-    setnames(df_c, paste0(by.x, suffixes[1]), by.x, skip_absent = T)
+    setnames(df_c, paste0(by.x, suffixes[1]), by.x, skip_absent = TRUE)
   }
 
   return(df_c)

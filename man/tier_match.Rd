@@ -17,17 +17,17 @@ tier_match(
   tiers = list(),
   takeout = "both",
   match_type = "exact",
-  clean = F,
+  clean = FALSE,
   clean_settings = build_clean_settings(),
   score_settings = NULL,
   filter = NULL,
   filter.args = list(),
   evaluate = match_evaluate,
   evaluate.args = list(),
-  allow.cartesian = T,
+  allow.cartesian = TRUE,
   fuzzy_settings = build_fuzzy_settings(),
   multivar_settings = build_multivar_settings(),
-  verbose = F
+  verbose = FALSE
 )
 }
 \arguments{

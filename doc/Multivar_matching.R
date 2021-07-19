@@ -24,25 +24,28 @@ corp_data2_test[, id_2 := seq(1, .N)]
 
 corp_data2_test[, Country := country]
 corp_data2_test[, Company := Name]
-result <- multivar_match(
+result <- merge_plus(
   data1 = corp_data1_test,
   data2 = corp_data2_test,
+  match_type = "multivar",
   by = c("Country", "Company"),
    suffixes = c("_1", "_2"),
   unique_key_1 = "id_1",
   unique_key_2 = "id_2", 
+  multivar_settings = build_multivar_settings(
   compare_type = c("indicator", "stringdist"),
   wgts = c(.5, .5), nthread = 1
  
-)
+))
 result
 
 ## -----------------------------------------------------------------------------
-print(result[, .(Company_1, Company_2, Company_compare)])
-print(result[, .(Country_1, Country_2, Country_compare)])
+print(result$matches[, .(Company_1, Company_2, Company_compare)])
+print(result$matches[, .(Country_1, Country_2, Country_compare)])
 
 ## -----------------------------------------------------------------------------
-print(result[, .(Company_compare, Country_compare, matchscore)])
+
+print(result$matches[, .(Company_compare, Country_compare, matchscore)])
 
 ## -----------------------------------------------------------------------------
 set.seed(111)
@@ -71,9 +74,9 @@ corp_data2_test[, Country := country]
 corp_data2_test[, Company := Name]
 set.seed(111)
 fake_result_table <- data.table::data.table(
-  match = sample(c(1, 0, 1), 1e5, replace = T),
+  match = sample(c(1, 0, 1), 1e5, replace = TRUE),
   Company_compare = runif(1e5),
-  Country_compare = sample(c(1, 0), 1e5, replace = T)
+  Country_compare = sample(c(1, 0), 1e5, replace = TRUE)
 )
 
 logit_model <- glm(match ~ Company_compare + Country_compare,
@@ -83,10 +86,12 @@ logit_model <- glm(match ~ Company_compare + Country_compare,
 
 summary(logit_model)
 
-result <- multivar_match(corp_data1_test, corp_data2_test,
+result <- merge_plus(corp_data1_test, corp_data2_test,
+                     match_type = "multivar",
+                     multivar_settings = build_multivar_settings(logit = logit_model, compare_type = c("indicator", "stringdist"),
+  wgts = NULL, nthread = 1),
   by = c("Country", "Company"), unique_key_1 = "id_1",
-  unique_key_2 = "id_2", logit = logit_model, compare_type = c("indicator", "stringdist"),
-  wgts = NULL, nthread = 1,
+  unique_key_2 = "id_2", 
   suffixes = c("_1", "_2")
 )
 result
@@ -101,16 +106,18 @@ corp_data2_test[, id_2 := seq(1, .N)]
 
 corp_data2_test[, Country := country]
 corp_data2_test[, Company := Name]
-result <- multivar_match(
+result <- merge_plus(
   data1 = corp_data1_test,
   data2 = corp_data2_test,
+  match_type = "multivar",
   by = c("Company"),
    suffixes = c("_1", "_2"),
   unique_key_1 = "id_1",
   unique_key_2 = "id_2", 
+  multivar_settings = build_multivar_settings(
   compare_type = c( "stringdist"),
   wgts = c(1), nthread = 1, blocks = "Country"
  
-)
-result
+))
+result$matches
 

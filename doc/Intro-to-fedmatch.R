@@ -81,9 +81,9 @@ multivar_linear_result$matches
 
 ## -----------------------------------------------------------------------------
 set.seed(111)
-training_table <- data.table::data.table(match = c(rep(1, 5e4), sample(c(0,1 ), 5e4, replace = T)),
+training_table <- data.table::data.table(match = c(rep(1, 5e4), sample(c(0,1 ), 5e4, replace = TRUE)),
                                 Company_compare = seq(1, 0.00001, -.00001),
-                                Country_compare = c(rep(1, 5e4), sample(c(1, 0), 5e4, replace = T)))
+                                Country_compare = c(rep(1, 5e4), sample(c(1, 0), 5e4, replace = TRUE)))
 # training_table
 logit_model <- glm(match ~ Company_compare + Country_compare, family = "binomial",
                    data = training_table)

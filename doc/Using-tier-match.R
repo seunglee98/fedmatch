@@ -17,7 +17,7 @@ tier_list <- list(
   a = build_tier(match_type = "exact"),
   b = build_tier(match_type = "fuzzy"),
   c = build_tier(match_type = "multivar", multivar_settings = build_multivar_settings(
-    logit = NULL, missing = F, wgts = 1,
+    logit = NULL, missing = FALSE, wgts = 1,
     compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
     top = 1, threshold = NULL
   ))
@@ -32,10 +32,10 @@ tier_list_v2 <- list(
            fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard",
                                  maxDist = .7,
                                  nthread = 1),
-           clean_settings = build_clean_settings(remove_words = T)),
+           clean_settings = build_clean_settings(remove_words = TRUE)),
   c = build_tier(match_type = "multivar", 
                  multivar_settings = build_multivar_settings(
-    logit = NULL, missing = F, wgts = 1,
+    logit = NULL, missing = FALSE, wgts = 1,
     compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
     top = 1, threshold = NULL
   ))
@@ -45,7 +45,7 @@ tier_list_v2 <- list(
 result <- tier_match(corp_data1, corp_data2,
   by.x = "Company", by.y = "Name",
   unique_key_1 = "unique_key_1", unique_key_2 = "unique_key_2",
-  tiers = tier_list_v2, takeout = "neither", verbose = T,
+  tiers = tier_list_v2, takeout = "neither", verbose = TRUE,
   score_settings = build_score_settings(score_var_x = "Company",
                                         score_var_y = "Name",
                                         wgts = 1,

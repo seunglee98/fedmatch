@@ -6,7 +6,7 @@
 \usage{
 build_multivar_settings(
   logit = NULL,
-  missing = F,
+  missing = FALSE,
   wgts = NULL,
   compare_type = "diff",
   blocks = NULL,
@@ -37,6 +37,9 @@ build_multivar_settings(
 \item{threshold}{numeric. Minimum score for a match to be included in the result.}
 
 \item{nthread}{integer. Number of cores to use when computing all combinations. See \code{parallel::makecluster()}}
+}
+\value{
+a list containing options for the 'multivar_settings' argument of \code{merge_plus}.
 }
 \description{
 \code{build_multivar_settings} is a convenient way to build the list for the multivar settings argument in merge_plus

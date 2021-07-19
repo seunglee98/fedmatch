@@ -13,7 +13,7 @@ multivar_match(
   unique_key_1,
   unique_key_2,
   logit = NULL,
-  missing = F,
+  missing = FALSE,
   wgts = NULL,
   compare_type = "diff",
   blocks = NULL,
@@ -62,13 +62,16 @@ multivar_match(
 
 \item{suffixes}{see \code{merge}}
 }
+\value{
+a data.table, the resultant match, including columns from both data sets.
+}
 \description{
 \code{multivar_match} computes a matchscore between each pair of observations between
 datasets x and y using several variables, then executes a merge by picking the
 highest matchscore pair for each observation in x.
 }
 \details{
-The best way to understand this function is to see the vignette XX.
+The best way to understand this function is to see the vignette 'Multivar_matching'.
 
 There are two ways of performing this match: either with or without a pre-trained logit.
 To use a logit, you must have a verified set of matches. The names of the variables

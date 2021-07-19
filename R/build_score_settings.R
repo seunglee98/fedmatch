@@ -11,7 +11,7 @@
 #' @param score_var_both the variables from both datasets (shared names) to score on, before any prefixes are applied.
 #' @param wgts numeric vector. The weights for the linear sum of scores
 #' @param score_type character vector.
-#'
+#' @return a list containing options for the 'score_settings' argument of \code{merge_plus}.
 #' @export
 
 

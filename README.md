@@ -12,19 +12,23 @@ the vignettes by running `vignette(package = "fedmatch")`.
 
 # Installation
 
+You can install ‘fedmatch’ from [CRAN](https://cran.r-project.org/) with
+
+    install.packages("fedmatch")
+
 You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("seunglee98/fedmatch", build_vignettes = T)
+devtools::install_github("seunglee98/fedmatch", build_vignettes = TRUE)
 ```
 
 Or, you can download the folder from github, either by cloning it or
 downloading it manually and unzipping it, then running:
 
 ``` r
-devtools::install("path_to_fedmatch", build_vignettes = T)
+devtools::install("path_to_fedmatch", build_vignettes = TRUE)
 ```
 
 # Citation

@@ -6,7 +6,7 @@ test_that("tier_match can handle unique keys being named unique_key_1 and unique
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
     c = list(match_type = "multivar", multivar_settings = list(
-      logit = NULL, missing = F, wgts = 1,
+      logit = NULL, missing = FALSE, wgts = 1,
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     ))
@@ -16,7 +16,7 @@ test_that("tier_match can handle unique keys being named unique_key_1 and unique
   result <- tier_match(corp_data1, corp_data2,
     by.x = "Company", by.y = "Name",
     unique_key_1 = "unique_key_1", unique_key_2 = "unique_key_2",
-    tiers = tier_list, takeout = "neither", verbose = T
+    tiers = tier_list, takeout = "neither", verbose = TRUE
   )
 
 
@@ -33,11 +33,11 @@ test_that("tier_match can handle unique keys being NOT named unique_key_1 and un
       a = list(match_type = "exact"),
       b = list(match_type = "fuzzy"),
       c = list(match_type = "multivar", multivar_settings = list(
-        logit = NULL, missing = F, wgts = c(1),
+        logit = NULL, missing = FALSE, wgts = c(1),
         compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
         top = 1, threshold = NULL
       )),
-      d = list(match_type = "exact", clean_settings = list(remove_words = T))
+      d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
     )
     corp_data1[, unique_k_1 := unique_key_1][, unique_key_1 := NULL]
     corp_data2[, unique_k_2 := unique_key_2][, unique_key_2 := NULL]
@@ -65,11 +65,11 @@ test_that("tier_match can handle by's being the same", {
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
     c = list(match_type = "multivar", multivar_settings = list(
-      logit = NULL, missing = F, wgts = c(1),
+      logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(match_type = "exact", clean_settings = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
   )
   # tier_list <- list(a = list(match_type = "exact"))
   # tier_list <- list(a = list(match_type = "fuzzy"),
@@ -105,11 +105,11 @@ test_that("tier_match can handle by's being the same with scoring", {
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
     c = list(match_type = "multivar", multivar_settings = list(
-      logit = NULL, missing = F, wgts = c(1),
+      logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(match_type = "exact", clean_settings = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
   )
   # tier_list <- list(a = list(match_type = "exact"))
   # tier_list <- list(a = list(match_type = "fuzzy"),
@@ -133,7 +133,7 @@ test_that("tier_match can handle by's being the same with scoring", {
     score_settings = score_settings
   )
   result
-  result$matches[, .(name_compare, name_score)] %>% rowSums(na.rm = T)
+  result$matches[, .(name_compare, name_score)] %>% rowSums(na.rm = TRUE)
   result$matches[tier == "b"]
 
   # result
@@ -153,12 +153,12 @@ test_that("sequential word dropping works", {
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
     c = list(match_type = "multivar", multivar_settings = list(
-      logit = NULL, missing = F, wgts = c(1),
+      logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
     d = list(
-      match_type = "exact", clean_settings = list(remove_words = T),
+      match_type = "exact", clean_settings = list(remove_words = TRUE),
       sequential_words = sequential_words_df
     )
   )
@@ -180,7 +180,7 @@ test_that("sequential word dropping works", {
     suffixes = c("_1", "_2"),
     score_settings = score_settings
   )
-  result$matches[, .(name_compare, name_score)] %>% rowSums(na.rm = T)
+  result$matches[, .(name_compare, name_score)] %>% rowSums(na.rm = TRUE)
   result$matches[tier == "b"]
   result$matches
   expect_true(is.data.table(result$matches))
@@ -192,15 +192,15 @@ test_that("sequential word dropping doesn't mess up future tiers", {
     words = c("Company"),
     replace = c("")
   )
-  # corp_data1 <- rbind(corp_data1, data.table(Company = "Ford Motor", unique_key_1 = 11), fill = T)
+  # corp_data1 <- rbind(corp_data1, data.table(Company = "Ford Motor", unique_key_1 = 11), fill = TRUE)
   corp_data1
-  corp_data2 <- rbind(corp_data2, data.table(Name = "Ford Motor Company", unique_key_2 = 11), fill = T)
+  corp_data2 <- rbind(corp_data2, data.table(Name = "Ford Motor Company", unique_key_2 = 11), fill = TRUE)
   corp_data1
   corp_data2
   tier_list <- list(
     a = list(
       match_type = "exact",
-      clean_settings = list(remove_words = T),
+      clean_settings = list(remove_words = TRUE),
       sequential_words = sequential_words_df
     ),
     b = list(match_type = "exact")
@@ -234,9 +234,9 @@ test_that("dropping observations between tiers works", {
     words = c("Company"),
     replace = c("")
   )
-  # corp_data1 <- rbind(corp_data1, data.table(Company = "Ford Motor", unique_key_1 = 11), fill = T)
+  # corp_data1 <- rbind(corp_data1, data.table(Company = "Ford Motor", unique_key_1 = 11), fill = TRUE)
   # corp_data1
-  corp_data2 <- rbind(corp_data2, data.table(Name = "Ford Motor Company", unique_key_2 = 11), fill = T)
+  corp_data2 <- rbind(corp_data2, data.table(Name = "Ford Motor Company", unique_key_2 = 11), fill = TRUE)
   # corp_data1
   # corp_data2
   tier_list <- list(

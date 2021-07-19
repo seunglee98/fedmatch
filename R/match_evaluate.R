@@ -100,15 +100,15 @@ match_evaluate <- function(matches, data1, data2, unique_key_1, unique_key_2, su
       pct_matched_2 = in_tier_unique_2 / uniqueN(data2[[unique_key_2]])
     )]
     if (!is.null(quality_vars)) {
-      quality_dt_total <- matches[, lapply(.SD, mean, na.rm = T), .SDcols = quality_vars]
+      quality_dt_total <- matches[, lapply(.SD, mean, na.rm = TRUE), .SDcols = quality_vars]
       quality_dt_total[, tier := "all"]
       match_evaluation_total <- merge(match_evaluation_total, quality_dt_total, by = tier)
     }
-    match_evaluation <- rbind(match_evaluation, match_evaluation_total, fill = T)
+    match_evaluation <- rbind(match_evaluation, match_evaluation_total, fill = TRUE)
     match_evaluation <- unique(match_evaluation)
   }
   if (!is.null(quality_vars)) {
-    quality_dt <- matches[, lapply(.SD, mean, na.rm = T), by = list(tier), .SDcols = quality_vars]
+    quality_dt <- matches[, lapply(.SD, mean, na.rm = TRUE), by = list(tier), .SDcols = quality_vars]
     match_evaluation <- merge(match_evaluation, quality_dt, by = "tier")
   }
 

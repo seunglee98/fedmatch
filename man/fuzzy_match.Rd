@@ -36,6 +36,9 @@ fuzzy_match(
 
 \item{fuzzy_settings}{list of arguments to pass to to the fuzzy matching function. See \code{amatch}.}
 }
+\value{
+a data.table, the resultant merged data set, including all columns from both data sets.
+}
 \description{
 Use the \code{stringdist} package to perform a fuzzy match on two datasets.
 }

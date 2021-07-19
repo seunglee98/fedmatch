@@ -43,13 +43,13 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
                        check_merge = TRUE, unique_key_1, unique_key_2,
                        tiers = list(), takeout = "both",
                        match_type = "exact",
-                       clean = F, clean_settings = build_clean_settings(),
+                       clean = FALSE, clean_settings = build_clean_settings(),
                        score_settings = NULL, filter = NULL, filter.args = list(),
                        evaluate = match_evaluate, evaluate.args = list(),
-                       allow.cartesian = T,
+                       allow.cartesian = TRUE,
                        fuzzy_settings = build_fuzzy_settings(),
                        multivar_settings = build_multivar_settings(),
-                       verbose = F) {
+                       verbose = FALSE) {
   # create make sure data are data.tables
   data1 <- data.table(data1)
   data2 <- data.table(data2)
@@ -95,7 +95,7 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
   data1_keys_remove <- NULL
   data2_keys_remove <- NULL
   for (tier_name in names(tiers)) {
-    if (verbose == T) {
+    if (verbose == TRUE) {
       message("Matching tier '", tier_name, "'...")
       start_time <- Sys.time()
     }
@@ -143,7 +143,7 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
     }
     # clean the by's
 
-    if (clean == T & length(tier_settings[["by.x"]]) == 1) {
+    if (clean == TRUE & length(tier_settings[["by.x"]]) == 1) {
       data1[[tier_settings[["by.x"]]]] <- do.call(clean_strings, c(list(string = data1[[tier_settings[["by.x"]]]]), tier_settings[["clean_settings"]]))
       data2[[tier_settings[["by.y"]]]] <- do.call(clean_strings, c(list(string = data2[[tier_settings[["by.y"]]]]), tier_settings[["clean_settings"]]))
     }
@@ -187,7 +187,7 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
       if (is.null(matches)) {
         matches <- copy(newmatches)
       } else {
-        matches <- rbind(matches, newmatches, fill = T)
+        matches <- rbind(matches, newmatches, fill = TRUE)
       }
       if (takeout %in% c("data2", "both")) {
         if (is.null(data2_keys_remove)) {
@@ -212,7 +212,7 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
         }
       }
     }
-    if (verbose == T) {
+    if (verbose == TRUE) {
       end_time <- Sys.time()
       diff <- end_time - start_time
       diff_num <- as.numeric(diff) %>% round(2)

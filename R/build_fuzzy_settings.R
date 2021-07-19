@@ -6,7 +6,8 @@
 #' @param p numeric vector of length 1. See stringdist::amatch()
 #' @param maxDist numeric vector of length 1. See stringdist::amatch()
 #' @param nthread number of threads to use in the underlying C code.
-#' @param matchNA whether or not to match on NAs, see stringdist::amatch()
+#' @param matchNA whether or not to match on NAs, see \code{stringdist::amatch()}
+#' @return a list containing options for the 'fuzzy_settings' argument of \code{merge_plus}.
 #' @export
 
 

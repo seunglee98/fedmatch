@@ -31,7 +31,7 @@
 #' @param evaluate Function to evalute merge_plus output.
 #' @param evaluate.args ist. Arguments passed to evaluate
 #' @param allow.cartesian whether or not to allow many-many matches, see data.table::merge()
-#'
+#' @return a list containing 1 tier for the 'tier_list' argument of \code{tier_match}.
 #' @export
 
 build_tier <- function(by.x = NULL,
@@ -46,7 +46,7 @@ build_tier <- function(by.x = NULL,
                        evaluate.args = NULL,
                        clean_settings = NULL,
                        clean = NULL,
-                       allow.cartesian = F,
+                       allow.cartesian = FALSE,
                        multivar_settings = build_multivar_settings()) {
   final_list <- list(
     by.x = by.x,

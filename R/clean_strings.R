@@ -44,7 +44,7 @@ clean_strings <- function(string,
     if (class(common_words)[1] != "data.table") {
       common_words <- data.table::data.table(common_words)
       if (ncol(common_words) == 1) {
-        if (remove_words == F) {
+        if (remove_words == FALSE) {
           stop("Error: must supply words to replace if remove_words = F")
         } else if (remove_words == TRUE) {
           common_words[, replacement := ""]

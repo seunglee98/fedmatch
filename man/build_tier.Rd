@@ -17,7 +17,7 @@ build_tier(
   evaluate.args = NULL,
   clean_settings = NULL,
   clean = NULL,
-  allow.cartesian = F,
+  allow.cartesian = FALSE,
   multivar_settings = build_multivar_settings()
 )
 }
@@ -61,6 +61,9 @@ to filter.}
 
 \item{by}{character string. Variables to merge on (common across data 1 and
 data 2). See \code{merge}}
+}
+\value{
+a list containing 1 tier for the 'tier_list' argument of \code{tier_match}.
 }
 \description{
 \code{build_tier_settings} is a convenient way to make the proper list for the

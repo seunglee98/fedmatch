@@ -4,7 +4,7 @@
 #' datasets x and y using several variables, then executes a merge by picking the
 #' highest matchscore pair for each observation in x.
 #'
-#' The best way to understand this function is to see the vignette XX.
+#' The best way to understand this function is to see the vignette 'Multivar_matching'.
 #'
 #' There are two ways of performing this match: either with or without a pre-trained logit.
 #' To use a logit, you must have a verified set of matches. The names of the variables
@@ -32,11 +32,11 @@
 #' @param top integer. Number of matches to return for each observation.
 #' @param threshold numeric. Minimum score for a match to be included in the result.
 #' @param nthread integer. Number of cores to use when computing all combinations. See \code{parallel::makecluster()}
-#' @export
+#' @return a data.table, the resultant match, including columns from both data sets.
 multivar_match <- function(data1, data2,
                            by = NULL, by.x = NULL, by.y = NULL,
                            unique_key_1, unique_key_2,
-                           logit = NULL, missing = F, wgts = NULL, compare_type = "diff",
+                           logit = NULL, missing = FALSE, wgts = NULL, compare_type = "diff",
                            blocks = NULL, blocks.x = NULL, blocks.y = NULL,
                            nthread = 1,
                            top = 1, threshold = NULL, suffixes = c("_1", "_2")) {
@@ -178,7 +178,7 @@ multivar_match <- function(data1, data2,
     )
   }
 
-  matchscore_df <- rbindlist(matchscore_list, use.names = T)
+  matchscore_df <- rbindlist(matchscore_list, use.names = TRUE)
 
   #----------------------------------
   # Return the matchscore data.table

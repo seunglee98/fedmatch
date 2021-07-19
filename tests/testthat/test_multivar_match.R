@@ -9,9 +9,9 @@ testthat::test_that("multivar works at all with multiple variables", {
   corp_data2_test[, Company := Name]
   set.seed(111)
   fake_result_table <- data.table(
-    match = sample(c(1, 0, 1), 1e5, replace = T),
+    match = sample(c(1, 0, 1), 1e5, replace = TRUE),
     Company_compare = runif(1e5),
-    Country_compare = sample(c(1, 0), 1e5, replace = T)
+    Country_compare = sample(c(1, 0), 1e5, replace = TRUE)
   )
 
   logit_model <- glm(match ~ Company_compare + Country_compare,
@@ -41,9 +41,9 @@ testthat::test_that("multivar works as part of a tier match", {
   corp_data2_test[, Company := Name]
   set.seed(111)
   fake_result_table <- data.table(
-    match = sample(c(1, 0, 1), 1e5, replace = T),
+    match = sample(c(1, 0, 1), 1e5, replace = TRUE),
     Company_compare = runif(1e5),
-    Country_compare = sample(c(1, 0), 1e5, replace = T)
+    Country_compare = sample(c(1, 0), 1e5, replace = TRUE)
   )
 
   logit_model <- glm(match ~ Company_compare + Country_compare,
@@ -59,12 +59,12 @@ testthat::test_that("multivar works as part of a tier match", {
       by.x = c("Company", "Country"),
       by.y = c("Company", "Country"),
       multivar_settings = list(
-        logit = logit_model, missing = F,
+        logit = logit_model, missing = FALSE,
         compare_type = c("stringdist", "indicator"), blocks = NULL, blocks.x = NULL, blocks.y = NULL,
         top = 1, threshold = NULL
       )
     ),
-    d = list(match_type = "exact", clean_settings = list(remove_words = T))
+    d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
   )
   # tier_list[["c"]][["by.y"]]
   corp_data1

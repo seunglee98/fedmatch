@@ -19,9 +19,12 @@ build_fuzzy_settings(
 
 \item{maxDist}{numeric vector of length 1. See stringdist::amatch()}
 
-\item{matchNA}{whether or not to match on NAs, see stringdist::amatch()}
+\item{matchNA}{whether or not to match on NAs, see \code{stringdist::amatch()}}
 
 \item{nthread}{number of threads to use in the underlying C code.}
+}
+\value{
+a list containing options for the 'fuzzy_settings' argument of \code{merge_plus}.
 }
 \description{
 \code{build_fuzzy_settings} is a convenient way to build the list for the fuzzy settings argument in merge_plus

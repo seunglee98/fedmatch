@@ -19,6 +19,7 @@
 #' @param unique_key_1 character vector. Primary key of data1 that uniquely identifies each row (can be multiple fields)
 #' @param unique_key_2 character vector. Primary key of data2 that uniquely identifies each row (can be multiple fields)
 #' @param fuzzy_settings list of arguments to pass to to the fuzzy matching function. See \code{amatch}.
+#' @return a data.table, the resultant merged data set, including all columns from both data sets.
 #' @import data.table
 
 fuzzy_match <- function(data1,

@@ -9,7 +9,6 @@
 #' @param remove_words logical. If TRUE, removes all abbreviations and replacement words in common_words
 #' @param stem logical. If TRUE, words are stemmed
 #' @return list with settings to pass to \code{clean_strings}
-#'
 #' @export
 
 build_clean_settings <- function(
