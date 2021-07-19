@@ -259,7 +259,7 @@ test_that("dropping observations between tiers works", {
   result <- tier_match(corp_data1, corp_data2,
     by.x = "name", by.y = "name",
     unique_key_1 = "unique_k_1", unique_key_2 = "unique_k_2",
-    tiers = tier_list, takeout = "data2",
+    tiers = tier_list, takeout = "both",
     suffixes = c("_1", "_2"),
     score_settings = score_settings, verbose = T
   )
