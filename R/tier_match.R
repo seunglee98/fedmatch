@@ -143,7 +143,7 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
     }
     # clean the by's
 
-    if (clean == TRUE & length(tier_settings[["by.x"]]) == 1) {
+    if (tier_settings[["clean"]] == TRUE & length(tier_settings[["by.x"]]) == 1) {
       data1[[tier_settings[["by.x"]]]] <- do.call(clean_strings, c(list(string = data1[[tier_settings[["by.x"]]]]), tier_settings[["clean_settings"]]))
       data2[[tier_settings[["by.y"]]]] <- do.call(clean_strings, c(list(string = data2[[tier_settings[["by.y"]]]]), tier_settings[["clean_settings"]]))
     }
