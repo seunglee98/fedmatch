@@ -27,8 +27,8 @@ tier_list <- list(
 
 ## -----------------------------------------------------------------------------
 tier_list_v2 <- list(
-  a = build_tier(match_type = "exact", clean = clean_strings),
-  b = build_tier(match_type = "fuzzy", clean = clean_strings,
+  a = build_tier(match_type = "exact", clean = TRUE),
+  b = build_tier(match_type = "fuzzy", clean = TRUE,
            fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard",
                                  maxDist = .7,
                                  nthread = 1),

@@ -15,7 +15,7 @@ build_tier(
   filter.args = NULL,
   evaluate = NULL,
   evaluate.args = NULL,
-  clean_settings = NULL,
+  clean_settings = build_clean_settings(),
   clean = NULL,
   allow.cartesian = FALSE,
   multivar_settings = build_multivar_settings()
@@ -58,9 +58,6 @@ to filter.}
 
 \item{multivar_settings}{list of settings to go to the multivar match if match_type
 == 'multivar'. See \code{multivar-match}.}
-
-\item{by}{character string. Variables to merge on (common across data 1 and
-data 2). See \code{merge}}
 }
 \value{
 a list containing 1 tier for the 'tier_list' argument of \code{tier_match}.

@@ -5,9 +5,6 @@
 #' should be the same length, and each position (first, second, third, etc.)
 #' corresponds to one variable to score on.
 #'
-#
-#' @param by character string. Variables to merge on (common across data 1 and
-#'   data 2). See \code{merge}
 #' @param by.x character string. Variable to merge on in data1. See \code{merge}
 #' @param by.y character string. Variable to merge on in data2. See \code{merge}
 #' @param check_merge logical. Checks that your unique_keys are indeed unique.

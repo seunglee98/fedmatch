@@ -61,27 +61,31 @@ testthat::test_that("weighted jaccard match works", {
   corp_data1_test[, id_1 := seq(1, .N)]
   corp_data2_test[, id_2 := seq(1, .N)]
   setnames(corp_data2_test, "Name", "Company")
-  result <- fuzzy_match(
+  result <- merge_plus(
     data1 = corp_data1_test,
     data2 = corp_data2_test, by = "Company",
+    match_type = "fuzzy",
     unique_key_1 = "id_1", unique_key_2 = "id_2",
     suffixes = c("_1", "_2"),
-    fuzzy_settings = list(
+    fuzzy_settings = build_fuzzy_settings(
       method = "wgt_jaccard", p = 0.1, maxDist = 0.5,
       matchNA = FALSE, nthread = 2
     )
   )
-  expect_true(is.data.table(result))
+  expect_true(is.data.table(result$matches))
 })
 testthat::test_that("fuzzy matching works with builder", {
   corp_data1_test <- data.table(fedmatch::corp_data1)
   corp_data2_test <- data.table(fedmatch::corp_data2)
+  # corp_data1_test <- corp_data1_test[sample(1:.N, 1e7, replace = T)]
   corp_data1_test[, id_1 := seq(1, .N)]
   corp_data2_test[, id_2 := seq(1, .N)]
   setnames(corp_data2_test, "Name", "Company")
-  fuzzy_settings <- build_fuzzy_settings(method = "wgt_jaccard")
+  fuzzy_settings <- build_fuzzy_settings(method = "wgt_jaccard",
+                                         nthread = 2)
   result <- merge_plus(
     data1 = corp_data1_test,
+    match_type = "fuzzy",
     data2 = corp_data2_test, by = "Company",
     unique_key_1 = "id_1", unique_key_2 = "id_2",
     suffixes = c("_1", "_2"),

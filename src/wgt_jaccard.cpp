@@ -88,7 +88,10 @@ Rcpp::List wgt_jaccard(
 
 //    Rcpp::Rcout << "\n\n        nthreads: " << nthreads << "\n";
     const bool DEBUG = false;
-    omp_set_num_threads(nthreads);
+
+    #ifdef _OPENMP
+        omp_set_num_threads(nthreads);
+    #endif
 
     using tokenizer = boost::tokenizer<boost::char_separator<char> >;
     const boost::char_separator<char> sep(" ");
