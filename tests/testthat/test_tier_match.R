@@ -105,7 +105,6 @@ test_that("tier_match can handle by's being the same with scoring", {
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
     c = list(match_type = "multivar", multivar_settings = build_multivar_settings(
-
       logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL

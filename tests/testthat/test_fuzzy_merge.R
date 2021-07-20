@@ -81,8 +81,10 @@ testthat::test_that("fuzzy matching works with builder", {
   corp_data1_test[, id_1 := seq(1, .N)]
   corp_data2_test[, id_2 := seq(1, .N)]
   setnames(corp_data2_test, "Name", "Company")
-  fuzzy_settings <- build_fuzzy_settings(method = "wgt_jaccard",
-                                         nthread = 2)
+  fuzzy_settings <- build_fuzzy_settings(
+    method = "wgt_jaccard",
+    nthread = 2
+  )
   result <- merge_plus(
     data1 = corp_data1_test,
     match_type = "fuzzy",

@@ -11,11 +11,10 @@
 #' @return list with settings to pass to \code{clean_strings}
 #' @export
 
-build_clean_settings <- function(
-                          sp_char_words = fedmatch::sp_char_words,
-                          common_words = NULL,
-                          remove_char = NULL, remove_words = FALSE,
-                          stem = FALSE) {
+build_clean_settings <- function(sp_char_words = fedmatch::sp_char_words,
+                                 common_words = NULL,
+                                 remove_char = NULL, remove_words = FALSE,
+                                 stem = FALSE) {
   final_list <- list(
     sp_char_words = sp_char_words,
     common_words = common_words,
