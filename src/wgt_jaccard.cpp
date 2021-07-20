@@ -1,4 +1,9 @@
 
+
+
+// [[Rcpp::depends(BH)]]
+// [[Rcpp::plugins(openmp)]]
+
 #include <Rcpp.h>
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
@@ -8,8 +13,6 @@
 #include <omp.h>
 #include <vector>
 
-// [[Rcpp::depends(BH)]]
-// [[Rcpp::plugins(openmp)]]
 
 std::vector<std::string> vec_intersect(const std::vector<std::string> &v1,
                                        const std::vector<std::string> &v2){
