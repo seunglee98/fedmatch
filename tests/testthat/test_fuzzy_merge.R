@@ -95,3 +95,20 @@ testthat::test_that("fuzzy matching works with builder", {
   )
   expect_true(is.data.table(result$matches))
 })
+testthat::test_that("fuzzy matching works with unique key names", {
+  corp_data1_test <- data.table(fedmatch::corp_data1)
+  corp_data2_test <- data.table(fedmatch::corp_data2)
+  # corp_data1_test <- corp_data1_test[sample(1:.N, 1e7, replace = T)]
+  corp_data1_test[, unique_key_1 := seq(1, .N)]
+  corp_data2_test[, unique_key_2 := seq(1, .N)]
+  setnames(corp_data2_test, "Name", "Company")
+
+  result <- fedmatch::merge_plus(
+    data1 = corp_data1_test,
+    match_type = "fuzzy",
+    data2 = corp_data2_test, by.x = "Company", by.y = "Company",
+    unique_key_1 = "unique_key_1", unique_key_2 = "unique_key_2",
+    suffixes = c("_1", "_2")
+  )
+  expect_true(is.data.table(result$matches))
+})
