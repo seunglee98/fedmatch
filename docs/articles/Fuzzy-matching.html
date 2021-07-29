@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9200</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9</span>
       </span>
     </div>
 
@@ -167,16 +167,6 @@
 <li>matchNA, default <code>FALSE</code>, is a boolean to determine whether to count NAs as a match (see <code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html">stringdist::amatch</a></code> for details.)</li>
 <li>nthread, number of threads to use in the underlying C code. If using any method besides “wgt_jaccard”, uses `stringdist::amatch’ to parallelize. If using “wgt_jaccard”, instead uses built in C++ code to parallelize.</li>
 </ul>
-<div id="an-important-technical-note" class="section level3">
-<h3 class="hasAnchor">
-<a href="#an-important-technical-note" class="anchor"></a>An important technical note</h3>
-<p>To get the Weighted Jaccard method to run quickly, you need to ensure that R is configured to use multiple threads in conjunction with C++. On linux, this can be done by making a file called ‘Makevars’ (no file extension) in ~/.R/ , with the following two lines of text:</p>
-<ul>
-<li>PKG_CXXFLAGS = “-fopenmp”</li>
-<li>PKG_LIBS = “-fopenmp”</li>
-</ul>
-<p>These flags ensure that your C++ is set up to use the OpenMP libraries required to use multiple threads (I think - I am not actually an expert here. Lots of Googling is your friend.) On Windows, the process may be more difficult. See the <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Customizing-package-compilation">here</a> and <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#OpenMP-support">here</a> for more documentation. If, for some reason, you can’t get this to work, rest assured that the Weighted Jaccard match will still run just fine, it just may take a long time for large data sets.</p>
-</div>
 </div>
 <div id="an-example---weighted-jaccard-match" class="section level2">
 <h2 class="hasAnchor">
