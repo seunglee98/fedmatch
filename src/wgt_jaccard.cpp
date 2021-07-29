@@ -5,7 +5,9 @@
 #include <algorithm>
 #include <string>
 #include <unordered_map>
-#include <omp.h>
+#ifdef _OPENMP
+  #include <omp.h>
+#endif
 #include <vector>
 
 // [[Rcpp::depends(BH)]]
@@ -107,7 +109,8 @@ Rcpp::List wgt_jaccard(
 
     #pragma omp parallel for schedule(dynamic)
     for(int i=0; i < y.size(); i++){
-        tokenizer tokens(y(i), sep);
+        std::string s{y(i)};
+        tokenizer tokens(s, sep);
         // create vector to store words
         auto y_token_vector = std::vector<std::string>(tokens.begin(), tokens.end());
         std::sort(y_token_vector.begin(), y_token_vector.end());
@@ -128,7 +131,8 @@ Rcpp::List wgt_jaccard(
         }
 
         // split the company name
-        tokenizer tokens(x(i), sep);
+        std::string s{x(i)};
+        tokenizer tokens(s, sep);
         // create vector to store words
         auto x_tok_vec = std::vector<std::string>(tokens.begin(), tokens.end());
         std::sort(x_tok_vec.begin(), x_tok_vec.end());
