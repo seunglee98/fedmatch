@@ -5,7 +5,9 @@
 #include <algorithm>
 #include <string>
 #include <unordered_map>
-#include <omp.h>
+#ifdef _OPENMP
+  #include <omp.h>
+#endif
 #include <vector>
 
 // [[Rcpp::depends(BH)]]
