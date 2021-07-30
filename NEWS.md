@@ -1,3 +1,7 @@
+# fedmatch 2.0.2
+
+- Fixed bugs in Weighted Jaccard code to run on MacOS environments
+
 # fedmatch 2.0.1
 
 - Fixed bugs in Makevars so that C++ code runs in parallel

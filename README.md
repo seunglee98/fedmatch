@@ -3,6 +3,12 @@
 
 # fedmatch
 
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/fedmatch)](https://CRAN.R-project.org/package=fedmatch)
+<!-- badges: end -->
+
 The goal of fedmatch is to match un-linked datasets. It provides a
 variety of tools that allow a user to build a custom matching algorithm
 for their specific application. To get started, see the “Introduction to
