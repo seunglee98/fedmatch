@@ -7,6 +7,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/fedmatch)](https://CRAN.R-project.org/package=fedmatch)
+[![R-CMD-check](https://github.com/seunglee98/fedmatch/workflows/R-CMD-check/badge.svg)](https://github.com/seunglee98/fedmatch/actions)
 <!-- badges: end -->
 
 The goal of fedmatch is to match un-linked datasets. It provides a
