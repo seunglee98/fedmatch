@@ -17,6 +17,9 @@ Fedmatch” vignette by installing fedmatch and running
 `vignette("Intro-to-fedmatch")`. For more advanced uses, see the rest of
 the vignettes by running `vignette(package = "fedmatch")`.
 
+You can view all the vignettes, and the rest of the documentation, on
+the [fedmatch website](https://seunglee98.github.io/fedmatch/).
+
 # Installation
 
 You can install ‘fedmatch’ from [CRAN](https://cran.r-project.org/) with
