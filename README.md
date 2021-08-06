@@ -12,10 +12,9 @@ status](https://www.r-pkg.org/badges/version/fedmatch)](https://CRAN.R-project.o
 
 The goal of fedmatch is to match un-linked datasets. It provides a
 variety of tools that allow a user to build a custom matching algorithm
-for their specific application. To get started, see the “Introduction to
-Fedmatch” vignette by installing fedmatch and running
-`vignette("Intro-to-fedmatch")`. For more advanced uses, see the rest of
-the vignettes by running `vignette(package = "fedmatch")`.
+for their specific application. To get started, see the [Introduction to
+fedmatch
+vignette](https://seunglee98.github.io/fedmatch/articles/Intro-to-fedmatch.html).
 
 You can view all the vignettes, and the rest of the documentation, on
 the [fedmatch website](https://seunglee98.github.io/fedmatch/).
