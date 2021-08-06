@@ -32,20 +32,19 @@ the [fedmatch website](https://seunglee98.github.io/fedmatch/).
     algorithms
 -   A system for evaluating matches post-hoc
 
-<!-- -->
+# Installation
 
+You can install ‘fedmatch’ from [CRAN](https://cran.r-project.org/) with
 
-    # Installation
-    You can install 'fedmatch' from [CRAN](https://cran.r-project.org/) with
+    install.packages("fedmatch")
 
-install.packages(“fedmatch”)
+You can install the development version from
+[GitHub](https://github.com/) with:
 
-
-    You can install the development version from [GitHub](https://github.com/) with:
-
-    ``` r
-    install.packages("devtools")
-    devtools::install_github("seunglee98/fedmatch", build_vignettes = TRUE)
+``` r
+install.packages("devtools")
+devtools::install_github("seunglee98/fedmatch", build_vignettes = TRUE)
+```
 
 Or, you can download the folder from github, either by cloning it or
 downloading it manually and unzipping it, then running:
