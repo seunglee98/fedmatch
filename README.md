@@ -20,19 +20,32 @@ the vignettes by running `vignette(package = "fedmatch")`.
 You can view all the vignettes, and the rest of the documentation, on
 the [fedmatch website](https://seunglee98.github.io/fedmatch/).
 
-# Installation
+## Features
 
-You can install ‘fedmatch’ from [CRAN](https://cran.r-project.org/) with
+-   String cleaning tools
+-   Fuzzy matching with standard string distance metrics from the
+    package `stringdist`
+-   A new fuzzy matching method which we call a *Weighted Jaccard*
+    metric
+-   Numeric matching using a trained logit model
+-   A system to sequentially execute many different types of match
+    algorithms
+-   A system for evaluating matches post-hoc
 
-    install.packages("fedmatch")
+<!-- -->
 
-You can install the development version from
-[GitHub](https://github.com/) with:
 
-``` r
-install.packages("devtools")
-devtools::install_github("seunglee98/fedmatch", build_vignettes = TRUE)
-```
+    # Installation
+    You can install 'fedmatch' from [CRAN](https://cran.r-project.org/) with
+
+install.packages(“fedmatch”)
+
+
+    You can install the development version from [GitHub](https://github.com/) with:
+
+    ``` r
+    install.packages("devtools")
+    devtools::install_github("seunglee98/fedmatch", build_vignettes = TRUE)
 
 Or, you can download the folder from github, either by cloning it or
 downloading it manually and unzipping it, then running:
@@ -49,9 +62,7 @@ LICENSE.md file for details.
 If you use this package for your research, please cite the technical
 paper:
 
-Cohen, Gregory J., Melanie Friedrichs, Kamran Gupta, William Hayes,
-Seung Jung Lee, W. Blake Marsh, Nathan Mislang, Maya Shaton, and Martin
-Sicilian (2018). “The U.S. Syndicated Loan Market: Matching Data,”
-Finance and Economics Discussion Series 2018-085. Washington: Board of
-Governors of the Federal Reserve System,
-<https://doi.org/10.17016/FEDS.2018.085>.
+Gregory J. Cohen, Jacob Dice, Melanie Friedrichs, Kamran Gupta, William
+Hayes, Isabel Kitschelt, Seung Jung Lee, W. Blake Marsh, Nathan Mislang,
+Maya Shaton, Martin Sicilian, Chris Webster. “The U.S. Syndicated Loan
+Market: Matching Data.” Journal of Financial Research, forthcoming.
