@@ -23,7 +23,7 @@
 "fund_words"
 
 #' State_FIPS
-#' @description State FIPS codes
+#' @description Data.table with state FIPS codes and abbreviations.
 "State_FIPS"
 
 #' World_Bank_Codes
