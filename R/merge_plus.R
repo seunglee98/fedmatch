@@ -53,11 +53,12 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
                        score_settings = NULL, filter = NULL, filter.args = list(),
                        evaluate = match_evaluate, evaluate.args = list(), allow.cartesian = FALSE,
                        multivar_settings = build_multivar_settings()) {
-  # this is to prevent changes to the data outside of this function
-  # see ?setnames for why this is necessary
   data1 <- data.table(data1)
   data2 <- data.table(data2)
-  # checks
+  # argument checks
+  if (length(unique_key_1) > 1 | length(unique_key_2) > 1 | !is.character(unique_key_1) | !is.character(unique_key_2)) {
+    stop("Unique key must be a length-1 character vector")
+  }
   if (unique_key_1 == unique_key_2) {
     stop("Unique keys must be different names.")
   }
@@ -72,7 +73,6 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
     by.x <- by
     by.y <- by
   }
-  ## checking merge
 
   ### checking that unique_keys are indeed unique
 

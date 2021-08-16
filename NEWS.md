@@ -1,3 +1,7 @@
+# fedmatch 2.0.3
+
+- Fixed STATE_FIPS to actually include FIPS codes
+
 # fedmatch 2.0.2
 
 - Fixed bugs in Weighted Jaccard code to run on MacOS environments
