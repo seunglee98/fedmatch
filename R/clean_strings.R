@@ -39,7 +39,7 @@ clean_strings <- function(string,
 
   ## if remove_words is TRUE, set replacement for common words to '' instead of using replacement word
   if (!is.null(common_words)) {
-
+    common_words <- copy(common_words)
     ## convert to data.table
     if (class(common_words)[1] != "data.table") {
       common_words <- data.table::data.table(common_words)
