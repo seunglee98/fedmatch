@@ -90,35 +90,35 @@ compare_row <- function(row_x, data2,
   } ## end missing variable loop
 
   #-------------------------
-  # generate the matchscore
+  # generate the multivar_score
   #-------------------------
-  matchscore <- NULL # due to NSE notes in R CMD check
+  multivar_score <- NULL # due to NSE notes in R CMD check
   if (!is.null(wgts)) {
-    df_c[, matchscore := as.matrix(df_c[, variables_to_compare, with = F]) %*% as.matrix(wgts)]
+    df_c[, multivar_score := as.matrix(df_c[, variables_to_compare, with = F]) %*% as.matrix(wgts)]
   } else if (!is.null(logit) & any(class(logit) %in% c("glm", "lm"))) {
-    df_c[, matchscore := stats::predict(logit, df_c, type = "response")]
+    df_c[, multivar_score := stats::predict(logit, df_c, type = "response")]
   } else {
-    stop("multivar_match requires either a vector of weights or a logit model to compute matchscore.")
+    stop("multivar_match requires either a vector of weights or a logit model to compute multivar_score.")
   }
   # print(variables_to_compare)
   #---------------------------
   # Keep obs within threshold
   #---------------------------
   if (!is.null(threshold)) {
-    df_c <- df_c[which(matchscore >= threshold)]
+    df_c <- df_c[which(multivar_score >= threshold)]
   }
 
   #-----------------------------------------
-  # Keep the top N matchscores as requested
+  # Keep the top N multivar_scores as requested
   # (How do we break ties?)
   #---------------------------------
 
   if (!is.null(top)) {
-    df_c <- df_c[order(-matchscore), utils::head(.SD, top), by = unique_key_1]
+    df_c <- df_c[order(-multivar_score), utils::head(.SD, top), by = unique_key_1]
   }
 
   #-----------------------
-  # return the matchscore
+  # return the multivar_score
   #-----------------------
   if (by.x[1] != by.y[1]) {
     df_c <- copy(df_c)

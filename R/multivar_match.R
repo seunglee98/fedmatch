@@ -1,8 +1,8 @@
-#' Matching by computing matchscores based on several variables
+#' Matching by computing multivar_scores based on several variables
 #'
-#' \code{multivar_match} computes a matchscore between each pair of observations between
+#' \code{multivar_match} computes a multivar_score between each pair of observations between
 #' datasets x and y using several variables, then executes a merge by picking the
-#' highest matchscore pair for each observation in x.
+#' highest multivar_score pair for each observation in x.
 #'
 #' The best way to understand this function is to see the vignette 'Multivar_matching'.
 #'
@@ -24,9 +24,9 @@
 #' @param unique_key_2 character vector. Primary key of data2 that uniquely identifies each row (can be multiple fields)
 #' @param logit a glm or lm model as a result from a logit regression on a verified dataset. See details.
 #' @param missing boolean T/F, whether or not to treat missing (NA) observations as its own binary column for each column in by. See details.
-#' @param wgts rather than a lm model, you can supply weights to calculate matchscore. Can be weights from \code{calculate_weights}.
+#' @param wgts rather than a lm model, you can supply weights to calculate multivar_score. Can be weights from \code{calculate_weights}.
 #' @param compare_type a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", and "stringdist". See X for details.
-#' @param blocks variable present in both data sets to "block" on before computing scores. Matchscores will only be computed for observations that share a block. See details.
+#' @param blocks variable present in both data sets to "block" on before computing scores. multivar_scores will only be computed for observations that share a block. See details.
 #' @param blocks.x name of blocking variables in x. cannot supply both blocks and blocks.x
 #' @param blocks.y name of blocking variables in y. cannot supply both blocks and blocks.y
 #' @param top integer. Number of matches to return for each observation.
@@ -145,7 +145,7 @@ multivar_match <- function(data1, data2,
     logit_stripped <- NULL
   }
   #-----------------------
-  # Calculate matchscores
+  # Calculate multivar_scores
   #-----------------------
   # generate a list that holds each 1-row data.table to iterate over
   get_row <- function(i, dt) {
@@ -155,7 +155,7 @@ multivar_match <- function(data1, data2,
   data1_row_list <- purrr::map(1:nrow(data1), get_row, dt = data1)
   if (nthread > 1) {
     cl <- parallel::makeCluster(nthread)
-    matchscore_list <- parallel::parLapply(
+    multivar_score_list <- parallel::parLapply(
       cl = cl,
       X = data1_row_list,
       fun = compare_row,
@@ -167,7 +167,7 @@ multivar_match <- function(data1, data2,
     )
     parallel::stopCluster(cl)
   } else if (nthread == 1) {
-    matchscore_list <- lapply(
+    multivar_score_list <- lapply(
       X = data1_row_list,
       FUN = compare_row,
       data2 = copy(data2),
@@ -178,11 +178,11 @@ multivar_match <- function(data1, data2,
     )
   }
 
-  matchscore_df <- rbindlist(matchscore_list, use.names = TRUE)
+  multivar_score_df <- rbindlist(multivar_score_list, use.names = TRUE)
 
   #----------------------------------
-  # Return the matchscore data.table
+  # Return the multivar_score data.table
   #----------------------------------
 
-  return(matchscore_df)
+  return(multivar_score_df)
 }
