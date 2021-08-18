@@ -2,7 +2,7 @@
 % Please edit documentation in R/multivar_match.R
 \name{multivar_match}
 \alias{multivar_match}
-\title{Matching by computing matchscores based on several variables}
+\title{Matching by computing multivar_scores based on several variables}
 \usage{
 multivar_match(
   data1,
@@ -44,11 +44,11 @@ multivar_match(
 
 \item{missing}{boolean T/F, whether or not to treat missing (NA) observations as its own binary column for each column in by. See details.}
 
-\item{wgts}{rather than a lm model, you can supply weights to calculate matchscore. Can be weights from \code{calculate_weights}.}
+\item{wgts}{rather than a lm model, you can supply weights to calculate multivar_score. Can be weights from \code{calculate_weights}.}
 
 \item{compare_type}{a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", and "stringdist". See X for details.}
 
-\item{blocks}{variable present in both data sets to "block" on before computing scores. Matchscores will only be computed for observations that share a block. See details.}
+\item{blocks}{variable present in both data sets to "block" on before computing scores. multivar_scores will only be computed for observations that share a block. See details.}
 
 \item{blocks.x}{name of blocking variables in x. cannot supply both blocks and blocks.x}
 
@@ -66,9 +66,9 @@ multivar_match(
 a data.table, the resultant match, including columns from both data sets.
 }
 \description{
-\code{multivar_match} computes a matchscore between each pair of observations between
+\code{multivar_match} computes a multivar_score between each pair of observations between
 datasets x and y using several variables, then executes a merge by picking the
-highest matchscore pair for each observation in x.
+highest multivar_score pair for each observation in x.
 }
 \details{
 The best way to understand this function is to see the vignette 'Multivar_matching'.

@@ -1,6 +1,7 @@
-# fedmatch 2.0.3
+# fedmatch 2.1.0
 
 - Fixed STATE_FIPS to actually include FIPS codes
+- Changed the output column from 'multivar' matching to be called 'multivar_score' rather than 'matchscore', so as not to conflict with score_settings in `merge_plus`
 
 # fedmatch 2.0.2
 

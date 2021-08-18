@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
 
       
 
-      </header><script src="Intro-to-fedmatch_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="Intro-to-fedmatch_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to fedmatch</h1>
@@ -340,17 +340,17 @@
 <span class="co">#&gt;  8:             AT &amp; T       USA         TN     4000  160,000            9</span>
 <span class="co">#&gt;  9:         Ford Motor       USA         MI     2222  150,000           10</span>
 <span class="co">#&gt; 10:         Ford Motor       USA         MI     2222  150,000           10</span>
-<span class="co">#&gt;     Country_compare Company_compare matchscore tier</span>
-<span class="co">#&gt;  1:               1       1.0000000  1.0000000  all</span>
-<span class="co">#&gt;  2:               1       0.9882353  0.9941176  all</span>
-<span class="co">#&gt;  3:               1       0.8714286  0.9357143  all</span>
-<span class="co">#&gt;  4:               1       0.9333333  0.9666667  all</span>
-<span class="co">#&gt;  5:               0       0.9285714  0.4642857  all</span>
-<span class="co">#&gt;  6:               1       1.0000000  1.0000000  all</span>
-<span class="co">#&gt;  7:               1       0.5333333  0.7666667  all</span>
-<span class="co">#&gt;  8:               1       0.9111111  0.9555556  all</span>
-<span class="co">#&gt;  9:               1       0.7333333  0.8666667  all</span>
-<span class="co">#&gt; 10:               1       0.9111111  0.9555556  all</span></code></pre></div>
+<span class="co">#&gt;     Country_compare Company_compare multivar_score tier</span>
+<span class="co">#&gt;  1:               1       1.0000000      1.0000000  all</span>
+<span class="co">#&gt;  2:               1       0.9882353      0.9941176  all</span>
+<span class="co">#&gt;  3:               1       0.8714286      0.9357143  all</span>
+<span class="co">#&gt;  4:               1       0.9333333      0.9666667  all</span>
+<span class="co">#&gt;  5:               0       0.9285714      0.4642857  all</span>
+<span class="co">#&gt;  6:               1       1.0000000      1.0000000  all</span>
+<span class="co">#&gt;  7:               1       0.5333333      0.7666667  all</span>
+<span class="co">#&gt;  8:               1       0.9111111      0.9555556  all</span>
+<span class="co">#&gt;  9:               1       0.7333333      0.8666667  all</span>
+<span class="co">#&gt; 10:               1       0.9111111      0.9555556  all</span></code></pre></div>
 <p>To specify this type of match, we put in the <code>match_type</code> as “multivar,” and then we specified how we wanted the match to run by passing the list <code>multivar_settings</code>. Each element of this list is a separate argument to go into <code>multivar_match</code>. The <code>compare_type</code> argument tells the multivar how to compare each variable in the <code>by</code> argument. Because “Country” is a binary variable, we specify “indicator”, and because “Company” is a string variable, we specify “stringdist.” You can see a full list of options for comparison in the <code>multivar_match</code> documentation, or equivalently, the <code>merge_plus</code> <code>score_settings</code> documentation. (<code>merge_plus</code> has an option to compute matchscores post-hoc, as a method of evaluation.)</p>
 <p>Next, here’s an example the second method, using a logit model. First, we’ll set up a fake training table. Normally, one would construct a human-verified match set. Here, I just create a table where the first half are matches, the second half are a mix of matches and not, and then the two comparison variables are biased to be more of a match in the first half of the sample. This is just a way to ensure that our logit model gives us positive coefficients, so that our example makes a little more sense.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -417,17 +417,17 @@
 <span class="co">#&gt;  8:             AT &amp; T       USA         TN     4000  160,000            9</span>
 <span class="co">#&gt;  9:         Ford Motor       USA         MI     2222  150,000           10</span>
 <span class="co">#&gt; 10:         Ford Motor       USA         MI     2222  150,000           10</span>
-<span class="co">#&gt;     Country_compare Company_compare matchscore tier</span>
-<span class="co">#&gt;  1:               1       1.0000000  0.9861508  all</span>
-<span class="co">#&gt;  2:               1       0.9882353  0.9853272  all</span>
-<span class="co">#&gt;  3:               1       0.8714286  0.9740476  all</span>
-<span class="co">#&gt;  4:               1       0.9333333  0.9808013  all</span>
-<span class="co">#&gt;  5:               0       0.9285714  0.9660386  all</span>
-<span class="co">#&gt;  6:               1       1.0000000  0.9861508  all</span>
-<span class="co">#&gt;  7:               0       0.8366667  0.9473611  all</span>
-<span class="co">#&gt;  8:               1       0.9111111  0.9786024  all</span>
-<span class="co">#&gt;  9:               1       0.7333333  0.9496635  all</span>
-<span class="co">#&gt; 10:               1       0.9111111  0.9786024  all</span></code></pre></div>
+<span class="co">#&gt;     Country_compare Company_compare multivar_score tier</span>
+<span class="co">#&gt;  1:               1       1.0000000      0.9861508  all</span>
+<span class="co">#&gt;  2:               1       0.9882353      0.9853272  all</span>
+<span class="co">#&gt;  3:               1       0.8714286      0.9740476  all</span>
+<span class="co">#&gt;  4:               1       0.9333333      0.9808013  all</span>
+<span class="co">#&gt;  5:               0       0.9285714      0.9660386  all</span>
+<span class="co">#&gt;  6:               1       1.0000000      0.9861508  all</span>
+<span class="co">#&gt;  7:               0       0.8366667      0.9473611  all</span>
+<span class="co">#&gt;  8:               1       0.9111111      0.9786024  all</span>
+<span class="co">#&gt;  9:               1       0.7333333      0.9496635  all</span>
+<span class="co">#&gt; 10:               1       0.9111111      0.9786024  all</span></code></pre></div>
 <p>Note the last few columns in the data.table: we see the comparison metrics, just like in the linear combination version of <code>multivar_match</code>. But, note that instead of computing a 50/50 linear combination like before, we are now computing a matchscore as the fitted probability of a match based on our logit model. In this toy example, the coefficients are a little strange because of the random data we fed in. But, we see the behavior we’d expect: a higher company name comparison and a country match gives us a higher matchscore.</p>
 </div>
 </div>

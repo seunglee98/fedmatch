@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Matching by computing matchscores based on several variables — multivar_match • fedmatch</title>
+<title>Matching by computing multivar_scores based on several variables — multivar_match • fedmatch</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,10 @@
 
 
 
-<meta property="og:title" content="Matching by computing matchscores based on several variables — multivar_match" />
-<meta property="og:description" content="multivar_match computes a matchscore between each pair of observations between
+<meta property="og:title" content="Matching by computing multivar_scores based on several variables — multivar_match" />
+<meta property="og:description" content="multivar_match computes a multivar_score between each pair of observations between
 datasets x and y using several variables, then executes a merge by picking the
-highest matchscore pair for each observation in x." />
+highest multivar_score pair for each observation in x." />
 
 
 
@@ -74,7 +74,7 @@ highest matchscore pair for each observation in x." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
       </span>
     </div>
 
@@ -132,15 +132,15 @@ highest matchscore pair for each observation in x." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Matching by computing matchscores based on several variables</h1>
+    <h1>Matching by computing multivar_scores based on several variables</h1>
     
     <div class="hidden name"><code>multivar_match.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>multivar_match</code> computes a matchscore between each pair of observations between
+    <p><code>multivar_match</code> computes a multivar_score between each pair of observations between
 datasets x and y using several variables, then executes a merge by picking the
-highest matchscore pair for each observation in x.</p>
+highest multivar_score pair for each observation in x.</p>
     </div>
 
     <pre class="usage"><span class='fu'>multivar_match</span><span class='op'>(</span>
@@ -205,7 +205,7 @@ highest matchscore pair for each observation in x.</p>
     </tr>
     <tr>
       <th>wgts</th>
-      <td><p>rather than a lm model, you can supply weights to calculate matchscore. Can be weights from <code>calculate_weights</code>.</p></td>
+      <td><p>rather than a lm model, you can supply weights to calculate multivar_score. Can be weights from <code>calculate_weights</code>.</p></td>
     </tr>
     <tr>
       <th>compare_type</th>
@@ -213,7 +213,7 @@ highest matchscore pair for each observation in x.</p>
     </tr>
     <tr>
       <th>blocks</th>
-      <td><p>variable present in both data sets to "block" on before computing scores. Matchscores will only be computed for observations that share a block. See details.</p></td>
+      <td><p>variable present in both data sets to "block" on before computing scores. multivar_scores will only be computed for observations that share a block. See details.</p></td>
     </tr>
     <tr>
       <th>blocks.x</th>

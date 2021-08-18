@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
 
       
 
-      </header><script src="Multivar_matching_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="Multivar_matching_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Multivar Matching</h1>
@@ -104,7 +104,7 @@
 <div id="background" class="section level1">
 <h1 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h1>
-<p>While name matching is covered well by the tools in<code><a href="../reference/merge_plus.html">fedmatch::merge_plus()</a></code> and <code><a href="../reference/fuzzy_match.html">fedmatch::fuzzy_match()</a></code>, sometimes it is useful to pull in additional information besides names. These could include company information fields like industry code, zip codes, countries, and the like. Or, for loans, it could include loan amounts, origination dates, or industry codes. Or, one could even want to use multiple different names at the same time. This is where <code><a href="../reference/multivar_match.html">fedmatch::multivar_match()</a></code> comes into play. It lets you compare two records based on multiple fields. It does so by assigning a numeric value from 0-1 for each field, and then computing a weighted sum (or predicts a probability with a logit model), arriving at a final matchscore for a given pair of records. It computes these matchscores for every possible combination of records, and picks the best match for each</p>
+<p>While name matching is covered well by the tools in<code><a href="../reference/merge_plus.html">fedmatch::merge_plus()</a></code> and <code><a href="../reference/fuzzy_match.html">fedmatch::fuzzy_match()</a></code>, sometimes it is useful to pull in additional information besides names. These could include company information fields like industry code, zip codes, countries, and the like. Or, for loans, it could include loan amounts, origination dates, or industry codes. Or, one could even want to use multiple different names at the same time. This is where <code><a href="../reference/multivar_match.html">fedmatch::multivar_match()</a></code> comes into play. It lets you compare two records based on multiple fields. It does so by assigning a numeric value from 0-1 for each field, and then computing a weighted sum (or predicts a probability with a logit model), arriving at a final multivar_score for a given pair of records. It computes these multivar_scores for every possible combination of records, and picks the best match for each</p>
 </div>
 <div id="syntax" class="section level1">
 <h1 class="hasAnchor">
@@ -162,17 +162,17 @@
 <span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9    9</span>
 <span class="co">#&gt;  9:         Ford Motor     USA         MI     2222  150,000           10   10</span>
 <span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10   10</span>
-<span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare matchscore</span>
-<span class="co">#&gt;  1:       USA            Walmart               1       1.0000000  1.0000000</span>
-<span class="co">#&gt;  2:       USA  Bershire Hathaway               1       0.9882353  0.9941176</span>
-<span class="co">#&gt;  3:       USA     Apple Computer               1       0.8714286  0.9357143</span>
-<span class="co">#&gt;  4:       USA Exxon Mobile Inc.                1       0.9333333  0.9666667</span>
-<span class="co">#&gt;  5:               McKesson Corp.               0       0.9285714  0.4642857</span>
-<span class="co">#&gt;  6:       USA UnitedHealth Group               1       1.0000000  1.0000000</span>
-<span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.5333333  0.7666667</span>
-<span class="co">#&gt;  8:       USA             AT &amp; T               1       0.9111111  0.9555556</span>
-<span class="co">#&gt;  9:       USA         Ford Motor               1       0.7333333  0.8666667</span>
-<span class="co">#&gt; 10:       USA         Ford Motor               1       0.9111111  0.9555556</span>
+<span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span>
+<span class="co">#&gt;  1:       USA            Walmart               1       1.0000000      1.0000000</span>
+<span class="co">#&gt;  2:       USA  Bershire Hathaway               1       0.9882353      0.9941176</span>
+<span class="co">#&gt;  3:       USA     Apple Computer               1       0.8714286      0.9357143</span>
+<span class="co">#&gt;  4:       USA Exxon Mobile Inc.                1       0.9333333      0.9666667</span>
+<span class="co">#&gt;  5:               McKesson Corp.               0       0.9285714      0.4642857</span>
+<span class="co">#&gt;  6:       USA UnitedHealth Group               1       1.0000000      1.0000000</span>
+<span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.5333333      0.7666667</span>
+<span class="co">#&gt;  8:       USA             AT &amp; T               1       0.9111111      0.9555556</span>
+<span class="co">#&gt;  9:       USA         Ford Motor               1       0.7333333      0.8666667</span>
+<span class="co">#&gt; 10:       USA         Ford Motor               1       0.9111111      0.9555556</span>
 <span class="co">#&gt;     tier</span>
 <span class="co">#&gt;  1:  all</span>
 <span class="co">#&gt;  2:  all</span>
@@ -213,10 +213,10 @@
 <li>“stringdist” computes the Jaro-Winkler string distance between the strings.</li>
 </ul>
 </li>
-<li>‘wgts’ is a vector of weights, length equal to the length of the ‘by’ vector, that describes how to weight each field for computing a matchscore.</li>
+<li>‘wgts’ is a vector of weights, length equal to the length of the ‘by’ vector, that describes how to weight each field for computing a multivar_score.</li>
 <li>‘nthread’ is how many threads to use when making the comparisons, see <code><a href="https://rdrr.io/r/parallel/makeCluster.html">parallel::makeCluster()</a></code>
 </li>
-<li>‘logit’ is a logit model (described in detail later) that can be used instead of ‘wgts’ to combine the comparison scores into a final matchscore using <code>base::predict()</code>
+<li>‘logit’ is a logit model (described in detail later) that can be used instead of ‘wgts’ to combine the comparison scores into a final multivar_score using <code>base::predict()</code>
 </li>
 </ul>
 </div>
@@ -249,21 +249,21 @@
 <span class="co">#&gt;  8:       USA       USA               1</span>
 <span class="co">#&gt;  9:       USA       USA               1</span>
 <span class="co">#&gt; 10:       USA       USA               1</span></code></pre></div>
-<p>Further, it adds one additional column for the overall matchscore. In our example, we set the weights each equal to 0.5, so the matchscore is simply the average of our two comparison variables:</p>
+<p>Further, it adds one additional column for the overall multivar_score. In our example, we set the weights each equal to 0.5, so the multivar_score is simply the average of our two comparison variables:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">Company_compare</span>, <span class="va">Country_compare</span>, <span class="va">matchscore</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;     Company_compare Country_compare matchscore</span>
-<span class="co">#&gt;  1:       1.0000000               1  1.0000000</span>
-<span class="co">#&gt;  2:       0.9882353               1  0.9941176</span>
-<span class="co">#&gt;  3:       0.8714286               1  0.9357143</span>
-<span class="co">#&gt;  4:       0.9333333               1  0.9666667</span>
-<span class="co">#&gt;  5:       0.9285714               0  0.4642857</span>
-<span class="co">#&gt;  6:       1.0000000               1  1.0000000</span>
-<span class="co">#&gt;  7:       0.5333333               1  0.7666667</span>
-<span class="co">#&gt;  8:       0.9111111               1  0.9555556</span>
-<span class="co">#&gt;  9:       0.7333333               1  0.8666667</span>
-<span class="co">#&gt; 10:       0.9111111               1  0.9555556</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">Company_compare</span>, <span class="va">Country_compare</span>, <span class="va">multivar_score</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt;     Company_compare Country_compare multivar_score</span>
+<span class="co">#&gt;  1:       1.0000000               1      1.0000000</span>
+<span class="co">#&gt;  2:       0.9882353               1      0.9941176</span>
+<span class="co">#&gt;  3:       0.8714286               1      0.9357143</span>
+<span class="co">#&gt;  4:       0.9333333               1      0.9666667</span>
+<span class="co">#&gt;  5:       0.9285714               0      0.4642857</span>
+<span class="co">#&gt;  6:       1.0000000               1      1.0000000</span>
+<span class="co">#&gt;  7:       0.5333333               1      0.7666667</span>
+<span class="co">#&gt;  8:       0.9111111               1      0.9555556</span>
+<span class="co">#&gt;  9:       0.7333333               1      0.8666667</span>
+<span class="co">#&gt; 10:       0.9111111               1      0.9555556</span></code></pre></div>
 </div>
 <div id="calculating-weights-from-a-training-set" class="section level1">
 <h1 class="hasAnchor">
@@ -370,17 +370,17 @@
 <span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9    9</span>
 <span class="co">#&gt;  9:             AT &amp; T     USA         TN     4000  160,000            9    9</span>
 <span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10   10</span>
-<span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare matchscore</span>
-<span class="co">#&gt;  1:       USA            Walmart               1       0.0000000  0.6734819</span>
-<span class="co">#&gt;  2:       USA            Walmart               0       0.0000000  0.6665064</span>
-<span class="co">#&gt;  3:       USA            Walmart               1       0.3650794  0.6713026</span>
-<span class="co">#&gt;  4:       USA            Walmart               1       0.0000000  0.6734819</span>
-<span class="co">#&gt;  5:       USA Exxon Mobile Inc.                1       0.2847222  0.6717829</span>
-<span class="co">#&gt;  6:       USA Exxon Mobile Inc.                1       0.3777778  0.6712266</span>
-<span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.4497354  0.6707962</span>
-<span class="co">#&gt;  8:       USA             AT &amp; T               1       0.0000000  0.6734819</span>
-<span class="co">#&gt;  9:       USA             AT &amp; T               1       0.4126984  0.6710178</span>
-<span class="co">#&gt; 10:       USA         Ford Motor               1       0.0000000  0.6734819</span>
+<span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span>
+<span class="co">#&gt;  1:       USA            Walmart               1       0.0000000      0.6734819</span>
+<span class="co">#&gt;  2:       USA            Walmart               0       0.0000000      0.6665064</span>
+<span class="co">#&gt;  3:       USA            Walmart               1       0.3650794      0.6713026</span>
+<span class="co">#&gt;  4:       USA            Walmart               1       0.0000000      0.6734819</span>
+<span class="co">#&gt;  5:       USA Exxon Mobile Inc.                1       0.2847222      0.6717829</span>
+<span class="co">#&gt;  6:       USA Exxon Mobile Inc.                1       0.3777778      0.6712266</span>
+<span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.4497354      0.6707962</span>
+<span class="co">#&gt;  8:       USA             AT &amp; T               1       0.0000000      0.6734819</span>
+<span class="co">#&gt;  9:       USA             AT &amp; T               1       0.4126984      0.6710178</span>
+<span class="co">#&gt; 10:       USA         Ford Motor               1       0.0000000      0.6734819</span>
 <span class="co">#&gt;     tier</span>
 <span class="co">#&gt;  1:  all</span>
 <span class="co">#&gt;  2:  all</span>
@@ -418,8 +418,8 @@
 <span class="co">#&gt; 1:  all      10               10                5             1           0.5</span>
 <span class="co">#&gt;    new_unique_1 new_unique_2</span>
 <span class="co">#&gt; 1:           10            5</span></code></pre></div>
-<p>Instead of using a weighted sum of comparison scores, we use <code>base::predict</code> to arrive at a matchscore that can be interpreted as a match probability. A word of caution: the logit parameters can give very non-intuitive results for the resultant matchscores, because the <a href="https://en.wikipedia.org/wiki/Logit">logit function</a> is of course non-linear. For example, in one project we were working on, there was a coefficient of 40 and a coefficient of 3. However, if the variable with the coefficient of ‘3’ had a comparison score of 0, then the highest the matchscore could be was only around 0.6! This was very unintuitive for us, and shows the complex nature of the logit model.</p>
-<p>All that said, the logit model has the benefit of returning an easily-interpretable matchscore: with a large enough (and clean enough) training set, the fitted matchscore is simply the probability of a match. This is contrast to the matchscores returned by the linear combination: these numbers have no immediate meaning, and can vary dramatically for each project. In one project, a score of .6 might be very good, and in another, very bad. It is a good idea to try both the logit and linear methods and play around with each for your individual project.</p>
+<p>Instead of using a weighted sum of comparison scores, we use <code>base::predict</code> to arrive at a multivar_score that can be interpreted as a match probability. A word of caution: the logit parameters can give very non-intuitive results for the resultant multivar_scores, because the <a href="https://en.wikipedia.org/wiki/Logit">logit function</a> is of course non-linear. For example, in one project we were working on, there was a coefficient of 40 and a coefficient of 3. However, if the variable with the coefficient of ‘3’ had a comparison score of 0, then the highest the multivar_score could be was only around 0.6! This was very unintuitive for us, and shows the complex nature of the logit model.</p>
+<p>All that said, the logit model has the benefit of returning an easily-interpretable multivar_score: with a large enough (and clean enough) training set, the fitted multivar_score is simply the probability of a match. This is contrast to the multivar_scores returned by the linear combination: these numbers have no immediate meaning, and can vary dramatically for each project. In one project, a score of .6 might be very good, and in another, very bad. It is a good idea to try both the logit and linear methods and play around with each for your individual project.</p>
 </div>
 <div id="parallelization-and-saving-time" class="section level1">
 <h1 class="hasAnchor">
@@ -474,16 +474,16 @@
 <span class="co">#&gt; 7:             AT &amp; T     USA         TN     4000  160,000            9    9</span>
 <span class="co">#&gt; 8:         Ford Motor     USA         MI     2222  150,000           10   10</span>
 <span class="co">#&gt; 9:         Ford Motor     USA         MI     2222  150,000           10   10</span>
-<span class="co">#&gt;             Company_2 Company_compare matchscore tier</span>
-<span class="co">#&gt; 1:            Walmart       1.0000000  1.0000000  all</span>
-<span class="co">#&gt; 2:  Bershire Hathaway       0.9882353  0.9882353  all</span>
-<span class="co">#&gt; 3:     Apple Computer       0.8714286  0.8714286  all</span>
-<span class="co">#&gt; 4: Exxon Mobile Inc.        0.9333333  0.9333333  all</span>
-<span class="co">#&gt; 5: UnitedHealth Group       1.0000000  1.0000000  all</span>
-<span class="co">#&gt; 6: UnitedHealth Group       0.5333333  0.5333333  all</span>
-<span class="co">#&gt; 7:             AT &amp; T       0.9111111  0.9111111  all</span>
-<span class="co">#&gt; 8:         Ford Motor       0.7333333  0.7333333  all</span>
-<span class="co">#&gt; 9:         Ford Motor       0.9111111  0.9111111  all</span></code></pre></div>
+<span class="co">#&gt;             Company_2 Company_compare multivar_score tier</span>
+<span class="co">#&gt; 1:            Walmart       1.0000000      1.0000000  all</span>
+<span class="co">#&gt; 2:  Bershire Hathaway       0.9882353      0.9882353  all</span>
+<span class="co">#&gt; 3:     Apple Computer       0.8714286      0.8714286  all</span>
+<span class="co">#&gt; 4: Exxon Mobile Inc.        0.9333333      0.9333333  all</span>
+<span class="co">#&gt; 5: UnitedHealth Group       1.0000000      1.0000000  all</span>
+<span class="co">#&gt; 6: UnitedHealth Group       0.5333333      0.5333333  all</span>
+<span class="co">#&gt; 7:             AT &amp; T       0.9111111      0.9111111  all</span>
+<span class="co">#&gt; 8:         Ford Motor       0.7333333      0.7333333  all</span>
+<span class="co">#&gt; 9:         Ford Motor       0.9111111      0.9111111  all</span></code></pre></div>
 <p>For our dummy example data, this isn’t that useful (we just drop one observation with the Country being Germany). But, if there is a field in the data that is well-populated and trusted, it can be used to dramatically cut down on the number of observations.</p>
 <p>Parallelization is implemented with the <code>nthread</code> argument and <code><a href="https://rdrr.io/r/parallel/clusterApply.html">parallel::parLapply()</a></code>. The data is split into groups equal to <code>nthread</code>, and then each core does its comparison, all at the same time. This of course can dramatically speed up the process, but requires more memory and computing power. For details on the parallel process, see <code><a href="https://rdrr.io/r/parallel/clusterApply.html">parallel::parLapply</a></code> and <code><a href="https://rdrr.io/r/parallel/makeCluster.html">parallel::makeCluster</a></code>.</p>
 </div>

@@ -22,7 +22,7 @@ library(data.table)
 
 # Background
 
-While name matching is covered well by the tools in`fedmatch::merge_plus()` and `fedmatch::fuzzy_match()`, sometimes it is useful to pull in additional information besides names. These could include company information fields like industry code, zip codes, countries, and the like. Or, for loans, it could include loan amounts, origination dates, or industry codes. Or, one could even want to use multiple different names at the same time. This is where `fedmatch::multivar_match()` comes into play. It lets you compare two records based on multiple fields. It does so by assigning a numeric value from 0-1 for each field, and then computing a weighted sum (or predicts a probability with a logit model), arriving at a final matchscore for a given pair of records. It computes these matchscores for every possible combination of records, and picks the best match for each
+While name matching is covered well by the tools in`fedmatch::merge_plus()` and `fedmatch::fuzzy_match()`, sometimes it is useful to pull in additional information besides names. These could include company information fields like industry code, zip codes, countries, and the like. Or, for loans, it could include loan amounts, origination dates, or industry codes. Or, one could even want to use multiple different names at the same time. This is where `fedmatch::multivar_match()` comes into play. It lets you compare two records based on multiple fields. It does so by assigning a numeric value from 0-1 for each field, and then computing a weighted sum (or predicts a probability with a logit model), arriving at a final multivar_score for a given pair of records. It computes these multivar_scores for every possible combination of records, and picks the best match for each
 
 # Syntax
 
@@ -68,9 +68,9 @@ Let's go through the arguments:
   - "difference" computes the numeric difference between the two columns, scaled by the largest difference in the dataset
   - "ratio" computes the ratio between the two columns, always such that the ratio is less than 1
   - "stringdist" computes the Jaro-Winkler string distance between the strings.
-- 'wgts' is a vector of weights, length equal to the length of the 'by' vector, that describes how to weight each field for computing a matchscore. 
+- 'wgts' is a vector of weights, length equal to the length of the 'by' vector, that describes how to weight each field for computing a multivar_score. 
 - 'nthread' is how many threads to use when making the comparisons, see `parallel::makeCluster()`
-- 'logit' is a logit model (described in detail later) that can be used instead of 'wgts' to combine the comparison scores into a final matchscore using `base::predict()`
+- 'logit' is a logit model (described in detail later) that can be used instead of 'wgts' to combine the comparison scores into a final multivar_score using `base::predict()`
 
 # Return value
 
@@ -81,11 +81,11 @@ print(result$matches[, .(Company_1, Company_2, Company_compare)])
 print(result$matches[, .(Country_1, Country_2, Country_compare)])
 ```
 
-Further, it adds one additional column for the overall matchscore. In our example, we set the weights each equal to 0.5, so the matchscore is simply the average of our two comparison variables:
+Further, it adds one additional column for the overall multivar_score. In our example, we set the weights each equal to 0.5, so the multivar_score is simply the average of our two comparison variables:
 
 ```{r}
 
-print(result$matches[, .(Company_compare, Country_compare, matchscore)])
+print(result$matches[, .(Company_compare, Country_compare, multivar_score)])
 ```
 
 # Calculating weights from a training set
@@ -150,9 +150,9 @@ result <- merge_plus(corp_data1_test, corp_data2_test,
 result
 ```
 
-Instead of using a weighted sum of comparison scores, we use `base::predict` to arrive at a matchscore that can be interpreted as a match probability. A word of caution: the logit parameters can give very non-intuitive results for the resultant matchscores, because the [logit function](https://en.wikipedia.org/wiki/Logit) is of course non-linear. For example, in one project we were working on, there was a coefficient of 40 and a coefficient of 3. However, if the variable with the coefficient of '3' had a comparison score of 0, then the highest the matchscore could be was only around 0.6! This was very unintuitive for us, and shows the complex nature of the logit model. 
+Instead of using a weighted sum of comparison scores, we use `base::predict` to arrive at a multivar_score that can be interpreted as a match probability. A word of caution: the logit parameters can give very non-intuitive results for the resultant multivar_scores, because the [logit function](https://en.wikipedia.org/wiki/Logit) is of course non-linear. For example, in one project we were working on, there was a coefficient of 40 and a coefficient of 3. However, if the variable with the coefficient of '3' had a comparison score of 0, then the highest the multivar_score could be was only around 0.6! This was very unintuitive for us, and shows the complex nature of the logit model. 
 
-All that said, the logit model has the benefit of returning an easily-interpretable matchscore: with a large enough (and clean enough) training set, the fitted matchscore is simply the probability of a match. This is contrast to the matchscores returned by the linear combination: these numbers have no immediate meaning, and can vary dramatically for each project. In one project, a score of .6 might be very good, and in another, very bad. It is a good idea to try both the logit and linear methods and play around with each for your individual project.
+All that said, the logit model has the benefit of returning an easily-interpretable multivar_score: with a large enough (and clean enough) training set, the fitted multivar_score is simply the probability of a match. This is contrast to the multivar_scores returned by the linear combination: these numbers have no immediate meaning, and can vary dramatically for each project. In one project, a score of .6 might be very good, and in another, very bad. It is a good idea to try both the logit and linear methods and play around with each for your individual project.
 
 # Parallelization and saving time
 Because this method of matching relies on comparing each row of a data set to each other row of a dataset, the time needed to perform a match grows very quickly as the size of each data set increases. There are several ways to help with this:

@@ -5,12 +5,12 @@
 \alias{State_FIPS}
 \title{State_FIPS}
 \format{
-An object of class \code{data.table} (inherits from \code{data.frame}) with 50 rows and 2 columns.
+An object of class \code{data.table} (inherits from \code{data.frame}) with 55 rows and 3 columns.
 }
 \usage{
 State_FIPS
 }
 \description{
-State FIPS codes
+Data.table with state FIPS codes and abbreviations.
 }
 \keyword{datasets}
