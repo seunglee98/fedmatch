@@ -13,8 +13,8 @@
 #' @param fuzzy_settings additional arguments for amatch, to be used if match_type
 #'   = 'fuzzy'. Suggested defaults provided. (see amatch, method='jw')
 #' @param score_settings list. Score settings for post-hoc matchscores.
-#' @param clean_settings list. Arguments passed to clean.
-#' @param clean Function to clean strings prior to match. see \code{clean_strings}.
+#' @param clean Boolean, T/F, whether or not to clean strings prior to the match.
+#' @param clean_settings list. Settings for string cleaning. See \code{clean_strings} and \code{build_clean_settings}.
 #' @param multivar_settings list of settings to go to the multivar match if match_type
 #' == 'multivar'. See \code{multivar-match}.
 #' @param filter function or numeric. Filters a merged data1-data2 dataset. If a
