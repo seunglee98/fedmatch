@@ -10,6 +10,9 @@ status](https://www.r-pkg.org/badges/version/fedmatch)](https://CRAN.R-project.o
 [![R-CMD-check](https://github.com/seunglee98/fedmatch/workflows/R-CMD-check/badge.svg)](https://github.com/seunglee98/fedmatch/actions)
 <!-- badges: end -->
 
+*Any views expressed here do not reflect those of the Federal Reserve
+Board or Federal Reserve System.*
+
 The goal of fedmatch is to match un-linked datasets. It provides a
 variety of tools that allow a user to build a custom matching algorithm
 for their specific application. To get started, see the [“Introduction

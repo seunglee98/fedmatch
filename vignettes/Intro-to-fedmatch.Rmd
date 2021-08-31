@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 # Background
 With an ever-expanding set of financial data providers, each covering many of the same firms and entities, matching data sets that do not share common identifiers has never been more important.`fedmatch` is a set of tools for performing record linkage between two data
-sets, developed by a team of matching enthusiasts at the Federal Reserve. It allows for a variety of different matching techniques, letting
+sets. It allows for a variety of different matching techniques, letting
 the user build a matching algorithm for their specific application. Although fedmatch was designed with economic data in mind (i.e. loans or companies), it is very flexible, so it can be used for any matching problem. With `fedmatch`, a researcher or analyst can quickly go from having 0 matches between two datasets to having many. With more time and care, they can use more advanced techniques to pull out even more matches.
 
 Fedmatch has many features, including:
