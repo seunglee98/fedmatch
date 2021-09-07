@@ -114,6 +114,7 @@ Rcpp::List wgt_jaccard(
         // create vector to store words
         auto y_token_vector = std::vector<std::string>(tokens.begin(), tokens.end());
         std::sort(y_token_vector.begin(), y_token_vector.end());
+        y_token_vector.erase(unique(y_token_vector.begin(), y_token_vector.end() ), y_token_vector.end() ) ;
         y_tokenized[i] = y_token_vector;
     }
 
@@ -136,6 +137,7 @@ Rcpp::List wgt_jaccard(
         // create vector to store words
         auto x_tok_vec = std::vector<std::string>(tokens.begin(), tokens.end());
         std::sort(x_tok_vec.begin(), x_tok_vec.end());
+        x_tok_vec.erase(unique(x_tok_vec.begin(), x_tok_vec.end() ), x_tok_vec.end() ) ;
 
         std::vector<double> y_scores(y.size());
         for(int j=0; j < y.size(); j++){
