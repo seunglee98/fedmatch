@@ -56,7 +56,7 @@ $$ J_w = \frac{ \sum w_i, \forall i \text{ in } A \bigcap B}{ \sum w_i, \forall 
 
 ## Other similarity metrics
 
-Because fedmatch uses `stringdist::amatch` for all other options
+Because fedmatch uses `stringdist::amatch` for all other options, one can use any of the similarity metrics listed in the documentation for that function in fedmatch.
 
 # Using fuzzy matching in fedmatch
 
