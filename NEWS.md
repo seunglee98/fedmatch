@@ -2,6 +2,8 @@
 
 - Fixed STATE_FIPS to actually include FIPS codes
 - Changed the output column from 'multivar' matching to be called 'multivar_score' rather than 'matchscore', so as not to conflict with score_settings in `merge_plus`
+- Fixed bug in Weighted Jaccard scoring that would allow scores > 1 if the two names shared multiples of the same word
+
 
 # fedmatch 2.0.2
 
