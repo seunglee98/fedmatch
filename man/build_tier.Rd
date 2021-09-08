@@ -50,9 +50,9 @@ to filter.}
 
 \item{evaluate.args}{ist. Arguments passed to evaluate}
 
-\item{clean_settings}{list. Arguments passed to clean.}
+\item{clean_settings}{list. Settings for string cleaning. See \code{clean_strings} and \code{build_clean_settings}.}
 
-\item{clean}{Function to clean strings prior to match. see \code{clean_strings}.}
+\item{clean}{Boolean, T/F, whether or not to clean strings prior to the match.}
 
 \item{allow.cartesian}{whether or not to allow many-many matches, see data.table::merge()}
 
