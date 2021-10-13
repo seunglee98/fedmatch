@@ -5,11 +5,11 @@ test_that("single jaccard works", {
 
   corpus <- fedmatch:::build_corpus(clean_strings(corp_data1$Company),
                          clean_strings(corp_data2$Name))
-  corpus
+  # corpus
   result <- wgt_jaccard_distance(clean_strings(corp_data1$Company),
                                  clean_strings(corp_data2$Name),
                                  corpus = corpus)
-  expect_true(is.numeric(result$similarity))
+  expect_true(is.numeric(result))
 })
 test_that("single jaccard breaks when non-corpus item passed", {
   corp_data1 <- fedmatch::corp_data1

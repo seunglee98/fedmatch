@@ -4,6 +4,8 @@
 #' two strings. It is vectorized, and accepts only two equal-length string
 #' vectors.
 #'
+#' See the vignette `fuzzy_matching` for details on how the Weighted Jaccard similarity is computed.
+#'
 #' @param string_1 character vector
 #' @param string_2 character vector
 #' @param nthreads number of threads to use in the underlying C++ code
@@ -38,11 +40,11 @@ wgt_jaccard_distance <- function(string_1,
     stop("string_1 and string_2 must be the same non-zero length.")
   }
 
-  scores <- wgt_jaccard_single(corpus$word,
+  scores <- 1- wgt_jaccard_single(corpus$word,
                                corpus$inv_freq,
                                string_1,
                                string_2,
-                               nthreads)
+                               nthreads)$similarity
   return(scores)
 
 }
