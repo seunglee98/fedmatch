@@ -1,3 +1,7 @@
+# fedmatch 2.0.4
+- Added `wgt_jaccard_distance` to easily compute Weighted Jaccard Distances for two string vectors.
+- Lowered R requirement to 3.5.3
+
 # fedmatch 2.0.3
 
 - Fixed STATE_FIPS to actually include FIPS codes
