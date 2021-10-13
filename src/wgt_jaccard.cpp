@@ -13,7 +13,6 @@
 // [[Rcpp::depends(BH)]]
 // [[Rcpp::plugins(openmp)]]
 
-
 std::vector<std::string> vec_intersect(const std::vector<std::string> &v1,
                                        const std::vector<std::string> &v2){
     std::vector<std::string> v3;
@@ -181,4 +180,72 @@ Rcpp::List wgt_jaccard(
 
     return Rcpp::List::create(Rcpp::Named("index") = ret_indexes,
                               Rcpp::Named("similarity") = ret_similarity);
+}
+
+// the following line is not actually a comment, it is interpreted by Rcpp
+// [[Rcpp::export]]
+Rcpp::List wgt_jaccard_single(
+    Rcpp::StringVector corpus,
+    Rcpp::NumericVector wgts,
+    Rcpp::StringVector x,
+    Rcpp::StringVector y,
+    int nthreads
+) {
+  //    Rcpp::Rcout << "\n\n        nthreads: " << nthreads << "\n";
+  const bool DEBUG = false;
+#ifdef _OPENMP
+  omp_set_num_threads(nthreads);
+#endif
+
+  using tokenizer = boost::tokenizer<boost::char_separator<char> >;
+  const boost::char_separator<char> sep(" ");
+
+  std::unordered_map<std::string, double> weight_lookup;
+  for(int i=0; i < corpus.size(); i++){
+    const auto corpus_element = static_cast<std::string>(corpus(i));
+    weight_lookup[corpus_element] = wgts[i];
+
+  }
+
+  std::vector<double> match_similarity(x.size());
+  #pragma omp parallel for schedule(dynamic)
+  for(int i=0; i < x.size(); i++){
+    // iterate over company names in X
+    if (DEBUG){
+      Rcpp::Rcout << "i is: " << i << ", the x element value is: " << x(i);
+      Rcpp::Rcout << "\n";
+      Rcpp::Rcout << "i is: " << i << ", the y element value is: " << y(i);
+      Rcpp::Rcout << "\n";
+      Rcpp::Rcout << "length of x: " << x.size();
+      Rcpp::Rcout << "\n";
+      Rcpp::Rcout << "length of y: " << y.size();
+      Rcpp::Rcout << "\n";
+    }
+
+    // split the company name
+    std::string sx{x(i)};
+    tokenizer tokens_x(sx, sep);
+
+    // create vector to store words
+    auto x_tok_vec = std::vector<std::string>(tokens_x.begin(), tokens_x.end());
+
+    std::sort(x_tok_vec.begin(), x_tok_vec.end());
+    x_tok_vec.erase(unique(x_tok_vec.begin(), x_tok_vec.end() ), x_tok_vec.end() );
+    // split the company name
+    std::string sy{y(i)};
+    tokenizer tokens_y(sy, sep);
+    // create vector to store words
+    auto y_tok_vec = std::vector<std::string>(tokens_y.begin(), tokens_y.end());
+    std::sort(y_tok_vec.begin(), y_tok_vec.end());
+    y_tok_vec.erase(unique(y_tok_vec.begin(), y_tok_vec.end() ), y_tok_vec.end() );
+    auto xy_score = jaccard_score(x_tok_vec, y_tok_vec, weight_lookup);
+
+    match_similarity[i] = xy_score;
+  }
+
+  Rcpp::NumericVector ret_similarity = Rcpp::NumericVector(
+    match_similarity.cbegin(),
+    match_similarity.cend());
+
+  return Rcpp::List::create(Rcpp::Named("similarity") = ret_similarity);
 }

@@ -5,3 +5,7 @@ wgt_jaccard <- function(corpus, wgts, x, y, nthreads) {
     .Call(`_fedmatch_wgt_jaccard`, corpus, wgts, x, y, nthreads)
 }
 
+wgt_jaccard_single <- function(corpus, wgts, x, y, nthreads) {
+    .Call(`_fedmatch_wgt_jaccard_single`, corpus, wgts, x, y, nthreads)
+}
+

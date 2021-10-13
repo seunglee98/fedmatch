@@ -25,9 +25,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// wgt_jaccard_single
+Rcpp::List wgt_jaccard_single(Rcpp::StringVector corpus, Rcpp::NumericVector wgts, Rcpp::StringVector x, Rcpp::StringVector y, int nthreads);
+RcppExport SEXP _fedmatch_wgt_jaccard_single(SEXP corpusSEXP, SEXP wgtsSEXP, SEXP xSEXP, SEXP ySEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type corpus(corpusSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type wgts(wgtsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< int >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(wgt_jaccard_single(corpus, wgts, x, y, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fedmatch_wgt_jaccard", (DL_FUNC) &_fedmatch_wgt_jaccard, 5},
+    {"_fedmatch_wgt_jaccard_single", (DL_FUNC) &_fedmatch_wgt_jaccard_single, 5},
     {NULL, NULL, 0}
 };
 
