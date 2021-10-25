@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build settings for multivar matching — build_multivar_settings • fedmatch</title>
+<title>Computing Weighted Jaccard Distance — wgt_jaccard_distance • fedmatch</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Build settings for multivar matching — build_multivar_settings" />
-<meta property="og:description" content="build_multivar_settings is a convenient way to build the list for the multivar settings argument in merge_plus" />
+<meta property="og:title" content="Computing Weighted Jaccard Distance — wgt_jaccard_distance" />
+<meta property="og:description" content="#' wgt_jaccard_distance computes the Weighted Jaccard Distance between
+two strings. It is vectorized, and accepts only two equal-length string
+vectors." />
 
 
 
@@ -130,76 +132,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build settings for multivar matching</h1>
+    <h1>Computing Weighted Jaccard Distance</h1>
     
-    <div class="hidden name"><code>build_multivar_settings.Rd</code></div>
+    <div class="hidden name"><code>wgt_jaccard_distance.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>build_multivar_settings</code> is a convenient way to build the list for the multivar settings argument in merge_plus</p>
+    <p>#' <code>wgt_jaccard_distance</code> computes the Weighted Jaccard Distance between
+two strings. It is vectorized, and accepts only two equal-length string
+vectors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_multivar_settings</span><span class='op'>(</span>
-  logit <span class='op'>=</span> <span class='cn'>NULL</span>,
-  missing <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  wgts <span class='op'>=</span> <span class='cn'>NULL</span>,
-  compare_type <span class='op'>=</span> <span class='st'>"diff"</span>,
-  blocks <span class='op'>=</span> <span class='cn'>NULL</span>,
-  blocks.x <span class='op'>=</span> <span class='cn'>NULL</span>,
-  blocks.y <span class='op'>=</span> <span class='cn'>NULL</span>,
-  top <span class='op'>=</span> <span class='fl'>1</span>,
-  threshold <span class='op'>=</span> <span class='cn'>NULL</span>,
-  nthread <span class='op'>=</span> <span class='fl'>1</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>wgt_jaccard_distance</span><span class='op'>(</span><span class='va'>string_1</span>, <span class='va'>string_2</span>, <span class='va'>corpus</span>, nthreads <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>logit</th>
-      <td><p>a glm or lm model as a result from a logit regression on a verified dataset. See details.</p></td>
+      <th>string_1</th>
+      <td><p>character vector</p></td>
     </tr>
     <tr>
-      <th>missing</th>
-      <td><p>boolean T/F, whether or not to treat missing (NA) observations as its own binary column for each column in by. See details.</p></td>
+      <th>string_2</th>
+      <td><p>character vector</p></td>
     </tr>
     <tr>
-      <th>wgts</th>
-      <td><p>rather than a lm model, you can supply weights to calculate matchscore. Can be weights from <code>calculate_weights</code>.</p></td>
+      <th>corpus</th>
+      <td><p>corpus data.table, constructed with
+<code>fedmatch::build_corpus</code></p></td>
     </tr>
     <tr>
-      <th>compare_type</th>
-      <td><p>a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", and "stringdist". See X for details.</p></td>
-    </tr>
-    <tr>
-      <th>blocks</th>
-      <td><p>variable present in both data sets to "block" on before computing scores. Matchscores will only be computed for observations that share a block. See details.</p></td>
-    </tr>
-    <tr>
-      <th>blocks.x</th>
-      <td><p>name of blocking variables in x. cannot supply both blocks and blocks.x</p></td>
-    </tr>
-    <tr>
-      <th>blocks.y</th>
-      <td><p>name of blocking variables in y. cannot supply both blocks and blocks.y</p></td>
-    </tr>
-    <tr>
-      <th>top</th>
-      <td><p>integer. Number of matches to return for each observation.</p></td>
-    </tr>
-    <tr>
-      <th>threshold</th>
-      <td><p>numeric. Minimum score for a match to be included in the result.</p></td>
-    </tr>
-    <tr>
-      <th>nthread</th>
-      <td><p>integer. Number of cores to use when computing all combinations. See <code>parallel::makecluster()</code></p></td>
+      <th>nthreads</th>
+      <td><p>number of threads to use in the underlying C++ code</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list containing options for the 'multivar_settings' argument of <code>merge_plus</code>.</p>
+    <p>numeric vector with the Weighted Jaccard distances for each element
+of string_1 and string_2.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>See the vignette <code>fuzzy_matching</code> for details on how the Weighted Jaccard similarity is computed.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

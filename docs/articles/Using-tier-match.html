@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
 
       
 
-      </header><script src="Using-tier-match_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><script src="Using-tier-match_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Tier Matching</h1>
@@ -147,11 +147,11 @@
                                         score_type <span class="op">=</span> <span class="st">"stringdist"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; Matching tier 'a'...</span>
-<span class="co">#&gt; Time elapsed: 0.06 secs.</span>
+<span class="co">#&gt; Time elapsed: 0.09 secs.</span>
 <span class="co">#&gt; Matching tier 'b'...</span>
-<span class="co">#&gt; Time elapsed: 0.02 secs.</span>
+<span class="co">#&gt; Time elapsed: 0.04 secs.</span>
 <span class="co">#&gt; Matching tier 'c'...</span>
-<span class="co">#&gt; Time elapsed: 0.08 secs.</span></code></pre></div>
+<span class="co">#&gt; Time elapsed: 0.17 secs.</span></code></pre></div>
 <p>There are two types of arguments for <code>tier_match</code>: those that can be passed to <code>merge_plus</code>, and those that are unique to <code>tier_match</code>. If anything of the <code>merge_plus</code> arguments are listed in <code>tier_match</code> directly (rather than in <code>tier_list</code>), those arguments are used in every tier. In this example, we are always matching on ‘Company’ and ‘Name,’ so those are placed in the arguments for tier_match directly. The arguments unique to <code>tier_match</code> and their defaults are:</p>
 <ul>
 <li>
