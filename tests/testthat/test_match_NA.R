@@ -29,11 +29,10 @@ testthat::test_that("removing NAs and putting them back works in tier match", {
              match_type = "exact")
   )
   # tier_list <- list(a = list(match_type = "exact"))
-  corp_data1
+  # corp_data1
   result <- tier_match(corp_data1, corp_data2,
                        unique_key_1 = "unique_key_1", unique_key_2 = "unique_key_2",
                        tiers = tier_list, takeout = "neither", verbose = TRUE
   )
-  result$matches
   expect_is(result$matches, "data.table")
 })

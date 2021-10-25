@@ -1,6 +1,7 @@
 # fedmatch 2.0.4
 - Added `wgt_jaccard_distance` to easily compute Weighted Jaccard Distances for two string vectors.
 - Lowered R requirement to 3.5.3
+- Added behavior to remove NA observations from exact matches, reinserting them into later tiers if necessary.
 
 # fedmatch 2.0.3
 

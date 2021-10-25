@@ -34,4 +34,4 @@ Suggests:
 VignetteBuilder: knitr
 LinkingTo: 
     Rcpp,
-    BH (>= 1.75.0)
+    BH

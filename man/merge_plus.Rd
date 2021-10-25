@@ -68,7 +68,7 @@ to filter.}
 
 \item{evaluate}{Function to evalute merge_plus output.}
 
-\item{evaluate.args}{ist. Arguments passed to evaluate}
+\item{evaluate.args}{list. Arguments passed to evaluate}
 
 \item{allow.cartesian}{whether or not to allow many-many matches, see data.table::merge()}
 

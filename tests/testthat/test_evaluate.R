@@ -25,7 +25,7 @@ test_that("match_evaluate returns matches that are correct number", {
 })
 test_that("match_evaluate returns matches that are correct, different unique key names", {
   corp_data1 <- copy(fedmatch::corp_data1)
-  corp_data2 <- fedmatch::corp_data2
+  corp_data2 <- copy(fedmatch::corp_data2)
   tier_list <- list(
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
