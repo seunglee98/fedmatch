@@ -1,7 +1,7 @@
 context("scoring testing")
 test_that("scoring works at all", {
-  corp_data1_test <- data.table(fedmatch::corp_data1)
-  corp_data2_test <- data.table(fedmatch::corp_data2)
+  corp_data1_test <- copy(fedmatch::corp_data1)
+  corp_data2_test <- copy(fedmatch::corp_data2)
   corp_data1_test[, id_1 := seq(1, .N)]
   corp_data2_test[, id_2 := seq(1, .N)]
   result <- merge_plus(

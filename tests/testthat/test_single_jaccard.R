@@ -1,7 +1,7 @@
 context("Weighted Jaccard Testing")
 test_that("single jaccard works", {
-  corp_data1 <- fedmatch::corp_data1
-  corp_data2 <- fedmatch::corp_data2
+  corp_data1 <- copy(fedmatch::corp_data1)
+  corp_data2 <- copy(fedmatch::corp_data2)
 
   corpus <- fedmatch:::build_corpus(clean_strings(corp_data1$Company),
                          clean_strings(corp_data2$Name))
@@ -12,8 +12,8 @@ test_that("single jaccard works", {
   expect_true(is.numeric(result))
 })
 test_that("single jaccard breaks when non-corpus item passed", {
-  corp_data1 <- fedmatch::corp_data1
-  corp_data2 <- fedmatch::corp_data2
+  corp_data1 <- copy(fedmatch::corp_data1)
+  corp_data2 <- copy(fedmatch::corp_data2)
 
   corpus <- fedmatch:::build_corpus(clean_strings(corp_data1$Company),
                                     clean_strings(corp_data2$Name))
@@ -22,8 +22,8 @@ test_that("single jaccard breaks when non-corpus item passed", {
                                     corpus = corpus))
 })
 test_that("single jaccard breaks when strings are different lengths", {
-  corp_data1 <- fedmatch::corp_data1
-  corp_data2 <- fedmatch::corp_data2
+  corp_data1 <- copy(fedmatch::corp_data1)
+  corp_data2 <- copy(fedmatch::corp_data2)
 
   corpus <- fedmatch:::build_corpus(clean_strings(corp_data1$Company),
                                     clean_strings(corp_data2$Name))

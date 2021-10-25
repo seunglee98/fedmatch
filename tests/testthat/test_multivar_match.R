@@ -1,7 +1,7 @@
 context("getting multivar to work with multiple variables")
 testthat::test_that("multivar works at all with multiple variables", {
-  corp_data1_test <- data.table(fedmatch::corp_data1)
-  corp_data2_test <- data.table(fedmatch::corp_data2)
+  corp_data1_test <- copy(fedmatch::corp_data1)
+  corp_data2_test <- copy(fedmatch::corp_data2)
   corp_data1_test[, id_1 := seq(1, .N)]
   corp_data2_test[, id_2 := seq(1, .N)]
   # corp_data1_test
@@ -32,8 +32,8 @@ testthat::test_that("multivar works at all with multiple variables", {
   expect_is(result, "data.table")
 })
 testthat::test_that("multivar works as part of a tier match", {
-  corp_data1_test <- data.table(fedmatch::corp_data1)
-  corp_data2_test <- data.table(fedmatch::corp_data2)
+  corp_data1_test <- copy(fedmatch::corp_data1)
+  corp_data2_test <- copy(fedmatch::corp_data2)
   corp_data1_test[, id_1 := seq(1, .N)]
   corp_data2_test[, id_2 := seq(1, .N)]
   # corp_data1_test
@@ -72,7 +72,7 @@ testthat::test_that("multivar works as part of a tier match", {
     by.x = "Company", by.y = "Name",
     unique_key_1 = "id_1", unique_key_2 = "id_2",
     tiers = tier_list, takeout = "neither",
-    suffixes = c("_1", "_2")
+    suffixes = c("_1", "_2"), verbose = T
   )
   result$matches[tier == "c"]
   expect_is(result$matches, "data.table")

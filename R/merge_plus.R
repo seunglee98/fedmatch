@@ -36,7 +36,7 @@
 #'   to filter.
 #' @param filter.args list. Arguments passed to filter, if a function
 #' @param evaluate Function to evalute merge_plus output.
-#' @param evaluate.args ist. Arguments passed to evaluate
+#' @param evaluate.args list. Arguments passed to evaluate
 #' @param allow.cartesian whether or not to allow many-many matches, see data.table::merge()
 #' @return list with matches, filtered matches (if applicable), data1 and data2
 #'   minus matches, and match evaluation
@@ -97,8 +97,21 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
   }
 
   if (match_type == "exact") {
+
     if (length(by.x) > 1 | length(by.y) > 1 | length(by) > 1) {
       stop("For exact matching, 'by'(or 'by.x', and 'by.y') must be length-1 character vectors. If desired, try combining columns with paste0.")
+    }
+    if (any(is.na(data1[[by.x]]))) {
+      n_init <- data1[, .N]
+      data1 <- data1[!is.na(get(by.x))]
+      n_final <- data1[, .N]
+      message(stringr::str_c("Removing ",n_init - n_final," NA observations in by.x. These will be re-inserted for subsequent tiers."))
+    }
+    if (any(is.na(data2[[by.y]]))) {
+      n_init <- data2[, .N]
+      data2 <- data2[!is.na(get(by.y))]
+      n_final <- data2[, .N]
+      message(stringr::str_c("Removing ",n_init - n_final," NA observations in by.y. These will be re-inserted for subsequent tiers."))
     }
     matches <- merge(data1, data2,
       by.x = by.x,
@@ -114,6 +127,18 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
   } else if (match_type == "fuzzy") {
     if (length(by.x) > 1 | length(by.y) > 1 | length(by) > 1) {
       stop("For fuzzy matching, 'by'(or 'by.x', and 'by.y') must be length-1 character vectors. If desired, try combining columns with paste0.")
+    }
+    if (any(is.na(data1[[by.x]]))) {
+      n_init <- data1[, .N]
+      data1 <- data1[!is.na(get(by.x))]
+      n_final <- data1[, .N]
+      message(stringr::str_c("Removing ",n_init - n_final," NA observations in by.x. These will be re-inserted for subsequent tiers."))
+    }
+    if (any(is.na(data2[[by.y]]))) {
+      n_init <- data2[, .N]
+      data2 <- data2[!is.na(get(by.y))]
+      n_final <- data2[, .N]
+      message(stringr::str_c("Removing ",n_init - n_final," NA observations in by.y. These will be re-inserted for subsequent tiers."))
     }
     matches <- fuzzy_match(data1, data2,
       by.x = by.x, by.y = by.y, suffixes = suffixes,
