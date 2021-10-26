@@ -253,9 +253,11 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
   } else {
     setkeyv(data1, unique_key_1)
     setkeyv(data2, unique_key_2)
-    setkeyv(matches, c(unique_key_1, unique_key_2))
     # use DT's anti-join syntax
+    setkeyv(matches, c(unique_key_1))
     data1_nomatch <- data1[!matches]
+
+    setkeyv(matches, c(unique_key_2))
     data2_nomatch <- data2[!matches]
   }
 
