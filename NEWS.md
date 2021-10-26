@@ -3,6 +3,7 @@
 - Lowered R requirement to 3.5.3
 - Added behavior to remove NA observations from exact matches, reinserting them into later tiers if necessary
 - Fixed bug in `tier_match` building 'nomatch' datasets incorrectly
+- Fixed bug in `wgt_jaccard` where inverse frequencies were not being logged.
 
 # fedmatch 2.0.3
 
