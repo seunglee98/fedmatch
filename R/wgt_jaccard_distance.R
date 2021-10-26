@@ -41,7 +41,7 @@ wgt_jaccard_distance <- function(string_1,
   }
 
   scores <- 1- wgt_jaccard_single(corpus$word,
-                               corpus$inv_freq,
+                               corpus$log_inv_freq,
                                string_1,
                                string_2,
                                nthreads)$similarity

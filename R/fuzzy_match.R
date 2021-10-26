@@ -63,7 +63,7 @@ fuzzy_match <- function(data1,
     corpus <- build_corpus(data1[[by.x]], data2[[by.y]])
 
     jaccard_result <- wgt_jaccard(
-      corpus$word, corpus$inv_freq,
+      corpus$word, corpus$log_inv_freq,
       data1[[by.x]], data2[[by.y]], fuzzy_settings[["nthread"]]
     )
     # filter out matches that are under the minimum threshold
