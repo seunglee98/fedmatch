@@ -65,5 +65,7 @@ paper:
 
 Gregory J. Cohen, Jacob Dice, Melanie Friedrichs, Kamran Gupta, William
 Hayes, Isabel Kitschelt, Seung Jung Lee, W. Blake Marsh, Nathan Mislang,
-Maya Shaton, Martin Sicilian, Chris Webster. “The U.S. Syndicated Loan
-Market: Matching Data.” Journal of Financial Research, forthcoming.
+Maya Shaton, Martin Sicilian, Chris Webster. “[The U.S. Syndicated Loan
+Market: Matching
+Data.](https://onlinelibrary.wiley.com/doi/full/10.1111/jfir.12261)”
+Journal of Financial Research, 2021.
