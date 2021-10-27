@@ -5,9 +5,6 @@
 #----------------------------
 ## Return a hashmap object
 build_corpus <- function(namelist1, namelist2) {
-
-  namelist1 <- c("abc", "abc", "abcd")
-  namelist2 <- namelist1
   inv_freq <- freq <- log_inv_freq <- NULL # due to NSE notes in R CMD check
   names <- c(namelist1, namelist2)
   df <- data.table::data.table(word = unlist(strsplit(names, " ")))
