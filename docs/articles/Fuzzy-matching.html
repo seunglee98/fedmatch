@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.4</span>
       </span>
     </div>
 
@@ -124,9 +124,12 @@
 <p>Another string distance metric is called the Jaccard Similarity. If <span class="math inline">\(A\)</span> is the set of letters in one string, and <span class="math inline">\(B\)</span> is the set of letters in another string, then the Jaccard similarity <span class="math inline">\(J\)</span> is defined as</p>
 <p><span class="math display">\[J = \frac{A \bigcap B}{A \bigcup B}.\]</span></p>
 <p>Thus, if the two strings share all of the same letters, then the distance is 0, or the similarity is 1.</p>
-<p>We take one step further and innovate to create a new measure of string distance, which we call the <em>Weighted Jaccard</em> distance. Rather than looking at the sets of letters in each string, we look at the set of words in each string. Then, we construct a corpus of all of the words in the two columns to be matched and compute the term frequency-inverse document frequency (TF-IDF) for each word. TF-IDF is a measure of word importance that accounts for how frequently a word appears in a corpus. For example, the word ‘Corporation’ appears frequently in the names of companies in common data sets, and so its TF-IDF would be low. But, the word ‘Apple’ probably only appears in a few company names out of the many thousands in the data, so its TF-IDF score would be high.</p>
-<p>Once we have the TF-IDF score for every word, we take the log of these scores to help attenuate the influence of outliers. If these logged scores are called <span class="math inline">\(w_i\)</span>, where <span class="math inline">\(i\)</span> denotes a given word, then the Weighted Jaccard similarity is computed as</p>
-<p><span class="math display">\[ J_w = \frac{ \sum w_i, \forall i \text{ in } A \bigcap B}{ \sum w_i, \forall i \text{ in } A \bigcup B} \]</span> Thus, if the two strings share many words that are uniquely identifying in the corpus, the Weighted Jaccard similarity will be higher. We have found this method of matching is able to pick up many more matches when used in conjunction with the Jaro-Winkler distance. To our knowledge, such a Weighted Jaccard method has never been used before, and is one of the key innovations that makes <code>fedmatch</code> unique.<br></p>
+<p>We take one step further and innovate to create a new measure of string distance, which we call the <em>Weighted Jaccard</em> distance. Rather than looking at the sets of letters in each string, we look at the set of words in each string. Then, we construct a corpus of all of the words in the two columns to be matched and compute the log inverse frequency for each word:</p>
+<p><span class="math display">\[w_i = \log \left( \frac{N}{n_i} \right), \]</span> where <span class="math inline">\(N\)</span> is the total number of unique words in the sample, and <span class="math inline">\(n_i\)</span> is the number of occurences of word <span class="math inline">\(i\)</span> in the sample.</p>
+<p>For example, the word ‘Corporation’ appears frequently in the names of companies in common data sets, and so its log inverse frequency would be low. But, the word ‘Apple’ probably only appears in a few company names out of the many thousands in the data, so its log inverse frequency score would be high.</p>
+<p>If these logged inverse frequencies are called <span class="math inline">\(w\)</span>, then the Weighted Jaccard similarity is computed as</p>
+<p><span class="math display">\[ J_i = \frac{ \sum_j w_j,  j \in A \bigcap B}{ \sum_k w_k, k \in A \bigcup B} \]</span></p>
+<p>Thus, if the two strings share many words that are uniquely identifying in the corpus, the Weighted Jaccard similarity will be higher. We have found this method of matching is able to pick up many more matches when used in conjunction with the Jaro-Winkler distance. To our knowledge, such a Weighted Jaccard method has never been used before, and is one of the key innovations that makes <code>fedmatch</code> unique.<br></p>
 </div>
 <div id="other-similarity-metrics" class="section level2">
 <h2 class="hasAnchor">
@@ -179,7 +182,7 @@
                           data2 <span class="op">=</span> <span class="va">corp_data2</span>,
                           by.x <span class="op">=</span> <span class="st">"Company"</span>,
                           by.y <span class="op">=</span> <span class="st">"Name"</span>, match_type <span class="op">=</span> <span class="st">"fuzzy"</span>, 
-                          fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"wgt_jaccard"</span>,
+                          fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"wgt_jaccard"</span>, nthread <span class="op">=</span> <span class="fl">2</span>,
                                                                 maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>,
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
@@ -191,10 +194,10 @@
 <span class="co">#&gt; 3:            6            6     USA    MA   NA     184 UnitedHealth Group</span>
 <span class="co">#&gt; 4:           10           10     USA    MI   NA     151 Ford Motor Company</span>
 <span class="co">#&gt;                  Name wgt_jaccard_sim country state_code SIC_code earnings tier</span>
-<span class="co">#&gt; 1:            Walmart             1.0     USA         OH     3380  490,000  all</span>
-<span class="co">#&gt; 2: Exxon Mobile Inc.              0.5     USA         TX     2222  210,000  all</span>
-<span class="co">#&gt; 3: UnitedHealth Group             1.0     USA         MA     1130  180,000  all</span>
-<span class="co">#&gt; 4:         Ford Motor             0.5     USA         MI     2222  150,000  all</span>
+<span class="co">#&gt; 1:            Walmart       1.0000000     USA         OH     3380  490,000  all</span>
+<span class="co">#&gt; 2: Exxon Mobile Inc.        0.6173197     USA         TX     2222  210,000  all</span>
+<span class="co">#&gt; 3: UnitedHealth Group       1.0000000     USA         MA     1130  180,000  all</span>
+<span class="co">#&gt; 4:         Ford Motor       0.6173197     USA         MI     2222  150,000  all</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $matches_filter</span>
 <span class="co">#&gt; Null data.table (0 rows and 0 cols)</span>

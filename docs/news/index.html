@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.4</span>
       </span>
     </div>
 
@@ -138,9 +138,11 @@
 <a href="#fedmatch-204" class="anchor"></a>fedmatch 2.0.4<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added <code>wgt_jaccard_distance</code> to easily compute Weighted Jaccard Distances for two string vectors.</li>
+<li>Added <code>wgt_jaccard_distance</code> to easily compute Weighted Jaccard Distances for two string vectors</li>
 <li>Lowered R requirement to 3.5.3</li>
-<li>Added behavior to remove NA observations from exact matches, reinserting them into later tiers if necessary.</li>
+<li>Added behavior to remove NA observations from exact matches, reinserting them into later tiers if necessary</li>
+<li>Fixed bug in <code>tier_match</code> building ‘nomatch’ datasets incorrectly</li>
+<li>Fixed bug in <code>wgt_jaccard</code> where inverse frequencies were not being logged.</li>
 </ul>
 </div>
     <div id="fedmatch-203" class="section level1">
