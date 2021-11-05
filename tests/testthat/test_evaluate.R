@@ -2,6 +2,8 @@
 test_that("match_evaluate returns matches that are correct number", {
   corp_data1 <- copy(fedmatch::corp_data1)
   corp_data2 <- copy(fedmatch::corp_data2)
+  # setnames(corp_data1, "unique_key_1", "id1")
+  # setnames(corp_data2, "unique_key_2", "id2")
   tier_list <- list(
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
