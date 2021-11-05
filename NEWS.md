@@ -1,4 +1,6 @@
 # fedmatch 2.0.4.9
+- Fixed bug in `fuzzy_match` where multiple matches could be returned for one observation. Now, the highest scoring match will always be returned. In the case of exact ties, an arbitrary observation is chosen. 
+- Fixed bug in `build_tier_settings` that didn't include `sequential_words` argument.
 
 # fedmatch 2.0.4
 - Added `wgt_jaccard_distance` to easily compute Weighted Jaccard Distances for two string vectors
