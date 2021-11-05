@@ -152,12 +152,12 @@ test_that("sequential word dropping works", {
   tier_list <- list(
     a = list(match_type = "exact"),
     b = list(match_type = "fuzzy"),
-    c = list(match_type = "multivar", multivar_settings = list(
+    c = build_tier(match_type = "multivar", multivar_settings = list(
       logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
       top = 1, threshold = NULL
     )),
-    d = list(
+    d = build_tier(
       match_type = "exact", clean_settings = list(remove_words = TRUE),
       sequential_words = sequential_words_df
     )

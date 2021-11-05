@@ -26,7 +26,8 @@
 #'   to filter.
 #' @param filter.args list. Arguments passed to filter, if a function
 #' @param evaluate Function to evalute merge_plus output.
-#' @param evaluate.args ist. Arguments passed to evaluate
+#' @param evaluate.args list. Arguments passed to evaluate
+#' @param sequential_words data.table of words in the same format of the common_words argument in \code{clean_strings}. Each of these will be replaced from the by columns.
 #' @param allow.cartesian whether or not to allow many-many matches, see data.table::merge()
 #' @return a list containing 1 tier for the 'tier_list' argument of \code{tier_match}.
 #' @export
@@ -43,6 +44,7 @@ build_tier <- function(by.x = NULL,
                        evaluate.args = NULL,
                        clean_settings = build_clean_settings(),
                        clean = NULL,
+                       sequential_words = NULL,
                        allow.cartesian = FALSE,
                        multivar_settings = build_multivar_settings()) {
   final_list <- list(
@@ -54,6 +56,7 @@ build_tier <- function(by.x = NULL,
     score_settings = score_settings,
     filter = filter,
     filter.args = filter.args,
+    sequential_words = sequential_words,
     evaluate = evaluate,
     evaluate.args = evaluate.args,
     clean_settings = clean_settings,
