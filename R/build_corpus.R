@@ -1,9 +1,10 @@
+#' Calculate word corpus for weighted jaccard matching
+#'
+#' @param namelist1 character vector of names from dataset 1
+#' @param namelist2 character vector of names from dataset 2
+#' @return a data.table with columns for frequency, inverse frequency, and log inverse frequency for each word in the two strings.
 
-#----------------------------
-# Build corpus
-# calculate word frequencies
-#----------------------------
-## Return a hashmap object
+#' @export
 build_corpus <- function(namelist1, namelist2) {
   inv_freq <- freq <- log_inv_freq <- NULL # due to NSE notes in R CMD check
   names <- c(namelist1, namelist2)
