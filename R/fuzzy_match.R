@@ -36,20 +36,24 @@ fuzzy_match <- function(data1,
                         )) {
 
   # FOR TESTING
-  data1 <- data.table(name = c("abaf", "abe", "abgegh"),
-                       id1= c(1:3))
-  data2 <- data.table(name = c("abc"),
-                      id2= c(1))
-  by = NULL
-  by.x = "name"
-  by.y = "name"
-  suffixes = c("_1", "_2")
-  unique_key_1 = "id1"
-  unique_key_2 = "id2"
-  fuzzy_settings = list(
-    method = "jw", p = 0.1, maxDist = 0.9,
-    matchNA = FALSE, nthread = getOption("sd_num_thread")
-  )
+  # data1 <- data.table(
+  #   name = c("abaf", "abe", "abgegh"),
+  #   id1 = c(1:3)
+  # )
+  # data2 <- data.table(
+  #   name = c("abc"),
+  #   id2 = c(1)
+  # )
+  # by <- NULL
+  # by.x <- "name"
+  # by.y <- "name"
+  # suffixes <- c("_1", "_2")
+  # unique_key_1 <- "id1"
+  # unique_key_2 <- "id2"
+  # fuzzy_settings <- list(
+  #   method = "jw", p = 0.1, maxDist = 0.9,
+  #   matchNA = FALSE, nthread = getOption("sd_num_thread")
+  # )
   # FOR TESTING
   # check that id's aren't the same
   if (unique_key_1 == unique_key_2) {
@@ -90,16 +94,13 @@ fuzzy_match <- function(data1,
     jaccard_index <- jaccard_result$index
     jaccard_sim <- jaccard_result$similarity
     jaccard_index[which(jaccard_sim < 1 - fuzzy_settings[["maxDist"]])] <- NA
-    # print(jaccard_index[!is.na(jaccard_index)][1:10])
+
     # jaccard_index <- jaccard_index[which(jaccard_sim >= 1 - fuzzy_settings[["maxDist"]])]
-    # print(all(is.na(jaccard_sim)))
-    # print(quantile(jaccard_sim, c(.01, .5, .99)))
     jaccard_sim <- jaccard_sim[which(jaccard_sim >= 1 - fuzzy_settings[["maxDist"]])]
 
 
     # this is done in C, so add 1 to the index to make it match
     match_indices <- jaccard_index + 1
-    # print(match_indices)
     score_table <- data.table(wgt_jaccard_sim = jaccard_sim)
   } else {
     stop("Fuzzy 'method' must be one of those in stringdist::amatch's 'method' argument, or 'wgt_jaccard'.")
@@ -131,57 +132,73 @@ fuzzy_match <- function(data1,
 
   final_merge <- merge(first_merge, data2[, !c(by.y), with = F], by = unique_key_2, suffixes = suffixes)
   # dedupe
-  if (by.x == by.y) {
-      keys_to_calc <- final_merge[, .N, c(unique_key_2)][N > 1][[unique_key_2]]
+  keys_to_calc <- final_merge[, .N, c(unique_key_2)][N > 1][[unique_key_2]]
+  # do we need to dedupe?
+  if (length(keys_to_calc) != 0) {
+    # include suffixes
+    if (by.x == by.y) {
       if (fuzzy_settings[["method"]] != "wgt_jaccard") {
-      no_compare <- final_merge[!get(unique_key_2) %in% keys_to_calc]
-      to_compare <- final_merge[get(unique_key_2) %in% keys_to_calc]
-      to_compare[, sim := 1 - do.call(stringdist::stringdist,
-                                     c(list(to_compare[[paste0(by.x, suffixes[[1]])]]),
-                                       list(to_compare[[paste0(by.y, suffixes[[2]])]]),
-                                     fuzzy_settings[c("method", "p")]))]
-      to_compare <- to_compare[order(-sim), .SD[1], c(unique_key_2)]
-      to_compare[, sim := NULL]
-      final_merge <- rbind(to_compare, no_compare)
-      #TODO fix this to use wgt jaccard
+        setkeyv(final_merge, c(unique_key_2))
+        no_compare <- final_merge[!data.table(keys_to_calc)]
+        to_compare <- final_merge[data.table(keys_to_calc)]
+        to_compare[, sim := 1 - do.call(
+          stringdist::stringdist,
+          c(
+            list(to_compare[[paste0(by.x, suffixes[[1]])]]),
+            list(to_compare[[paste0(by.y, suffixes[[2]])]]),
+            fuzzy_settings[c("method", "p")]
+          )
+        )]
+        to_compare <- to_compare[order(-sim), .SD[1], c(unique_key_2)]
+        to_compare[, sim := NULL]
+        final_merge <- rbind(to_compare, no_compare)
       } else {
-        no_compare <- final_merge[!get(unique_key_2) %in% keys_to_calc]
-        to_compare <- final_merge[get(unique_key_2) %in% keys_to_calc]
+        setkeyv(final_merge, c(unique_key_2))
+        no_compare <- final_merge[!data.table(keys_to_calc)]
+        to_compare <- final_merge[data.table(keys_to_calc)]
         rm(final_merge)
         corpus <- build_corpus(data1[[by.x]], data2[[by.y]])
-        to_compare[, sim := 1 -  wgt_jaccard_distance(to_compare[[paste0(by.x, suffixes[[1]])]],
-                                                      to_compare[[paste0(by.y, suffixes[[2]])]],
-                                                      corpus = corpus, nthreads = fuzzy_settings$nthread)]
+        to_compare[, sim := 1 - wgt_jaccard_distance(to_compare[[paste0(by.x, suffixes[[1]])]],
+          to_compare[[paste0(by.y, suffixes[[2]])]],
+          corpus = corpus, nthreads = fuzzy_settings$nthread
+        )]
 
         to_compare <- to_compare[order(-sim), .SD[1], c(unique_key_2)]
         to_compare[, sim := NULL]
         final_merge <- rbind(to_compare, no_compare)
       }
-  } else {
-    keys_to_calc <- final_merge[, .N, c(unique_key_2)][N > 1][[unique_key_2]]
-    if (fuzzy_settings[["method"]] != "wgt_jaccard") {
-      no_compare <- final_merge[!get(unique_key_2) %in% keys_to_calc]
-      to_compare <- final_merge[get(unique_key_2) %in% keys_to_calc]
-      to_compare[, sim := 1 - do.call(stringdist::stringdist,
-                                      c(list(to_compare[[paste0(by.x, suffixes[[1]])]]),
-                                        list(to_compare[[paste0(by.y, suffixes[[2]])]]),
-                                        fuzzy_settings[c("method", "p")]))]
-      to_compare <- to_compare[order(-sim), .SD[1], c(unique_key_2)]
-      to_compare[, sim := NULL]
-      final_merge <- rbind(to_compare, no_compare)
-      #TODO fix this to use wgt jaccard
-    } else {
-      no_compare <- final_merge[!get(unique_key_2) %in% keys_to_calc]
-      to_compare <- final_merge[get(unique_key_2) %in% keys_to_calc]
-      rm(final_merge)
-      corpus <- build_corpus(data1[[by.x]], data2[[by.y]])
-      to_compare[, sim := 1 -  wgt_jaccard_distance(to_compare[[paste0(by.x, suffixes[[1]])]],
-                                                    to_compare[[paste0(by.y, suffixes[[2]])]],
-                                                    corpus = corpus, nthreads = fuzzy_settings$nthread)]
-
-      to_compare <- to_compare[order(-sim), .SD[1], c(unique_key_2)]
-      to_compare[, sim := NULL]
-      final_merge <- rbind(to_compare, no_compare)
+    } else if (by.x != by.y) {
+      # no suffixes needed
+      keys_to_calc <- final_merge[, .N, c(unique_key_2)][N > 1][[unique_key_2]]
+      if (fuzzy_settings[["method"]] != "wgt_jaccard") {
+        setkeyv(final_merge, c(unique_key_2))
+        no_compare <- final_merge[!data.table(keys_to_calc)]
+        to_compare <- final_merge[data.table(keys_to_calc)]
+        to_compare[, sim := 1 - do.call(
+          stringdist::stringdist,
+          c(
+            list(to_compare[[by.x]]),
+            list(to_compare[[by.y]]),
+            fuzzy_settings[c("method", "p")]
+          )
+        )]
+        to_compare <- to_compare[order(-sim), .SD[1], c(unique_key_2)]
+        to_compare[, sim := NULL]
+        final_merge <- rbind(to_compare, no_compare)
+      } else {
+        setkeyv(final_merge, c(unique_key_2))
+        no_compare <- final_merge[!data.table(keys_to_calc)]
+        to_compare <- final_merge[data.table(keys_to_calc)]
+        corpus <- build_corpus(data1[[by.x]], data2[[by.y]])
+        to_compare[, sim := 1 - wgt_jaccard_distance(to_compare[[by.x]],
+          to_compare[[by.y]],
+          corpus = corpus, nthreads = fuzzy_settings$nthread
+        )]
+        to_compare <- to_compare[order(-sim), .SD[1], c(unique_key_2)]
+        to_compare[, sim := NULL]
+        final_merge <- rbind(to_compare, no_compare)
+      }
+    }
   }
   return(final_merge)
 }

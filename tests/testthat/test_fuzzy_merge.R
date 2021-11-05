@@ -114,20 +114,23 @@ testthat::test_that("fuzzy matching works with unique key names", {
 })
 testthat::test_that("fuzzy matching works the same if data is inverted", {
   dummy_data1 <- data.table(id1 = 1:10,
-                            name = "abc")
+                            name1 = c(rep("abc",5), rep( "abd", 5)))
   dummy_data2 <- data.table(id2 = 1,
-                            name = "abc")
+                            name2 = "abc")
+
   result1 <- fedmatch::merge_plus(
     data1 = dummy_data1,
     match_type = "fuzzy",
-    data2 = dummy_data2, by.x = "name", by.y = "name",
+    data2 = dummy_data2, by.x = "name1", by.y = "name2",
     unique_key_1 = "id1", unique_key_2 = "id2",
+    fuzzy_settings = build_fuzzy_settings(maxDist = .75),
     suffixes = c("_1", "_2"))
   result2 <- fedmatch::merge_plus(
     data2 = dummy_data1,
     match_type = "fuzzy",
-    data1 = dummy_data2, by.x = "name", by.y = "name",
+    data1 = dummy_data2, by.x = "name2", by.y = "name1",
     unique_key_1 = "id2", unique_key_2 = "id1",
+    fuzzy_settings = build_fuzzy_settings(maxDist = .75),
     suffixes = c("_1", "_2"))
 
   expect_true(result1$matches[, .N] == result2$matches[, .N])
