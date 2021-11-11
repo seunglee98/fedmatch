@@ -54,7 +54,11 @@ clean_strings <- function(string,
     # set the names of the common words table
     setnames(common_words, c("words", "replacement"))
     if (remove_words == TRUE) {
+      other_replacements <- data.table(words = common_words[replacement != "", replacement],
+                                       replacement = ""
+                                       )
       common_words[, replacement := ""]
+      common_words <- rbind(other_replacements, common_words)
     }
     if (remove_words != TRUE & dim(common_words)[2] < 2) {
       print("Common word dimension too small, add replacement column.")
