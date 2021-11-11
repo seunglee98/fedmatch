@@ -28,11 +28,9 @@ clean_strings <- function(string,
   string_table <- data.table::data.table(string_orig = string)
   # define the default inputs;
   ## special character to words default
-  if (is.null(sp_char_words)) {
-    sp_char_words <- data.table::data.table("character" = c("\\&", "\\$", "\\%", "\\@"), "replacement" = c("and", "dollar", "percent", "at"))
-  } else {
-    sp_char_words <- data.table::data.table(sp_char_words)
-  }
+
+  sp_char_words <- data.table::data.table(sp_char_words)
+
   replacement <- NULL # due to NSE notes in R CMD check
   sp_char_words_vec <- sp_char_words[, replacement]
   sp_char_words_vec <- stats::setNames(sp_char_words_vec, sp_char_words[, character])
@@ -54,6 +52,7 @@ clean_strings <- function(string,
     # set the names of the common words table
     setnames(common_words, c("words", "replacement"))
     if (remove_words == TRUE) {
+      # also remove the replacement words
       other_replacements <- data.table(words = common_words[replacement != "", replacement],
                                        replacement = ""
                                        )
