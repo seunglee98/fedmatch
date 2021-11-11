@@ -26,7 +26,7 @@ merge_plus(
 )
 }
 \arguments{
-\item{data1}{data.frame. First to-merge dataset.}
+\item{data1}{data.frame. First to-merge dataset (ordering matters - see Fuzzy Matching vignette.)}
 
 \item{data2}{data.frame. Second to-merge dataset.}
 

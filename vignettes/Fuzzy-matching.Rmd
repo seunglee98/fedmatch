@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(fedmatch)
+library(data.table)
 ```
 
 # Intro
@@ -89,6 +90,37 @@ Note that 'Bershire Hathaway' matched to 'Bershire Hataway,' which makes sense -
 - matchNA, default `FALSE`, is a boolean to determine whether to count NAs as a match (see `stringdist::amatch` for details.)
 - nthread, number of threads to use in the underlying C code. If using any method besides "wgt_jaccard", uses `stringdist::amatch' to parallelize. If using "wgt_jaccard", instead uses built in C++ code to parallelize.
 
+## The order of which is data1 and which is data2 matters!
+
+The behavior of `fuzzy_match` is such that you can get different results from swapping data1 and data2. This is because `fuzzy_match` answers the question: "for each observation in data1, which observation is closest in data2 (while being closest than the maxDist)?" This can result in duplicate observations from data2, as shown in the simple example below:
+```{r}
+dummy_data1 <- data.table(id1 = 1:2,
+                            name = "abd")
+dummy_data2 <- data.table(id2 = 1,
+                            name = "abc")
+result1 <- fedmatch::merge_plus(
+    data1 = dummy_data1,
+    match_type = "fuzzy",
+    data2 = dummy_data2, by.x = "name", by.y = "name",
+    unique_key_1 = "id1", unique_key_2 = "id2",
+    suffixes = c("_1", "_2"), fuzzy_settings = build_fuzzy_settings(maxDist = .5))
+print(result1$matches)
+```
+
+Note how we have two observations of the id2 '1', because each of these observations is the closest in the data to the observations in data1 (and they are closer together than the maxDist specified). Now, if we flip the datasets:
+
+```{r}
+result1 <- fedmatch::merge_plus(
+    data1 = dummy_data2,
+    match_type = "fuzzy",
+    data2 = dummy_data1, by.x = "name", by.y = "name",
+    unique_key_1 = "id2", unique_key_2 = "id1",
+    suffixes = c("_1", "_2"), fuzzy_settings = build_fuzzy_settings(maxDist = .5))
+print(result1$matches)
+```
+
+We only get 1 observation, because in the case of ties, `fuzzy_match` will simply pick the first observation. 
+
 ## An example - weighted Jaccard match
 
 ### Weighted Jaccard Match
@@ -104,4 +136,3 @@ wgt_jaccard_match <- merge_plus(data1 = corp_data1,
 print(wgt_jaccard_match)
 ```
 
-Note that we have an extra column, 'wgt_jaccard_sim', that shows the similarity score for the weighted Jaccard method.

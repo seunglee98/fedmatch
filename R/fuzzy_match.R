@@ -70,7 +70,7 @@ fuzzy_match <- function(data1,
     by.y <- by
   }
   if (any(data1[[by.x]] %in% data2[[by.y]])) {
-    message("Fuzzy matching despite exact matches in the data. Consider removing these exact matches to dramatically speed up the matching process and improve consistency.")
+    message("Fuzzy matching despite exact matches in the data. Consider removing these exact matches to dramatically speed up the matching process.")
   }
 
   # make sure data1 and data2 are data.table's and not data.frames
@@ -101,7 +101,7 @@ fuzzy_match <- function(data1,
 
     # this is done in C, so add 1 to the index to make it match
     match_indices <- jaccard_index + 1
-    # score_table <- data.table(wgt_jaccard_sim = jaccard_sim)
+    # score_table <- data.table(wgt_jaccard_sim = jaccard_sim)    # score_table <- data.table(wgt_jaccard_sim = jaccard_sim)
   } else {
     stop("Fuzzy 'method' must be one of those in stringdist::amatch's 'method' argument, or 'wgt_jaccard'.")
   }

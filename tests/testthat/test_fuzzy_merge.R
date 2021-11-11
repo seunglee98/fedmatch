@@ -114,7 +114,7 @@ testthat::test_that("fuzzy matching works with unique key names", {
 })
 testthat::test_that("fuzzy matching doesn't work the same if data is inverted", {
   dummy_data1 <- data.table(id1 = 1:10,
-                            name1 = c(rep("abc",5), rep( "abd", 5)))
+                            name1 = c(rep("abe",5), rep( "abd", 5)))
   dummy_data2 <- data.table(id2 = 1,
                             name2 = "abc")
 

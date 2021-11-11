@@ -6,7 +6,7 @@
 #' workhorse for the \code{tier_match} function.
 #'
 #'
-#' @param data1 data.frame. First to-merge dataset.
+#' @param data1 data.frame. First to-merge dataset (ordering matters - see Fuzzy Matching vignette.)
 #' @param data2 data.frame. Second to-merge dataset.
 #' @param by character string. Variables to merge on (common across data 1 and
 #'   data 2). See \code{merge}
