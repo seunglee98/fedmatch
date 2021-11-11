@@ -176,7 +176,7 @@ tier_match <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL, suffix
       newmatches[, tier := tier_name]
       # in case we merge on the same variable
       if (length(tier_settings[["by.y"]]) == 1 & !(tier_settings[["by.y"]][1] %in% names(newmatches)) & tier_settings[["by.y"]][1] != tier_settings[["by.x"]][1]) {
-        newmatches[[by.y]] <- newmatches[[by.x]]
+        newmatches[[tier_settings[["by.y"]]]] <- newmatches[[tier_settings[["by.x"]]]]
       }
       # else if (tier_settings[["by.y"]]) {
       #   newmatches[[str_c(by.y, suffixes[2])]] <- newmatches[[by.x]]
