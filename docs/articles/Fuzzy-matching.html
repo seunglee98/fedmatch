@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5</span>
       </span>
     </div>
 
@@ -151,6 +151,7 @@
                           by.y <span class="op">=</span> <span class="st">"Name"</span>, match_type <span class="op">=</span> <span class="st">"fuzzy"</span>, 
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
+<span class="co">#&gt; Fuzzy matching despite exact matches in the data. Consider removing these exact matches to dramatically speed up the matching process and improve consistency.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fuzzy_result</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt;    unique_key_2 unique_key_1 Country State  SIC Revenue            Company</span>
 <span class="co">#&gt; 1:            1            1     USA    OH 3300     485            Walmart</span>
@@ -186,6 +187,7 @@
                                                                 maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>,
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
+<span class="co">#&gt; Fuzzy matching despite exact matches in the data. Consider removing these exact matches to dramatically speed up the matching process and improve consistency.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">wgt_jaccard_match</span><span class="op">)</span>
 <span class="co">#&gt; $matches</span>
 <span class="co">#&gt;    unique_key_2 unique_key_1 Country State  SIC Revenue            Company</span>

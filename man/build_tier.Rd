@@ -17,6 +17,7 @@ build_tier(
   evaluate.args = NULL,
   clean_settings = build_clean_settings(),
   clean = NULL,
+  sequential_words = NULL,
   allow.cartesian = FALSE,
   multivar_settings = build_multivar_settings()
 )
@@ -48,11 +49,13 @@ to filter.}
 
 \item{evaluate}{Function to evalute merge_plus output.}
 
-\item{evaluate.args}{ist. Arguments passed to evaluate}
+\item{evaluate.args}{list. Arguments passed to evaluate}
 
 \item{clean_settings}{list. Settings for string cleaning. See \code{clean_strings} and \code{build_clean_settings}.}
 
 \item{clean}{Boolean, T/F, whether or not to clean strings prior to the match.}
+
+\item{sequential_words}{data.table of words in the same format of the common_words argument in \code{clean_strings}. Each of these will be replaced from the by columns.}
 
 \item{allow.cartesian}{whether or not to allow many-many matches, see data.table::merge()}
 

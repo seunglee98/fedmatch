@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5</span>
       </span>
     </div>
 
@@ -133,9 +133,20 @@
       
     </div>
 
+    <div id="fedmatch-205" class="section level1">
+<h1 class="page-header" data-toc-text="2.0.5">
+<a href="#fedmatch-205" class="anchor"></a>fedmatch 2.0.5<small> Unreleased </small>
+</h1>
+<ul>
+<li>Fixed bug in <code>fuzzy_match</code> where multiple matches could be returned for one observation. Now, the highest scoring match will always be returned. In the case of exact ties, an arbitrary observation is chosen.</li>
+<li>Fixed bug in <code>build_tier_settings</code> that didn’t include <code>sequential_words</code> argument.</li>
+<li>Fixed bug where <code>clean_strings</code> wasn’t removing the replacement words even if remove_words == T. Now replacement words are indeed removed.</li>
+<li>Fixed bug where <code>tier_match</code> didn’t work in some cases with <code>fuzzy_match</code>.</li>
+</ul>
+</div>
     <div id="fedmatch-204" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.4">
-<a href="#fedmatch-204" class="anchor"></a>fedmatch 2.0.4<small> Unreleased </small>
+<a href="#fedmatch-204" class="anchor"></a>fedmatch 2.0.4<small> 2021-10-28 </small>
 </h1>
 <ul>
 <li>Added <code>wgt_jaccard_distance</code> to easily compute Weighted Jaccard Distances for two string vectors</li>

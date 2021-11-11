@@ -112,7 +112,7 @@ testthat::test_that("fuzzy matching works with unique key names", {
   )
   expect_true(is.data.table(result$matches))
 })
-testthat::test_that("fuzzy matching works the same if data is inverted", {
+testthat::test_that("fuzzy matching doesn't work the same if data is inverted", {
   dummy_data1 <- data.table(id1 = 1:10,
                             name1 = c(rep("abc",5), rep( "abd", 5)))
   dummy_data2 <- data.table(id2 = 1,
@@ -133,10 +133,10 @@ testthat::test_that("fuzzy matching works the same if data is inverted", {
     fuzzy_settings = build_fuzzy_settings(maxDist = .75),
     suffixes = c("_1", "_2"))
 
-  expect_true(result1$matches[, .N] == result2$matches[, .N])
+  expect_true(result1$matches[, .N] != result2$matches[, .N])
 })
 
-testthat::test_that("fuzzy matching works wgt jaccard the same if data is inverted", {
+testthat::test_that("fuzzy matching doesn't work wgt jaccard the same if data is inverted", {
   dummy_data1 <- data.table(id1 = 1:10,
                             name = "abc")
   dummy_data2 <- data.table(id2 = 1,
@@ -156,5 +156,5 @@ testthat::test_that("fuzzy matching works wgt jaccard the same if data is invert
     suffixes = c("_1", "_2"),
     fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard"))
 
-  expect_true(result1$matches[, .N] == result2$matches[, .N])
+  expect_true(result1$matches[, .N] != result2$matches[, .N])
 })

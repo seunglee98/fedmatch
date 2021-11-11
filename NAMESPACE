@@ -2,6 +2,7 @@
 
 export("%>%")
 export(build_clean_settings)
+export(build_corpus)
 export(build_fuzzy_settings)
 export(build_multivar_settings)
 export(build_score_settings)
