@@ -69,9 +69,6 @@ fuzzy_match <- function(data1,
     by.x <- by
     by.y <- by
   }
-  if (any(data1[[by.x]] %in% data2[[by.y]])) {
-    message("Fuzzy matching despite exact matches in the data. Consider removing these exact matches to dramatically speed up the matching process.")
-  }
 
   # make sure data1 and data2 are data.table's and not data.frames
   data1 <- data.table(data1)
