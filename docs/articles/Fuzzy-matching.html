@@ -98,7 +98,8 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fedmatch</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fedmatch</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></code></pre></div>
 <div id="intro" class="section level1">
 <h1 class="hasAnchor">
 <a href="#intro" class="anchor"></a>Intro</h1>
@@ -151,7 +152,6 @@
                           by.y <span class="op">=</span> <span class="st">"Name"</span>, match_type <span class="op">=</span> <span class="st">"fuzzy"</span>, 
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
-<span class="co">#&gt; Fuzzy matching despite exact matches in the data. Consider removing these exact matches to dramatically speed up the matching process and improve consistency.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fuzzy_result</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt;    unique_key_2 unique_key_1 Country State  SIC Revenue            Company</span>
 <span class="co">#&gt; 1:            1            1     USA    OH 3300     485            Walmart</span>
@@ -172,13 +172,45 @@
 <li>nthread, number of threads to use in the underlying C code. If using any method besides “wgt_jaccard”, uses `stringdist::amatch’ to parallelize. If using “wgt_jaccard”, instead uses built in C++ code to parallelize.</li>
 </ul>
 </div>
+<div id="the-order-of-which-is-data1-and-which-is-data2-matters" class="section level2">
+<h2 class="hasAnchor">
+<a href="#the-order-of-which-is-data1-and-which-is-data2-matters" class="anchor"></a>The order of which is data1 and which is data2 matters!</h2>
+<p>The behavior of <code>fuzzy_match</code> is such that you can get different results from swapping data1 and data2. This is because <code>fuzzy_match</code> answers the question: “for each observation in data1, which observation is closest in data2 (while being closest than the maxDist)?” This can result in duplicate observations from data2, as shown in the simple example below:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummy_data1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,
+                            name <span class="op">=</span> <span class="st">"abd"</span><span class="op">)</span>
+<span class="va">dummy_data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>id2 <span class="op">=</span> <span class="fl">1</span>,
+                            name <span class="op">=</span> <span class="st">"abc"</span><span class="op">)</span>
+<span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu">fedmatch</span><span class="fu">::</span><span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>
+    data1 <span class="op">=</span> <span class="va">dummy_data1</span>,
+    match_type <span class="op">=</span> <span class="st">"fuzzy"</span>,
+    data2 <span class="op">=</span> <span class="va">dummy_data2</span>, by.x <span class="op">=</span> <span class="st">"name"</span>, by.y <span class="op">=</span> <span class="st">"name"</span>,
+    unique_key_1 <span class="op">=</span> <span class="st">"id1"</span>, unique_key_2 <span class="op">=</span> <span class="st">"id2"</span>,
+    suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>, fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
+<span class="co">#&gt;    id2 id1 name_1 name_2 tier</span>
+<span class="co">#&gt; 1:   1   1    abd    abc  all</span>
+<span class="co">#&gt; 2:   1   2    abd    abc  all</span></code></pre></div>
+<p>Note how we have two observations of the id2 ‘1’, because each of these observations is the closest in the data to the observations in data1 (and they are closer together than the maxDist specified). Now, if we flip the datasets:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu">fedmatch</span><span class="fu">::</span><span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>
+    data1 <span class="op">=</span> <span class="va">dummy_data2</span>,
+    match_type <span class="op">=</span> <span class="st">"fuzzy"</span>,
+    data2 <span class="op">=</span> <span class="va">dummy_data1</span>, by.x <span class="op">=</span> <span class="st">"name"</span>, by.y <span class="op">=</span> <span class="st">"name"</span>,
+    unique_key_1 <span class="op">=</span> <span class="st">"id2"</span>, unique_key_2 <span class="op">=</span> <span class="st">"id1"</span>,
+    suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>, fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
+<span class="co">#&gt;    id1 id2 name_1 name_2 tier</span>
+<span class="co">#&gt; 1:   1   1    abc    abd  all</span></code></pre></div>
+<p>We only get 1 observation, because in the case of ties, <code>fuzzy_match</code> will simply pick the first observation.</p>
+</div>
 <div id="an-example---weighted-jaccard-match" class="section level2">
 <h2 class="hasAnchor">
 <a href="#an-example---weighted-jaccard-match" class="anchor"></a>An example - weighted Jaccard match</h2>
 <div id="weighted-jaccard-match" class="section level3">
 <h3 class="hasAnchor">
 <a href="#weighted-jaccard-match" class="anchor"></a>Weighted Jaccard Match</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wgt_jaccard_match</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>data1 <span class="op">=</span> <span class="va">corp_data1</span>, 
                           data2 <span class="op">=</span> <span class="va">corp_data2</span>,
                           by.x <span class="op">=</span> <span class="st">"Company"</span>,
@@ -187,7 +219,6 @@
                                                                 maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>,
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
-<span class="co">#&gt; Fuzzy matching despite exact matches in the data. Consider removing these exact matches to dramatically speed up the matching process and improve consistency.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">wgt_jaccard_match</span><span class="op">)</span>
 <span class="co">#&gt; $matches</span>
 <span class="co">#&gt;    unique_key_2 unique_key_1 Country State  SIC Revenue            Company</span>
@@ -195,11 +226,11 @@
 <span class="co">#&gt; 2:            4            4     USA    TX 2222     205       Exxon Mobile</span>
 <span class="co">#&gt; 3:            6            6     USA    MA   NA     184 UnitedHealth Group</span>
 <span class="co">#&gt; 4:           10           10     USA    MI   NA     151 Ford Motor Company</span>
-<span class="co">#&gt;                  Name wgt_jaccard_sim country state_code SIC_code earnings tier</span>
-<span class="co">#&gt; 1:            Walmart       1.0000000     USA         OH     3380  490,000  all</span>
-<span class="co">#&gt; 2: Exxon Mobile Inc.        0.6173197     USA         TX     2222  210,000  all</span>
-<span class="co">#&gt; 3: UnitedHealth Group       1.0000000     USA         MA     1130  180,000  all</span>
-<span class="co">#&gt; 4:         Ford Motor       0.6173197     USA         MI     2222  150,000  all</span>
+<span class="co">#&gt;                  Name country state_code SIC_code earnings tier</span>
+<span class="co">#&gt; 1:            Walmart     USA         OH     3380  490,000  all</span>
+<span class="co">#&gt; 2: Exxon Mobile Inc.      USA         TX     2222  210,000  all</span>
+<span class="co">#&gt; 3: UnitedHealth Group     USA         MA     1130  180,000  all</span>
+<span class="co">#&gt; 4:         Ford Motor     USA         MI     2222  150,000  all</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $matches_filter</span>
 <span class="co">#&gt; Null data.table (0 rows and 0 cols)</span>
@@ -227,7 +258,6 @@
 <span class="co">#&gt; 1:  all       4                4                4           0.4           0.4</span>
 <span class="co">#&gt;    new_unique_1 new_unique_2</span>
 <span class="co">#&gt; 1:            4            4</span></code></pre></div>
-<p>Note that we have an extra column, ‘wgt_jaccard_sim’, that shows the similarity score for the weighted Jaccard method.</p>
 </div>
 </div>
 </div>

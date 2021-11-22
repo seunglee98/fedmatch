@@ -158,6 +158,7 @@ corresponds to one variable to score on.</p>
   evaluate.args <span class='op'>=</span> <span class='cn'>NULL</span>,
   clean_settings <span class='op'>=</span> <span class='fu'><a href='build_clean_settings.html'>build_clean_settings</a></span><span class='op'>(</span><span class='op'>)</span>,
   clean <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sequential_words <span class='op'>=</span> <span class='cn'>NULL</span>,
   allow.cartesian <span class='op'>=</span> <span class='cn'>FALSE</span>,
   multivar_settings <span class='op'>=</span> <span class='fu'><a href='build_multivar_settings.html'>build_multivar_settings</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
@@ -211,7 +212,7 @@ to filter.</p></td>
     </tr>
     <tr>
       <th>evaluate.args</th>
-      <td><p>ist. Arguments passed to evaluate</p></td>
+      <td><p>list. Arguments passed to evaluate</p></td>
     </tr>
     <tr>
       <th>clean_settings</th>
@@ -220,6 +221,10 @@ to filter.</p></td>
     <tr>
       <th>clean</th>
       <td><p>Boolean, T/F, whether or not to clean strings prior to the match.</p></td>
+    </tr>
+    <tr>
+      <th>sequential_words</th>
+      <td><p>data.table of words in the same format of the common_words argument in <code>clean_strings</code>. Each of these will be replaced from the by columns.</p></td>
     </tr>
     <tr>
       <th>allow.cartesian</th>

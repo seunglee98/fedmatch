@@ -62,15 +62,18 @@ result
 Let's go through the arguments:
 
 - The first 7 arguments are identical to those in `merge_plus`, except 'by' can contain multiple elements, unlike with `merge_plus`.
-- 'compare_type' is a character vector, equal to the length of the 'by' vector, that describes how to compare each field. The options are "in", "indicator",  "difference", "ratio", and "stringdist".
+- 'compare_type' is a character vector, equal to the length of the 'by' vector, that describes how to compare each field. The options are "in", "indicator",  "difference", "ratio", and "stringdist". Each of the comparison metrics are scaled such that they are also in between 0 and 1.
   - "indicator" is a binary indicator for if the two fields match exactly.
   - "in" is a binary indicator for one string being within the other (e.g. 'abc corp' and 'abc' would get a score of 1 )
   - "difference" computes the numeric difference between the two columns, scaled by the largest difference in the dataset
   - "ratio" computes the ratio between the two columns, always such that the ratio is less than 1
   - "stringdist" computes the Jaro-Winkler string distance between the strings.
+  - "wgt_jaccard_distance" computes the weighted jaccard distance between the strings (see fuzzy matching vignette for details on how this is computed.)
 - 'wgts' is a vector of weights, length equal to the length of the 'by' vector, that describes how to weight each field for computing a multivar_score. 
 - 'nthread' is how many threads to use when making the comparisons, see `parallel::makeCluster()`
 - 'logit' is a logit model (described in detail later) that can be used instead of 'wgts' to combine the comparison scores into a final multivar_score using `base::predict()`
+
+
 
 # Return value
 

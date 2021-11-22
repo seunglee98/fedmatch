@@ -147,12 +147,11 @@
                                         score_type <span class="op">=</span> <span class="st">"stringdist"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; Matching tier 'a'...</span>
-<span class="co">#&gt; Time elapsed: 0.08 secs.</span>
+<span class="co">#&gt; Time elapsed: 0.06 secs.</span>
 <span class="co">#&gt; Matching tier 'b'...</span>
-<span class="co">#&gt; Fuzzy matching despite exact matches in the data. Consider removing these exact matches to dramatically speed up the matching process and improve consistency.</span>
-<span class="co">#&gt; Time elapsed: 0.04 secs.</span>
+<span class="co">#&gt; Time elapsed: 0.02 secs.</span>
 <span class="co">#&gt; Matching tier 'c'...</span>
-<span class="co">#&gt; Time elapsed: 0.08 secs.</span></code></pre></div>
+<span class="co">#&gt; Time elapsed: 0.07 secs.</span></code></pre></div>
 <p>There are two types of arguments for <code>tier_match</code>: those that can be passed to <code>merge_plus</code>, and those that are unique to <code>tier_match</code>. If anything of the <code>merge_plus</code> arguments are listed in <code>tier_match</code> directly (rather than in <code>tier_list</code>), those arguments are used in every tier. In this example, we are always matching on ‘Company’ and ‘Name,’ so those are placed in the arguments for tier_match directly. The arguments unique to <code>tier_match</code> and their defaults are:</p>
 <ul>
 <li>
@@ -178,12 +177,12 @@
 <span class="co">#&gt; 3:     3380  490,000            1           Walmart  1.0000000     1.0000000</span>
 <span class="co">#&gt; 4:     2220  220,000            2 Bershire Hathaway  0.9882353     0.9882353</span>
 <span class="co">#&gt; 5:       NA  220,000            3    apple computer  0.8714286     0.8714286</span>
-<span class="co">#&gt;    tier wgt_jaccard_sim Company_compare multivar_score</span>
-<span class="co">#&gt; 1:    a              NA              NA             NA</span>
-<span class="co">#&gt; 2:    b       1.0000000              NA             NA</span>
-<span class="co">#&gt; 3:    c              NA       1.0000000      1.0000000</span>
-<span class="co">#&gt; 4:    c              NA       0.9882353      0.9882353</span>
-<span class="co">#&gt; 5:    b       0.4464659              NA             NA</span></code></pre></div>
+<span class="co">#&gt;    tier Company_compare multivar_score</span>
+<span class="co">#&gt; 1:    a              NA             NA</span>
+<span class="co">#&gt; 2:    b              NA             NA</span>
+<span class="co">#&gt; 3:    c       1.0000000      1.0000000</span>
+<span class="co">#&gt; 4:    c       0.9882353      0.9882353</span>
+<span class="co">#&gt; 5:    b              NA             NA</span></code></pre></div>
 <p>As you can see, the matches dataset has a column called ‘tier’ that indicates which tier the match was from. It also adds any additional columns added by the matching process. In this example, we see ‘Company_score’, created from the from the post-hoc scoring; ‘wgt_jaccard_sim’, the Weighted Jaccard similarity, created when using the ‘wgt_jaccard’ setting of <code>fuzzy_match</code> (see the ‘Fuzzy-matching’ vignette for more details); and ‘Company_compare’, created from the multivar matching tier.</p>
 <p>We also have a match evaluation, now filled out with more details broken down by tier:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • fedmatch</title>
+<title>Calculate word corpus for weighted jaccard matching — build_corpus • fedmatch</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Calculate word corpus for weighted jaccard matching — build_corpus" />
+<meta property="og:description" content="Calculate word corpus for weighted jaccard matching" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -129,88 +130,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      
+    <h1>Calculate word corpus for weighted jaccard matching</h1>
+    
+    <div class="hidden name"><code>build_corpus.Rd</code></div>
     </div>
 
-    <div id="fedmatch-205" class="section level1">
-<h1 class="page-header" data-toc-text="2.0.5">
-<a href="#fedmatch-205" class="anchor"></a>fedmatch 2.0.5<small> Unreleased </small>
-</h1>
-<ul>
-<li>Fixed bug in <code>build_tier_settings</code> that didn’t include <code>sequential_words</code> argument</li>
-<li>Fixed bug where <code>clean_strings</code> wasn’t removing the replacement words even if <code>remove_words == T</code>
-</li>
-<li>Fixed bug where <code>tier_match</code> didn’t work in some cases with <code>fuzzy_match</code>
-</li>
-<li>Now exporting <code>build_corpus</code> to easily compute <code>wgt_jaccard_distance</code>
-</li>
-<li>Added weighted jaccard distance option to <code>compare_type</code> in multivar matching</li>
-</ul>
-</div>
-    <div id="fedmatch-204" class="section level1">
-<h1 class="page-header" data-toc-text="2.0.4">
-<a href="#fedmatch-204" class="anchor"></a>fedmatch 2.0.4<small> 2021-10-28 </small>
-</h1>
-<ul>
-<li>Added <code>wgt_jaccard_distance</code> to easily compute Weighted Jaccard Distances for two string vectors</li>
-<li>Lowered R requirement to 3.5.3</li>
-<li>Added behavior to remove NA observations from exact matches, reinserting them into later tiers if necessary</li>
-<li>Fixed bug in <code>tier_match</code> building ‘nomatch’ datasets incorrectly</li>
-<li>Fixed bug in <code>wgt_jaccard</code> where inverse frequencies were not being logged.</li>
-</ul>
-</div>
-    <div id="fedmatch-203" class="section level1">
-<h1 class="page-header" data-toc-text="2.0.3">
-<a href="#fedmatch-203" class="anchor"></a>fedmatch 2.0.3<small> 2021-09-08 </small>
-</h1>
-<ul>
-<li>Fixed STATE_FIPS to actually include FIPS codes</li>
-<li>Changed the output column from ‘multivar’ matching to be called ‘multivar_score’ rather than ‘matchscore’, so as not to conflict with score_settings in <code>merge_plus</code>
-</li>
-<li>Fixed bug in Weighted Jaccard scoring that would allow scores &gt; 1 if the two names shared multiples of the same word</li>
-</ul>
-</div>
-    <div id="fedmatch-202" class="section level1">
-<h1 class="page-header" data-toc-text="2.0.2">
-<a href="#fedmatch-202" class="anchor"></a>fedmatch 2.0.2<small> 2021-08-03 </small>
-</h1>
-<ul>
-<li>Fixed bugs in Weighted Jaccard code to run on MacOS environments</li>
-</ul>
-</div>
-    <div id="fedmatch-201" class="section level1">
-<h1 class="page-header" data-toc-text="2.0.1">
-<a href="#fedmatch-201" class="anchor"></a>fedmatch 2.0.1<small> Unreleased </small>
-</h1>
-<ul>
-<li>Fixed bugs in Makevars so that C++ code runs in parallel</li>
-<li>Fixed bugs in <code>tier_match</code> that stopped matches from being removed in between tiers</li>
-<li>Fixed bugs preventing the successful build on other platforms besides native linux</li>
-</ul>
-</div>
-    <div id="fedmatch-200" class="section level1">
-<h1 class="page-header" data-toc-text="2.0.0">
-<a href="#fedmatch-200" class="anchor"></a>fedmatch 2.0.0<small> 2021-07-20 </small>
-</h1>
-<ul>
-<li>Added full data.table functionality to dramatically increase speed</li>
-<li>Added ‘multivar’ matching to match on multiple variables
-<ul>
-<li>Added capability to train a logit model and use the output</li>
-</ul>
-</li>
-<li>Added ‘Weighted Jaccard’ match to get better matches</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Calculate word corpus for weighted jaccard matching</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>build_corpus</span><span class='op'>(</span><span class='va'>namelist1</span>, <span class='va'>namelist2</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>namelist1</th>
+      <td><p>character vector of names from dataset 1</p></td>
+    </tr>
+    <tr>
+      <th>namelist2</th>
+      <td><p>character vector of names from dataset 2</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a data.table with columns for frequency, inverse frequency, and log inverse frequency for each word in the two strings.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
