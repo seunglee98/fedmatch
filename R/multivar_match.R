@@ -115,7 +115,6 @@ multivar_match <- function(data1, data2,
   } else if (!is.null(blocks.x) & is.null(blocks.y)) {
     stop("blocks.y must be specified with blocks.x")
   }
-
   #------------------------------------------
   # Check threshold and override top default
   #------------------------------------------
@@ -144,6 +143,14 @@ multivar_match <- function(data1, data2,
   } else {
     logit_stripped <- NULL
   }
+  # if one of the comparison types is stringdist_wgt_jaccard, then we need a corpus of
+  # words
+  corpus <- vector(mode = "list", length = k)
+  for (i in which(compare_type == "wgt_jaccard_dist")) {
+    corpus[[i]] <- build_corpus(data1[[by.x[[i]]]],
+                                        data2[[by.y[[i]]]])
+  }
+
   #-----------------------
   # Calculate multivar_scores
   #-----------------------
@@ -163,7 +170,8 @@ multivar_match <- function(data1, data2,
       by.x = by.x, by.y = by.y,
       logit = logit_stripped, missing = missing, wgts = wgts, compare_type = compare_type,
       blocks.x = blocks.x, blocks.y = blocks.y,
-      top = top, threshold = threshold, suffixes = suffixes, k = k, unique_key_1 = unique_key_1
+      top = top, threshold = threshold, suffixes = suffixes, k = k, unique_key_1 = unique_key_1,
+      corpus = corpus
     )
     parallel::stopCluster(cl)
   } else if (nthread == 1) {
@@ -174,7 +182,8 @@ multivar_match <- function(data1, data2,
       by.x = by.x, by.y = by.y,
       logit = logit_stripped, missing = missing, wgts = wgts, compare_type = compare_type,
       blocks.x = blocks.x, blocks.y = blocks.y,
-      top = top, threshold = threshold, suffixes = suffixes, k = k, unique_key_1 = unique_key_1
+      top = top, threshold = threshold, suffixes = suffixes, k = k, unique_key_1 = unique_key_1,
+      corpus = corpus
     )
   }
 

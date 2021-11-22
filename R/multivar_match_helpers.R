@@ -3,7 +3,8 @@ compare_row <- function(row_x, data2,
                         by.x, by.y,
                         logit = NULL, missing = FALSE, wgts = NULL, compare_type = "diff",
                         blocks.x = NULL, blocks.y = NULL,
-                        top = NULL, threshold = NULL, suffixes = c("_1", "_2"), k, unique_key_1) {
+                        top = NULL, threshold = NULL, suffixes = c("_1", "_2"), k, unique_key_1,
+                        corpus = NULL) {
 
   #----------------------
   # Rename with suffixes
@@ -65,6 +66,11 @@ compare_row <- function(row_x, data2,
     if (compare_type_i == "stringdist") {
       df_c[, c(variable_compare) := 1 - stringdist::stringdist(get(variable_x), get(variable_y), method = "jw", p = 0.1)]
     }
+    if (compare_type_i == "wgt_jaccard_dist") {
+
+      df_c[, c(variable_compare) := 1 - wgt_jaccard_distance(get(variable_x), get(variable_y), corpus = corpus[[i]])]
+
+    }
   } ## end comparison calculations
 
   #-----------------------
@@ -100,7 +106,7 @@ compare_row <- function(row_x, data2,
   } else {
     stop("multivar_match requires either a vector of weights or a logit model to compute multivar_score.")
   }
-  # print(variables_to_compare)
+
   #---------------------------
   # Keep obs within threshold
   #---------------------------

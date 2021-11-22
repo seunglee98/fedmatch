@@ -25,13 +25,18 @@ wgt_jaccard_distance <- function(string_1,
   if (is.null(corpus$word) |  is.null(corpus$freq) | is.null(corpus$inv_freq)) {
     stop("'corpus' must have 'word', 'freq', and 'inv_freq' columns. Use build_corpus to construct it.")
   }
+
   split_strings_1 <- stringr::str_split(string_1, "\\s+")
   split_strings_2 <- stringr::str_split(string_2, "\\s+")
   split_strings <- c(unlist(split_strings_1),
                      unlist(split_strings_2)) %>%
     unique()
+  split_strings <- split_strings[!is.na(split_strings) & split_strings != ""]
   if (any(!split_strings %in% corpus$word )) {
-    stop("All elements in string_1 and string_2 must be present in the corpus 'word' column. ")
+    missing_words_sample <- split_strings[!split_strings %in% corpus$word][1:5]
+    stop(stringr::str_c("All words in string_1 and string_2 must be present in the corpus 'word' column. Examples:",
+                        stringr::str_c(missing_words_sample[!is.na(missing_words_sample)],
+                                       collapse = "\n")))
   }
   if (!is.character(string_1) | !is.character(string_2)) {
     stop("string_1 and string_2 must be character vectors.")
