@@ -25,7 +25,7 @@
 #' @param logit a glm or lm model as a result from a logit regression on a verified dataset. See details.
 #' @param missing boolean T/F, whether or not to treat missing (NA) observations as its own binary column for each column in by. See details.
 #' @param wgts rather than a lm model, you can supply weights to calculate multivar_score. Can be weights from \code{calculate_weights}.
-#' @param compare_type a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", and "stringdist". See X for details.
+#' @param compare_type a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", and "stringdist". See Multivar Matching Vignette for details.
 #' @param blocks variable present in both data sets to "block" on before computing scores. multivar_scores will only be computed for observations that share a block. See details.
 #' @param blocks.x name of blocking variables in x. cannot supply both blocks and blocks.x
 #' @param blocks.y name of blocking variables in y. cannot supply both blocks and blocks.y
