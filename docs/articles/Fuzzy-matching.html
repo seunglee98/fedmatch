@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -84,7 +80,7 @@
 
       
 
-      </header><script src="Fuzzy-matching_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Fuzzy Matching</h1>
@@ -98,53 +94,115 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fedmatch</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></code></pre></div>
-<div id="intro" class="section level1">
-<h1 class="hasAnchor">
-<a href="#intro" class="anchor"></a>Intro</h1>
-<p>Fuzzy matching is an essential part of the matching process. After trying all the name cleaning that you can with <code>clean_strings</code>, you have gotten the ‘low hanging fruit’ of your match, and now you need to move on to non-exact matches. <code>merge_plus</code> has a built-in setting for this called ‘fuzzy’ matching. It lets you match on strings that are similar, but not exactly the same.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fedmatch</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
+</h2>
+<p>Fuzzy matching is an essential part of the matching process. After
+trying all the name cleaning that you can with
+<code>clean_strings</code>, you have gotten the ‘low hanging fruit’ of
+your match, and now you need to move on to non-exact matches.
+<code>merge_plus</code> has a built-in setting for this called ‘fuzzy’
+matching. It lets you match on strings that are similar, but not exactly
+the same.</p>
 </div>
-<div id="fuzzy-matching-theory" class="section level1">
-<h1 class="hasAnchor">
-<a href="#fuzzy-matching-theory" class="anchor"></a>Fuzzy matching theory</h1>
-<p>The basic idea behind fuzzy matching is to compute a numerical ‘distance’ between every potential string comparison, and then for each string in data set 1, pick the ‘closest’ string in data set 2. One can also specify a threshold such that every match is of a certain quality. The concept of ‘distance’ can be defined in several methods, explained below. Each method will define a similarity <span class="math inline">\(s\)</span>, <span class="math inline">\(0 \leq s \leq 1\)</span> , such that higher values will mean the strings are more similar, and a corresponding distance <span class="math inline">\(d = 1 - s\)</span>.</p>
-<div id="jaro-winkler" class="section level2">
-<h2 class="hasAnchor">
-<a href="#jaro-winkler" class="anchor"></a>Jaro-Winkler</h2>
-<p>The most common method of matching strings with <code>fedmatch</code> uses the Jaro-Winkler string distance. The Jaro similarity is defined as</p>
-<p><span class="math display">\[s_j = \begin{cases} 0 &amp;  \text{if } m = 0 \\ \frac{1}{3} \left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m} \right) &amp; \text{otherwise} \end{cases}\]</span></p>
-<p>where <span class="math inline">\(|s_i|\)</span> is the length of the <span class="math inline">\(i\)</span>th string, <span class="math inline">\(m\)</span> is the number of characters that match, and <span class="math inline">\(t\)</span> is the number of transpositions (the number of letters to be interchanged to place them in the proper order.) For example, if <span class="math inline">\(s_1\)</span> is “abcd” and <span class="math inline">\(s_2\)</span> is “acbd”, then the number of transpositions is 1, the matching characters are 4, and the similarity is <span class="math inline">\(\frac{1}{3}\left( 1 + 1 + \frac{3}{4} \right) \approx .917\)</span>.</p>
-<p>Winkler’s modification to this similarity is to weight the start of the strings more heavily. Thus, if the strings share a common prefix, the similarity will be higher. The Jaro-Winkler similarity is</p>
+<div class="section level2">
+<h2 id="fuzzy-matching-theory">Fuzzy matching theory<a class="anchor" aria-label="anchor" href="#fuzzy-matching-theory"></a>
+</h2>
+<p>The basic idea behind fuzzy matching is to compute a numerical
+‘distance’ between every potential string comparison, and then for each
+string in data set 1, pick the ‘closest’ string in data set 2. One can
+also specify a threshold such that every match is of a certain quality.
+The concept of ‘distance’ can be defined in several methods, explained
+below. Each method will define a similarity <span class="math inline">\(s\)</span>, <span class="math inline">\(0 \leq s
+\leq 1\)</span> , such that higher values will mean the strings are more
+similar, and a corresponding distance <span class="math inline">\(d = 1
+- s\)</span>.</p>
+<div class="section level3">
+<h3 id="jaro-winkler">Jaro-Winkler<a class="anchor" aria-label="anchor" href="#jaro-winkler"></a>
+</h3>
+<p>The most common method of matching strings with <code>fedmatch</code>
+uses the Jaro-Winkler string distance. The Jaro similarity is defined
+as</p>
+<p><span class="math display">\[s_j = \begin{cases} 0 &amp;  \text{if }
+m = 0 \\ \frac{1}{3} \left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m -
+t}{m} \right) &amp; \text{otherwise} \end{cases}\]</span></p>
+<p>where <span class="math inline">\(|s_i|\)</span> is the length of the
+<span class="math inline">\(i\)</span>th string, <span class="math inline">\(m\)</span> is the number of characters that match,
+and <span class="math inline">\(t\)</span> is the number of
+transpositions (the number of letters to be interchanged to place them
+in the proper order.) For example, if <span class="math inline">\(s_1\)</span> is “abcd” and <span class="math inline">\(s_2\)</span> is “acbd”, then the number of
+transpositions is 1, the matching characters are 4, and the similarity
+is <span class="math inline">\(\frac{1}{3}\left( 1 + 1 + \frac{3}{4}
+\right) \approx .917\)</span>.</p>
+<p>Winkler’s modification to this similarity is to weight the start of
+the strings more heavily. Thus, if the strings share a common prefix,
+the similarity will be higher. The Jaro-Winkler similarity is</p>
 <p><span class="math display">\[s_w = s_j + l p (1-s_j),\]</span></p>
-<p>where <span class="math inline">\(l\)</span> is the shared prefix length (up to four characters, so <span class="math inline">\(0 \leq l \leq 4\)</span> ), and <span class="math inline">\(p\)</span> is just user-defined constant, <span class="math inline">\(0 &lt; p \leq .25\)</span>, that defines how heavily to weight the shared prefix. <span class="math inline">\(p=.1\)</span> is the default used by <code>fedmatch</code>.</p>
+<p>where <span class="math inline">\(l\)</span> is the shared prefix
+length (up to four characters, so <span class="math inline">\(0 \leq l
+\leq 4\)</span> ), and <span class="math inline">\(p\)</span> is just
+user-defined constant, <span class="math inline">\(0 &lt; p \leq
+.25\)</span>, that defines how heavily to weight the shared prefix.
+<span class="math inline">\(p=.1\)</span> is the default used by
+<code>fedmatch</code>.</p>
 </div>
-<div id="weighted-jaccard-similarity" class="section level2">
-<h2 class="hasAnchor">
-<a href="#weighted-jaccard-similarity" class="anchor"></a>Weighted Jaccard Similarity</h2>
-<p>Another string distance metric is called the Jaccard Similarity. If <span class="math inline">\(A\)</span> is the set of letters in one string, and <span class="math inline">\(B\)</span> is the set of letters in another string, then the Jaccard similarity <span class="math inline">\(J\)</span> is defined as</p>
-<p><span class="math display">\[J = \frac{A \bigcap B}{A \bigcup B}.\]</span></p>
-<p>Thus, if the two strings share all of the same letters, then the distance is 0, or the similarity is 1.</p>
-<p>We take one step further and innovate to create a new measure of string distance, which we call the <em>Weighted Jaccard</em> distance. Rather than looking at the sets of letters in each string, we look at the set of words in each string. Then, we construct a corpus of all of the words in the two columns to be matched and compute the log inverse frequency for each word:</p>
-<p><span class="math display">\[w_i = \log \left( \frac{N}{n_i} \right), \]</span> where <span class="math inline">\(N\)</span> is the total number of unique words in the sample, and <span class="math inline">\(n_i\)</span> is the number of occurences of word <span class="math inline">\(i\)</span> in the sample.</p>
-<p>For example, the word ‘Corporation’ appears frequently in the names of companies in common data sets, and so its log inverse frequency would be low. But, the word ‘Apple’ probably only appears in a few company names out of the many thousands in the data, so its log inverse frequency score would be high.</p>
-<p>If these logged inverse frequencies are called <span class="math inline">\(w\)</span>, then the Weighted Jaccard similarity is computed as</p>
-<p><span class="math display">\[ J_i = \frac{ \sum_j w_j,  j \in A \bigcap B}{ \sum_k w_k, k \in A \bigcup B} \]</span></p>
-<p>Thus, if the two strings share many words that are uniquely identifying in the corpus, the Weighted Jaccard similarity will be higher. We have found this method of matching is able to pick up many more matches when used in conjunction with the Jaro-Winkler distance. To our knowledge, such a Weighted Jaccard method has never been used before, and is one of the key innovations that makes <code>fedmatch</code> unique.<br></p>
+<div class="section level3">
+<h3 id="weighted-jaccard-similarity">Weighted Jaccard Similarity<a class="anchor" aria-label="anchor" href="#weighted-jaccard-similarity"></a>
+</h3>
+<p>Another string distance metric is called the Jaccard Similarity. If
+<span class="math inline">\(A\)</span> is the set of letters in one
+string, and <span class="math inline">\(B\)</span> is the set of letters
+in another string, then the Jaccard similarity <span class="math inline">\(J\)</span> is defined as</p>
+<p><span class="math display">\[J = \frac{A \bigcap B}{A \bigcup
+B}.\]</span></p>
+<p>Thus, if the two strings share all of the same letters, then the
+distance is 0, or the similarity is 1.</p>
+<p>We take one step further and innovate to create a new measure of
+string distance, which we call the <em>Weighted Jaccard</em> distance.
+Rather than looking at the sets of letters in each string, we look at
+the set of words in each string. Then, we construct a corpus of all of
+the words in the two columns to be matched and compute the log inverse
+frequency for each word:</p>
+<p><span class="math display">\[w_i = \log \left( \frac{N}{n_i} \right),
+\]</span> where <span class="math inline">\(N\)</span> is the total
+number of unique words in the sample, and <span class="math inline">\(n_i\)</span> is the number of occurences of word
+<span class="math inline">\(i\)</span> in the sample.</p>
+<p>For example, the word ‘Corporation’ appears frequently in the names
+of companies in common data sets, and so its log inverse frequency would
+be low. But, the word ‘Apple’ probably only appears in a few company
+names out of the many thousands in the data, so its log inverse
+frequency score would be high.</p>
+<p>If these logged inverse frequencies are called <span class="math inline">\(w\)</span>, then the Weighted Jaccard similarity
+is computed as</p>
+<p><span class="math display">\[ J_i = \frac{ \sum_j w_j,  j \in A
+\bigcap B}{ \sum_k w_k, k \in A \bigcup B} \]</span></p>
+<p>Thus, if the two strings share many words that are uniquely
+identifying in the corpus, the Weighted Jaccard similarity will be
+higher. We have found this method of matching is able to pick up many
+more matches when used in conjunction with the Jaro-Winkler distance. To
+our knowledge, such a Weighted Jaccard method has never been used
+before, and is one of the key innovations that makes
+<code>fedmatch</code> unique.<br></p>
 </div>
-<div id="other-similarity-metrics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-similarity-metrics" class="anchor"></a>Other similarity metrics</h2>
-<p>Because fedmatch uses <code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html">stringdist::amatch</a></code> for all other options, one can use any of the similarity metrics listed in the documentation for that function in fedmatch.</p>
+<div class="section level3">
+<h3 id="other-similarity-metrics">Other similarity metrics<a class="anchor" aria-label="anchor" href="#other-similarity-metrics"></a>
+</h3>
+<p>Because fedmatch uses <code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html" class="external-link">stringdist::amatch</a></code> for all other
+options, one can use any of the similarity metrics listed in the
+documentation for that function in fedmatch.</p>
 </div>
 </div>
-<div id="using-fuzzy-matching-in-fedmatch" class="section level1">
-<h1 class="hasAnchor">
-<a href="#using-fuzzy-matching-in-fedmatch" class="anchor"></a>Using fuzzy matching in fedmatch</h1>
-<div id="basic-syntax" class="section level2">
-<h2 class="hasAnchor">
-<a href="#basic-syntax" class="anchor"></a>Basic Syntax</h2>
-<p>As shown in the ‘Intro to fedmatch’ vignette, the basic syntax of using fuzzy match is just the same as exact matching, but changing the ‘match_type’ argument in <code>merge_plus</code>:</p>
+<div class="section level2">
+<h2 id="using-fuzzy-matching-in-fedmatch">Using fuzzy matching in fedmatch<a class="anchor" aria-label="anchor" href="#using-fuzzy-matching-in-fedmatch"></a>
+</h2>
+<div class="section level3">
+<h3 id="basic-syntax">Basic Syntax<a class="anchor" aria-label="anchor" href="#basic-syntax"></a>
+</h3>
+<p>As shown in the ‘Intro to fedmatch’ vignette, the basic syntax of
+using fuzzy match is just the same as exact matching, but changing the
+‘match_type’ argument in <code>merge_plus</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fuzzy_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>data1 <span class="op">=</span> <span class="va">corp_data1</span>, 
                           data2 <span class="op">=</span> <span class="va">corp_data2</span>,
@@ -152,7 +210,7 @@
                           by.y <span class="op">=</span> <span class="st">"Name"</span>, match_type <span class="op">=</span> <span class="st">"fuzzy"</span>, 
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fuzzy_result</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fuzzy_result</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt;    unique_key_2 unique_key_1 Country State  SIC Revenue            Company</span>
 <span class="co">#&gt; 1:            1            1     USA    OH 3300     485            Walmart</span>
 <span class="co">#&gt; 2:            2            2     USA       2222     223   Bershire Hataway</span>
@@ -161,55 +219,82 @@
 <span class="co">#&gt; 1:            Walmart     USA         OH     3380  490,000  all</span>
 <span class="co">#&gt; 2:  Bershire Hathaway     USA         NE     2220  220,000  all</span>
 <span class="co">#&gt; 3: UnitedHealth Group     USA         MA     1130  180,000  all</span></code></pre></div>
-<p>Note that ‘Bershire Hathaway’ matched to ‘Bershire Hataway,’ which makes sense - the names are only off by one character. All of the settings of fuzzy matching are controlled in the ‘fuzzy_settings’ argument of <code>merge_plus</code>, and these settings can be easily modified with the function <code>build_fuzzy_settings</code>. <code>build_fuzzy_settings</code> returns a list that is properly formatted for <code>merge_plus</code>.The options and their defaults are:</p>
+<p>Note that ‘Bershire Hathaway’ matched to ‘Bershire Hataway,’ which
+makes sense - the names are only off by one character. All of the
+settings of fuzzy matching are controlled in the ‘fuzzy_settings’
+argument of <code>merge_plus</code>, and these settings can be easily
+modified with the function <code>build_fuzzy_settings</code>.
+<code>build_fuzzy_settings</code> returns a list that is properly
+formatted for <code>merge_plus</code>.The options and their defaults
+are:</p>
 <ul>
 <li>
-<code>method</code> , default “jw”, determines the string distance metric to use.</li>
+<code>method</code> , default “jw”, determines the string distance
+metric to use.</li>
 <li>
-<code>p</code> , default 0.1, is a numeric vector of length 1, that determines the factor <span class="math inline">\(p\)</span> in the Jaro-Winkler string distance. Only used if <code>method == "jw"</code>.</li>
-<li>maxDist, default 0.05, is a numeric vector of length 1 that determines the maximum allowable string distance that qualifies as a match.</li>
-<li>matchNA, default <code>FALSE</code>, is a boolean to determine whether to count NAs as a match (see <code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html">stringdist::amatch</a></code> for details.)</li>
-<li>nthread, number of threads to use in the underlying C code. If using any method besides “wgt_jaccard”, uses `stringdist::amatch’ to parallelize. If using “wgt_jaccard”, instead uses built in C++ code to parallelize.</li>
+<code>p</code> , default 0.1, is a numeric vector of length 1, that
+determines the factor <span class="math inline">\(p\)</span> in the
+Jaro-Winkler string distance. Only used if
+<code>method == "jw"</code>.</li>
+<li>maxDist, default 0.05, is a numeric vector of length 1 that
+determines the maximum allowable string distance that qualifies as a
+match.</li>
+<li>matchNA, default <code>FALSE</code>, is a boolean to determine
+whether to count NAs as a match (see <code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html" class="external-link">stringdist::amatch</a></code> for
+details.)</li>
+<li>nthread, number of threads to use in the underlying C code. If using
+any method besides “wgt_jaccard”, uses `stringdist::amatch’ to
+parallelize. If using “wgt_jaccard”, instead uses built in C++ code to
+parallelize.</li>
 </ul>
 </div>
-<div id="the-order-of-which-is-data1-and-which-is-data2-matters" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-order-of-which-is-data1-and-which-is-data2-matters" class="anchor"></a>The order of which is data1 and which is data2 matters!</h2>
-<p>The behavior of <code>fuzzy_match</code> is such that you can get different results from swapping data1 and data2. This is because <code>fuzzy_match</code> answers the question: “for each observation in data1, which observation is closest in data2 (while being closest than the maxDist)?” This can result in duplicate observations from data2, as shown in the simple example below:</p>
+<div class="section level3">
+<h3 id="the-order-of-which-is-data1-and-which-is-data2-matters">The order of which is data1 and which is data2 matters!<a class="anchor" aria-label="anchor" href="#the-order-of-which-is-data1-and-which-is-data2-matters"></a>
+</h3>
+<p>The behavior of <code>fuzzy_match</code> is such that you can get
+different results from swapping data1 and data2. This is because
+<code>fuzzy_match</code> answers the question: “for each observation in
+data1, which observation is closest in data2 (while being closest than
+the maxDist)?” This can result in duplicate observations from data2, as
+shown in the simple example below:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dummy_data1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,
+<code class="sourceCode R"><span class="va">dummy_data1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,
                             name <span class="op">=</span> <span class="st">"abd"</span><span class="op">)</span>
-<span class="va">dummy_data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>id2 <span class="op">=</span> <span class="fl">1</span>,
+<span class="va">dummy_data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>id2 <span class="op">=</span> <span class="fl">1</span>,
                             name <span class="op">=</span> <span class="st">"abc"</span><span class="op">)</span>
 <span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu">fedmatch</span><span class="fu">::</span><span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>
     data1 <span class="op">=</span> <span class="va">dummy_data1</span>,
     match_type <span class="op">=</span> <span class="st">"fuzzy"</span>,
     data2 <span class="op">=</span> <span class="va">dummy_data2</span>, by.x <span class="op">=</span> <span class="st">"name"</span>, by.y <span class="op">=</span> <span class="st">"name"</span>,
     unique_key_1 <span class="op">=</span> <span class="st">"id1"</span>, unique_key_2 <span class="op">=</span> <span class="st">"id2"</span>,
-    suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>, fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
+    suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>, fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt;    id2 id1 name_1 name_2 tier</span>
 <span class="co">#&gt; 1:   1   1    abd    abc  all</span>
 <span class="co">#&gt; 2:   1   2    abd    abc  all</span></code></pre></div>
-<p>Note how we have two observations of the id2 ‘1’, because each of these observations is the closest in the data to the observations in data1 (and they are closer together than the maxDist specified). Now, if we flip the datasets:</p>
+<p>Note how we have two observations of the id2 ‘1’, because each of
+these observations is the closest in the data to the observations in
+data1 (and they are closer together than the maxDist specified). Now, if
+we flip the datasets:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu">fedmatch</span><span class="fu">::</span><span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>
     data1 <span class="op">=</span> <span class="va">dummy_data2</span>,
     match_type <span class="op">=</span> <span class="st">"fuzzy"</span>,
     data2 <span class="op">=</span> <span class="va">dummy_data1</span>, by.x <span class="op">=</span> <span class="st">"name"</span>, by.y <span class="op">=</span> <span class="st">"name"</span>,
     unique_key_1 <span class="op">=</span> <span class="st">"id2"</span>, unique_key_2 <span class="op">=</span> <span class="st">"id1"</span>,
-    suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>, fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
+    suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>, fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt;    id1 id2 name_1 name_2 tier</span>
 <span class="co">#&gt; 1:   1   1    abc    abd  all</span></code></pre></div>
-<p>We only get 1 observation, because in the case of ties, <code>fuzzy_match</code> will simply pick the first observation.</p>
+<p>We only get 1 observation, because in the case of ties,
+<code>fuzzy_match</code> will simply pick the first observation.</p>
 </div>
-<div id="an-example---weighted-jaccard-match" class="section level2">
-<h2 class="hasAnchor">
-<a href="#an-example---weighted-jaccard-match" class="anchor"></a>An example - weighted Jaccard match</h2>
-<div id="weighted-jaccard-match" class="section level3">
-<h3 class="hasAnchor">
-<a href="#weighted-jaccard-match" class="anchor"></a>Weighted Jaccard Match</h3>
+<div class="section level3">
+<h3 id="an-example---weighted-jaccard-match">An example - weighted Jaccard match<a class="anchor" aria-label="anchor" href="#an-example---weighted-jaccard-match"></a>
+</h3>
+<div class="section level4">
+<h4 id="weighted-jaccard-match">Weighted Jaccard Match<a class="anchor" aria-label="anchor" href="#weighted-jaccard-match"></a>
+</h4>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wgt_jaccard_match</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>data1 <span class="op">=</span> <span class="va">corp_data1</span>, 
                           data2 <span class="op">=</span> <span class="va">corp_data2</span>,
@@ -219,7 +304,7 @@
                                                                 maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>,
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">wgt_jaccard_match</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wgt_jaccard_match</span><span class="op">)</span>
 <span class="co">#&gt; $matches</span>
 <span class="co">#&gt;    unique_key_2 unique_key_1 Country State  SIC Revenue            Company</span>
 <span class="co">#&gt; 1:            1            1     USA    OH 3300     485            Walmart</span>
@@ -274,11 +359,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Melanie Friedrichs, Chris Webster, Blake Marsh, Jacob Dice, Seung Lee.</p>
+  <p></p>
+<p>Developed by Melanie Friedrichs, Chris Webster, Blake Marsh, Jacob Dice, Seung Lee.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>
@@ -286,6 +373,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -15,7 +15,19 @@
 
 <title>Introduction to fedmatch</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -25,6 +37,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -126,7 +139,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -145,20 +338,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="background" class="section level1">
 <h1>Background</h1>
-<p>With an ever-expanding set of financial data providers, each covering many of the same firms and entities, matching data sets that do not share common identifiers has never been more important.<code>fedmatch</code> is a set of tools for performing record linkage between two data sets, developed by a team of matching enthusiasts at the Federal Reserve. It allows for a variety of different matching techniques, letting the user build a matching algorithm for their specific application. Although fedmatch was designed with economic data in mind (i.e. loans or companies), it is very flexible, so it can be used for any matching problem. With <code>fedmatch</code>, a researcher or analyst can quickly go from having 0 matches between two datasets to having many. With more time and care, they can use more advanced techniques to pull out even more matches.</p>
+<p>With an ever-expanding set of financial data providers, each covering
+many of the same firms and entities, matching data sets that do not
+share common identifiers has never been more
+important.<code>fedmatch</code> is a set of tools for performing record
+linkage between two data sets. It allows for a variety of different
+matching techniques, letting the user build a matching algorithm for
+their specific application. Although fedmatch was designed with economic
+data in mind (i.e. loans or companies), it is very flexible, so it can
+be used for any matching problem. With <code>fedmatch</code>, a
+researcher or analyst can quickly go from having 0 matches between two
+datasets to having many. With more time and care, they can use more
+advanced techniques to pull out even more matches.</p>
 <p>Fedmatch has many features, including:</p>
 <ul>
 <li>Tools to clean strings (see below)</li>
 <li>Matching on names (see below, and the fuzzy matching vignette)</li>
-<li>A new method of string comparison, which we dub “Weighted Jaccard” (see the fuzzy matching vignette)</li>
-<li>Matching using probabilistic methods and logit models (see the multivar match vignette)</li>
-<li>Matching using many different methods in sequence, pulling matches out as you go along (see the tier match vignette)</li>
+<li>A new method of string comparison, which we dub “Weighted Jaccard”
+(see the fuzzy matching vignette)</li>
+<li>Matching using probabilistic methods and logit models (see the
+multivar match vignette)</li>
+<li>Matching using many different methods in sequence, pulling matches
+out as you go along (see the tier match vignette)</li>
 </ul>
-<p>This vignette will explain the basics of fedmatch, including the <code>merge_plus</code> function and the <code>clean_strings</code> function. From there, other vignettes go further into the details of the different matching types.</p>
+<p>This vignette will explain the basics of fedmatch, including the
+<code>merge_plus</code> function and the <code>clean_strings</code>
+function. From there, other vignettes go further into the details of the
+different matching types.</p>
 </div>
 <div id="name-cleaning" class="section level1">
 <h1>Name cleaning</h1>
-<p>Before diving into the matching code, we’ll first go over the <code>clean_strings</code> function that can help standardize company names across data sets.</p>
+<p>Before diving into the matching code, we’ll first go over the
+<code>clean_strings</code> function that can help standardize company
+names across data sets.</p>
 <p>A basic example of clean strings looks like this:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>raw_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Hamlin, Hamlin, McGill&quot;</span>, <span class="st">&quot;Schweibert &amp; Cokely &quot;</span>, <span class="st">&quot;Wexler McGill, LLC&quot;</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Davis and Main, Inc.&quot;</span>)</span>
@@ -166,15 +378,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>clean_names</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;hamlin hamlin mcgill&quot;  &quot;schweibert and cokely&quot; &quot;wexler mcgill llc&quot;    </span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;davis and main inc&quot;</span></span></code></pre></div>
-<p>Without any additional arguments, <code>clean_strings</code> does the following:</p>
+<p>Without any additional arguments, <code>clean_strings</code> does the
+following:</p>
 <ul>
 <li>Make everything lowercase</li>
-<li>Replace the special characters &amp;, @, %, $ with their word equivalents</li>
+<li>Replace the special characters &amp;, @, %, $ with their word
+equivalents</li>
 <li>Remove all other special characters (e.g. commas, periods)</li>
 <li>Convert tabs to spaces</li>
 <li>Remove extra spaces</li>
 </ul>
-<p>As described in the manual for <code>clean_strings</code>, one can specify further arguments to remove words or try different replacements. Fedmatch comes with a set of words that are commonly used for this, but you can use whatever you’d like. (You can also use <code>word_frequency</code> to look for common words in your data.)</p>
+<p>As described in the manual for <code>clean_strings</code>, one can
+specify further arguments to remove words or try different replacements.
+Fedmatch comes with a set of words that are commonly used for this, but
+you can use whatever you’d like. (You can also use
+<code>word_frequency</code> to look for common words in your data.)</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fedmatch<span class="sc">::</span>corporate_words[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     abbr     long.names</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1: accep     acceptance</span></span>
@@ -188,11 +406,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;schweibert and cokely&quot;                      </span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;wexler mcgill limited liability corporation&quot;</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;davis and main incorporated&quot;</span></span></code></pre></div>
-<p>Through string cleaning, we can make it so that even if two different databases record names differently (e.g. “Hamlin Hamlin McGill INC” vs “Hamlin Hamlin McGill Incorporated”), we will still count these records as a match.</p>
+<p>Through string cleaning, we can make it so that even if two different
+databases record names differently (e.g. “Hamlin Hamlin McGill INC” vs
+“Hamlin Hamlin McGill Incorporated”), we will still count these records
+as a match.</p>
 </div>
 <div id="basics-merge_plus" class="section level1">
 <h1>Basics: <code>merge_plus</code></h1>
-<p>The workhorse of <code>fedmatch</code> is <code>merge_plus</code>. <code>merge_plus</code> is an extremely flexible function that can perform several different types of matches: exact, fuzzy, and multivar.</p>
+<p>The workhorse of <code>fedmatch</code> is <code>merge_plus</code>.
+<code>merge_plus</code> is an extremely flexible function that can
+perform several different types of matches: exact, fuzzy, and
+multivar.</p>
 <div id="exact-matching" class="section level2">
 <h2>Exact matching</h2>
 <p>Here are the example datasets that come with fedmatch:</p>
@@ -220,20 +444,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:                 GM                 MI     2222  170,000            8</span></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:             AT &amp; T     USA         TN     4000  160,000            9</span></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10</span></span></code></pre></div>
-<p>The most basic way to use <code>merge_plus</code> is by simply making it equivalent to <code>base::merge</code>.</p>
+<p>The most basic way to use <code>merge_plus</code> is by simply making
+it equivalent to <code>base::merge</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>basic_merge <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(<span class="at">data1 =</span> corp_data1, </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data2 =</span> corp_data2,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">by.x =</span> <span class="st">&quot;Company&quot;</span>,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">by.y =</span> <span class="st">&quot;Name&quot;</span>, <span class="at">match_type =</span> <span class="st">&quot;exact&quot;</span>, </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">unique_key_1 =</span> <span class="st">&quot;unique_key_1&quot;</span>,</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">unique_key_2 =</span> <span class="st">&quot;unique_key_2&quot;</span>)</span></code></pre></div>
-<p>This code will run merge on the “Company” and “Name” variables, and return cases where the two have an exact match. The only differences between this and <code>base::merge</code> are</p>
+<p>This code will run merge on the “Company” and “Name” variables, and
+return cases where the two have an exact match. The only differences
+between this and <code>base::merge</code> are</p>
 <ol style="list-style-type: decimal">
-<li><code>merge_plus</code> requires data1 and data2 each to have a “unique key” that can be used to identify an observation.</li>
+<li><code>merge_plus</code> requires data1 and data2 each to have a
+“unique key” that can be used to identify an observation.</li>
 <li><code>merge_plus</code> returns a list.</li>
 </ol>
-<p>Let’s take a look at each of the elements of the list returned by <code>merge_plus</code>. These will always be the same, no matter which <code>match_type</code> you select in <code>merge_plus</code>.</p>
-<p>The first item is the matches themselves. This is a <code>data.table</code> with one row for each matching observation, along with all variables present in each data set.</p>
+<p>Let’s take a look at each of the elements of the list returned by
+<code>merge_plus</code>. These will always be the same, no matter which
+<code>match_type</code> you select in <code>merge_plus</code>.</p>
+<p>The first item is the matches themselves. This is a
+<code>data.table</code> with one row for each matching observation,
+along with all variables present in each data set.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(basic_merge<span class="sc">$</span>matches)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Company Country State  SIC Revenue unique_key_1 country</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:            Walmart     USA    OH 3300     485            1     USA</span></span>
@@ -241,10 +473,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    state_code SIC_code earnings unique_key_2               Name tier</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:         OH     3380  490,000            1            Walmart  all</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:         MA     1130  180,000            6 UnitedHealth Group  all</span></span></code></pre></div>
-<p>The next item is <code>matches_filter</code>. In this example, it’s empty, because we didn’t supply the argument <code>filter</code>. If we did supply <code>filter</code> (which can either be a function that filters, or a numeric cutoff for a matchscore (more on this later)), we would see a subsample of the matches dataset.</p>
+<p>The next item is <code>matches_filter</code>. In this example, it’s
+empty, because we didn’t supply the argument <code>filter</code>. If we
+did supply <code>filter</code> (which can either be a function that
+filters, or a numeric cutoff for a matchscore (more on this later)), we
+would see a subsample of the matches dataset.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(basic_merge<span class="sc">$</span>matches_filter)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Null data.table (0 rows and 0 cols)</span></span></code></pre></div>
-<p>Next in the list is <code>data1_nomatch</code> and <code>data2_nomatch</code>, which return the rows that were not matched from the datasets.</p>
+<p>Next in the list is <code>data1_nomatch</code> and
+<code>data2_nomatch</code>, which return the rows that were not matched
+from the datasets.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(basic_merge<span class="sc">$</span>data1_nomatch)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Company Country State  SIC Revenue unique_key_1</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:   Bershire Hataway     USA       2222     223            2</span></span>
@@ -265,7 +503,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6:                 GM                 MI     2222  170,000            8</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7:             AT &amp; T     USA         TN     4000  160,000            9</span></span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8:         Ford Motor     USA         MI     2222  150,000           10</span></span></code></pre></div>
-<p>Finally, there is <code>match_evaluation</code>, which is a data.table that summarizes how well the match worked. It shows the number of matches in each dataset broken down by tier (more on tiers later), along with the percent matched.</p>
+<p>Finally, there is <code>match_evaluation</code>, which is a
+data.table that summarizes how well the match worked. It shows the
+number of matches in each dataset broken down by tier (more on tiers
+later), along with the percent matched.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(basic_merge<span class="sc">$</span>match_evaluation)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:  all       2                2                2           0.2           0.2</span></span>
@@ -274,8 +515,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="fuzzy-matching" class="section level2">
 <h2>Fuzzy matching</h2>
-<p>We can also use <code>merge_plus</code> to perform “fuzzy” matches. A fuzzy match uses a string distance algorithm to compute the distance between one string and a set of other strings, then picks the closest string that’s over a certain threshold. <code>fedmatch</code> uses <code>stringdist::amatch</code> to execute these matches, and you can read more about string distances in the <code>stringdist</code> package documentation.</p>
-<p>Here is an example of how this is implemented in <code>merge_plus</code>.</p>
+<p>We can also use <code>merge_plus</code> to perform “fuzzy” matches. A
+fuzzy match uses a string distance algorithm to compute the distance
+between one string and a set of other strings, then picks the closest
+string that’s over a certain threshold. <code>fedmatch</code> uses
+<code>stringdist::amatch</code> to execute these matches, and you can
+read more about string distances in the <code>stringdist</code> package
+documentation.</p>
+<p>Here is an example of how this is implemented in
+<code>merge_plus</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fuzzy_result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(<span class="at">data1 =</span> corp_data1, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data2 =</span> corp_data2,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">by.x =</span> <span class="st">&quot;Company&quot;</span>,</span>
@@ -291,7 +539,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:            Walmart     USA         OH     3380  490,000  all</span></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:  Bershire Hathaway     USA         NE     2220  220,000  all</span></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3: UnitedHealth Group     USA         MA     1130  180,000  all</span></span></code></pre></div>
-<p>We can see that we picked up an additional match here: “Bershire Hataway” and “Bershire Hathaway.” These are off by 1 character, so the exact match didn’t pick them up, but the fuzzy match did. We can also tweak the fuzzy match settings with the argument <code>fuzzy_settings</code>. This is a list that will be passed to <code>stringdist::amatch</code>.</p>
+<p>We can see that we picked up an additional match here: “Bershire
+Hataway” and “Bershire Hathaway.” These are off by 1 character, so the
+exact match didn’t pick them up, but the fuzzy match did. We can also
+tweak the fuzzy match settings with the argument
+<code>fuzzy_settings</code>. This is a list that will be passed to
+<code>stringdist::amatch</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fuzzy_result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(<span class="at">data1 =</span> corp_data1, </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data2 =</span> corp_data2,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">by.x =</span> <span class="st">&quot;Company&quot;</span>,</span>
@@ -322,13 +575,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000  all</span></span>
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:         Ford Motor     USA         MI     2222  150,000  all</span></span>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000  all</span></span></code></pre></div>
-<p>So, cranking up the <code>maxDist</code> (maximum distance between strings, a threshold for determining matches) gave us a bunch more matches. Note that we return multiple matches per the same unique key sometimes, for example Ford Motor got matched to General Motors and Ford Motor Company. There are many tweaks that one can make via <code>fuzzy_settings</code>, and these change the match behavior significantly. It is worth exploring various options to see which make the most sense for your specific application. See the fuzzy matching vignette for more details, including a new method of string comparison that we call a “Weighted Jaccard” comparison.</p>
+<p>So, cranking up the <code>maxDist</code> (maximum distance between
+strings, a threshold for determining matches) gave us a bunch more
+matches. Note that we return multiple matches per the same unique key
+sometimes, for example Ford Motor got matched to General Motors and Ford
+Motor Company. There are many tweaks that one can make via
+<code>fuzzy_settings</code>, and these change the match behavior
+significantly. It is worth exploring various options to see which make
+the most sense for your specific application. See the fuzzy matching
+vignette for more details, including a new method of string comparison
+that we call a “Weighted Jaccard” comparison.</p>
 </div>
 <div id="multivar-matching" class="section level2">
 <h2>Multivar matching</h2>
-<p>The final setting for <code>match_type</code> in <code>merge_plus</code> is a “multivariable match”, or “multivar” for short. This match is complex, and may take some playing around with the code to fully understand how it works. We’ll just go over the basic usage here. The idea behind the multivariable match is to use several variables from each dataset to execute a match, rather than just using the name of an entity.</p>
-<p>One way is to take the set of variables (say, company name, state, and earnings), compare them with some numeric metric, and then perform a linear combination of those metrics to arrive at a final score. Then, you can compare each observation in one dataset to each other observation in the other dataset to pick the match with the highest score.</p>
-<p>The other way is similar, but instead of a linear combination of scores, you can use a logit model. In this method, you create a hand-verified match set between your two datasets, then use a logit model to estimate how much each variable contributes to determining a match.</p>
+<p>The final setting for <code>match_type</code> in
+<code>merge_plus</code> is a “multivariable match”, or “multivar” for
+short. This match is complex, and may take some playing around with the
+code to fully understand how it works. We’ll just go over the basic
+usage here. The idea behind the multivariable match is to use several
+variables from each dataset to execute a match, rather than just using
+the name of an entity.</p>
+<p>One way is to take the set of variables (say, company name, state,
+and earnings), compare them with some numeric metric, and then perform a
+linear combination of those metrics to arrive at a final score. Then,
+you can compare each observation in one dataset to each other
+observation in the other dataset to pick the match with the highest
+score.</p>
+<p>The other way is similar, but instead of a linear combination of
+scores, you can use a logit model. In this method, you create a
+hand-verified match set between your two datasets, then use a logit
+model to estimate how much each variable contributes to determining a
+match.</p>
 <p>Here’s an example of the first method, the linear combination:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for simplicity&#39;s sake, rename columns in corp_data2</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setnames</span>(corp_data2, <span class="fu">c</span>(<span class="st">&quot;Name&quot;</span>, <span class="st">&quot;country&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;Company&quot;</span>, <span class="st">&quot;Country&quot;</span>))</span>
@@ -365,19 +642,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:             AT &amp; T       USA         TN     4000  160,000            9</span></span>
 <span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:         Ford Motor       USA         MI     2222  150,000           10</span></span>
 <span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:         Ford Motor       USA         MI     2222  150,000           10</span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Country_compare Company_compare matchscore tier</span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:               1       1.0000000  1.0000000  all</span></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:               1       0.9882353  0.9941176  all</span></span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:               1       0.8714286  0.9357143  all</span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:               1       0.9333333  0.9666667  all</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:               0       0.9285714  0.4642857  all</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:               1       1.0000000  1.0000000  all</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:               1       0.5333333  0.7666667  all</span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:               1       0.9111111  0.9555556  all</span></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:               1       0.7333333  0.8666667  all</span></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:               1       0.9111111  0.9555556  all</span></span></code></pre></div>
-<p>To specify this type of match, we put in the <code>match_type</code> as “multivar,” and then we specified how we wanted the match to run by passing the list <code>multivar_settings</code>. Each element of this list is a separate argument to go into <code>multivar_match</code>. The <code>compare_type</code> argument tells the multivar how to compare each variable in the <code>by</code> argument. Because “Country” is a binary variable, we specify “indicator”, and because “Company” is a string variable, we specify “stringdist.” You can see a full list of options for comparison in the <code>multivar_match</code> documentation, or equivalently, the <code>merge_plus</code> <code>score_settings</code> documentation. (<code>merge_plus</code> has an option to compute matchscores post-hoc, as a method of evaluation.)</p>
-<p>Next, here’s an example the second method, using a logit model. First, we’ll set up a fake training table. Normally, one would construct a human-verified match set. Here, I just create a table where the first half are matches, the second half are a mix of matches and not, and then the two comparison variables are biased to be more of a match in the first half of the sample. This is just a way to ensure that our logit model gives us positive coefficients, so that our example makes a little more sense.</p>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Country_compare Company_compare multivar_score tier</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:               1       1.0000000      1.0000000  all</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:               1       0.9882353      0.9941176  all</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:               1       0.8714286      0.9357143  all</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:               1       0.9333333      0.9666667  all</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:               0       0.9285714      0.4642857  all</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:               1       1.0000000      1.0000000  all</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:               1       0.5333333      0.7666667  all</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:               1       0.9111111      0.9555556  all</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:               1       0.7333333      0.8666667  all</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:               1       0.9111111      0.9555556  all</span></span></code></pre></div>
+<p>To specify this type of match, we put in the <code>match_type</code>
+as “multivar,” and then we specified how we wanted the match to run by
+passing the list <code>multivar_settings</code>. Each element of this
+list is a separate argument to go into <code>multivar_match</code>. The
+<code>compare_type</code> argument tells the multivar how to compare
+each variable in the <code>by</code> argument. Because “Country” is a
+binary variable, we specify “indicator”, and because “Company” is a
+string variable, we specify “stringdist.” You can see a full list of
+options for comparison in the <code>multivar_match</code> documentation,
+or equivalently, the <code>merge_plus</code> <code>score_settings</code>
+documentation. (<code>merge_plus</code> has an option to compute
+matchscores post-hoc, as a method of evaluation.)</p>
+<p>Next, here’s an example the second method, using a logit model.
+First, we’ll set up a fake training table. Normally, one would construct
+a human-verified match set. Here, I just create a table where the first
+half are matches, the second half are a mix of matches and not, and then
+the two comparison variables are biased to be more of a match in the
+first half of the sample. This is just a way to ensure that our logit
+model gives us positive coefficients, so that our example makes a little
+more sense.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>training_table <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">match =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="fl">5e4</span>), <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span> ), <span class="fl">5e4</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)),</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Company_compare =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fl">0.00001</span>, <span class="sc">-</span>.<span class="dv">00001</span>),</span>
@@ -410,7 +705,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AIC: 83056</span></span>
 <span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></span></code></pre></div>
-<p>Then, we plug our logit model into the <code>multivar_settings</code>. The code will then use our trained logit model on the variables we specified. Note that the name of the columns in the training set must match the name of the variables in the match datasets, with &quot;_compare&quot; at the end.</p>
+<p>Then, we plug our logit model into the
+<code>multivar_settings</code>. The code will then use our trained logit
+model on the variables we specified. Note that the name of the columns
+in the training set must match the name of the variables in the match
+datasets, with “_compare” at the end.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(corp_data1, corp_data2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Company&quot;</span>), <span class="at">unique_key_1 =</span> <span class="st">&quot;unique_key_1&quot;</span>,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">unique_key_2 =</span> <span class="st">&quot;unique_key_2&quot;</span>, </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>,</span>
@@ -440,23 +739,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:             AT &amp; T       USA         TN     4000  160,000            9</span></span>
 <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:         Ford Motor       USA         MI     2222  150,000           10</span></span>
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:         Ford Motor       USA         MI     2222  150,000           10</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Country_compare Company_compare matchscore tier</span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:               1       1.0000000  0.9861508  all</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:               1       0.9882353  0.9853272  all</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:               1       0.8714286  0.9740476  all</span></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:               1       0.9333333  0.9808013  all</span></span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:               0       0.9285714  0.9660386  all</span></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:               1       1.0000000  0.9861508  all</span></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:               0       0.8366667  0.9473611  all</span></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:               1       0.9111111  0.9786024  all</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:               1       0.7333333  0.9496635  all</span></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:               1       0.9111111  0.9786024  all</span></span></code></pre></div>
-<p>Note the last few columns in the data.table: we see the comparison metrics, just like in the linear combination version of <code>multivar_match</code>. But, note that instead of computing a 50/50 linear combination like before, we are now computing a matchscore as the fitted probability of a match based on our logit model. In this toy example, the coefficients are a little strange because of the random data we fed in. But, we see the behavior we’d expect: a higher company name comparison and a country match gives us a higher matchscore.</p>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Country_compare Company_compare multivar_score tier</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:               1       1.0000000      0.9861508  all</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:               1       0.9882353      0.9853272  all</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:               1       0.8714286      0.9740476  all</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:               1       0.9333333      0.9808013  all</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:               0       0.9285714      0.9660386  all</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:               1       1.0000000      0.9861508  all</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:               0       0.8366667      0.9473611  all</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:               1       0.9111111      0.9786024  all</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:               1       0.7333333      0.9496635  all</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:               1       0.9111111      0.9786024  all</span></span></code></pre></div>
+<p>Note the last few columns in the data.table: we see the comparison
+metrics, just like in the linear combination version of
+<code>multivar_match</code>. But, note that instead of computing a 50/50
+linear combination like before, we are now computing a matchscore as the
+fitted probability of a match based on our logit model. In this toy
+example, the coefficients are a little strange because of the random
+data we fed in. But, we see the behavior we’d expect: a higher company
+name comparison and a country match gives us a higher matchscore.</p>
 </div>
 </div>
 <div id="summary-and-next-steps" class="section level1">
 <h1>Summary and next steps</h1>
-<p>We’ve covered the several different types of matching with <code>fedmatch</code>: exact matching, fuzzy matching, and multivar matching. Each match is useful in its own right, and they become even more useful when combined. That’s where the next step comes in: tier matching with the function <code>tier_match</code>. See the vignette for tier match for more details.</p>
+<p>We’ve covered the several different types of matching with
+<code>fedmatch</code>: exact matching, fuzzy matching, and multivar
+matching. Each match is useful in its own right, and they become even
+more useful when combined. That’s where the next step comes in: tier
+matching with the function <code>tier_match</code>. See the vignette for
+tier match for more details.</p>
 </div>
 
 

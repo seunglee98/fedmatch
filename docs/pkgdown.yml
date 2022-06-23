@@ -1,5 +1,5 @@
-pandoc: 2.11.4
-pkgdown: 1.6.1
+pandoc: 2.17.1.1
+pkgdown: 2.0.4
 pkgdown_sha: ~
 articles:
   Fuzzy-matching: Fuzzy-matching.html
@@ -7,5 +7,5 @@ articles:
   Multivar_matching: Multivar_matching.html
   Using-clean-strings: Using-clean-strings.html
   Using-tier-match: Using-tier-match.html
-last_built: 2021-11-22T21:31Z
+last_built: 2022-06-23T12:50Z
 

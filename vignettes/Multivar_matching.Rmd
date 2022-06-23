@@ -68,7 +68,7 @@ Let's go through the arguments:
   - "difference" computes the numeric difference between the two columns, scaled by the largest difference in the dataset
   - "ratio" computes the ratio between the two columns, always such that the ratio is less than 1
   - "stringdist" computes the Jaro-Winkler string distance between the strings.
-  - "wgt_jaccard_distance" computes the weighted jaccard distance between the strings (see fuzzy matching vignette for details on how this is computed.)
+  - "wgt_jaccard_dist" computes the weighted jaccard distance between the strings (see fuzzy matching vignette for details on how this is computed.)
 - 'wgts' is a vector of weights, length equal to the length of the 'by' vector, that describes how to weight each field for computing a multivar_score. 
 - 'nthread' is how many threads to use when making the comparisons, see `parallel::makeCluster()`
 - 'logit' is a logit model (described in detail later) that can be used instead of 'wgts' to combine the comparison scores into a final multivar_score using `base::predict()`

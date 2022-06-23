@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -84,11 +80,12 @@
 
       
 
-      </header><script src="Intro-to-fedmatch_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to fedmatch</h1>
-                        <h4 class="author">Chris Webster</h4>
+                        <h4 data-toc-skip class="author">Chris
+Webster</h4>
             
       
       
@@ -98,41 +95,66 @@
 
     
     
-<div id="background" class="section level1">
-<h1 class="hasAnchor">
-<a href="#background" class="anchor"></a>Background</h1>
-<p>With an ever-expanding set of financial data providers, each covering many of the same firms and entities, matching data sets that do not share common identifiers has never been more important.<code>fedmatch</code> is a set of tools for performing record linkage between two data sets. It allows for a variety of different matching techniques, letting the user build a matching algorithm for their specific application. Although fedmatch was designed with economic data in mind (i.e. loans or companies), it is very flexible, so it can be used for any matching problem. With <code>fedmatch</code>, a researcher or analyst can quickly go from having 0 matches between two datasets to having many. With more time and care, they can use more advanced techniques to pull out even more matches.</p>
+<div class="section level2">
+<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
+<p>With an ever-expanding set of financial data providers, each covering
+many of the same firms and entities, matching data sets that do not
+share common identifiers has never been more
+important.<code>fedmatch</code> is a set of tools for performing record
+linkage between two data sets. It allows for a variety of different
+matching techniques, letting the user build a matching algorithm for
+their specific application. Although fedmatch was designed with economic
+data in mind (i.e. loans or companies), it is very flexible, so it can
+be used for any matching problem. With <code>fedmatch</code>, a
+researcher or analyst can quickly go from having 0 matches between two
+datasets to having many. With more time and care, they can use more
+advanced techniques to pull out even more matches.</p>
 <p>Fedmatch has many features, including:</p>
 <ul>
 <li>Tools to clean strings (see below)</li>
 <li>Matching on names (see below, and the fuzzy matching vignette)</li>
-<li>A new method of string comparison, which we dub “Weighted Jaccard” (see the fuzzy matching vignette)</li>
-<li>Matching using probabilistic methods and logit models (see the multivar match vignette)</li>
-<li>Matching using many different methods in sequence, pulling matches out as you go along (see the tier match vignette)</li>
+<li>A new method of string comparison, which we dub “Weighted Jaccard”
+(see the fuzzy matching vignette)</li>
+<li>Matching using probabilistic methods and logit models (see the
+multivar match vignette)</li>
+<li>Matching using many different methods in sequence, pulling matches
+out as you go along (see the tier match vignette)</li>
 </ul>
-<p>This vignette will explain the basics of fedmatch, including the <code>merge_plus</code> function and the <code>clean_strings</code> function. From there, other vignettes go further into the details of the different matching types.</p>
+<p>This vignette will explain the basics of fedmatch, including the
+<code>merge_plus</code> function and the <code>clean_strings</code>
+function. From there, other vignettes go further into the details of the
+different matching types.</p>
 </div>
-<div id="name-cleaning" class="section level1">
-<h1 class="hasAnchor">
-<a href="#name-cleaning" class="anchor"></a>Name cleaning</h1>
-<p>Before diving into the matching code, we’ll first go over the <code>clean_strings</code> function that can help standardize company names across data sets.</p>
+<div class="section level2">
+<h2 id="name-cleaning">Name cleaning<a class="anchor" aria-label="anchor" href="#name-cleaning"></a>
+</h2>
+<p>Before diving into the matching code, we’ll first go over the
+<code>clean_strings</code> function that can help standardize company
+names across data sets.</p>
 <p>A basic example of clean strings looks like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">raw_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hamlin, Hamlin, McGill"</span>, <span class="st">"Schweibert &amp; Cokely "</span>, <span class="st">"Wexler McGill, LLC"</span>,
+<code class="sourceCode R"><span class="va">raw_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Hamlin, Hamlin, McGill"</span>, <span class="st">"Schweibert &amp; Cokely "</span>, <span class="st">"Wexler McGill, LLC"</span>,
                <span class="st">"Davis and Main, Inc."</span><span class="op">)</span>
 <span class="va">clean_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">raw_names</span><span class="op">)</span>
 <span class="va">clean_names</span>
 <span class="co">#&gt; [1] "hamlin hamlin mcgill"  "schweibert and cokely" "wexler mcgill llc"    </span>
 <span class="co">#&gt; [4] "davis and main inc"</span></code></pre></div>
-<p>Without any additional arguments, <code>clean_strings</code> does the following:</p>
+<p>Without any additional arguments, <code>clean_strings</code> does the
+following:</p>
 <ul>
 <li>Make everything lowercase</li>
-<li>Replace the special characters &amp;, @, %, $ with their word equivalents</li>
+<li>Replace the special characters &amp;, @, %, $ with their word
+equivalents</li>
 <li>Remove all other special characters (e.g. commas, periods)</li>
 <li>Convert tabs to spaces</li>
 <li>Remove extra spaces</li>
 </ul>
-<p>As described in the manual for <code>clean_strings</code>, one can specify further arguments to remove words or try different replacements. Fedmatch comes with a set of words that are commonly used for this, but you can use whatever you’d like. (You can also use <code>word_frequency</code> to look for common words in your data.)</p>
+<p>As described in the manual for <code>clean_strings</code>, one can
+specify further arguments to remove words or try different replacements.
+Fedmatch comes with a set of words that are commonly used for this, but
+you can use whatever you’d like. (You can also use
+<code>word_frequency</code> to look for common words in your data.)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">fedmatch</span><span class="fu">::</span><span class="va"><a href="../reference/corporate_words.html">corporate_words</a></span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt;     abbr     long.names</span>
@@ -147,16 +169,21 @@
 <span class="co">#&gt; [2] "schweibert and cokely"                      </span>
 <span class="co">#&gt; [3] "wexler mcgill limited liability corporation"</span>
 <span class="co">#&gt; [4] "davis and main incorporated"</span></code></pre></div>
-<p>Through string cleaning, we can make it so that even if two different databases record names differently (e.g. “Hamlin Hamlin McGill INC” vs “Hamlin Hamlin McGill Incorporated”), we will still count these records as a match.</p>
+<p>Through string cleaning, we can make it so that even if two different
+databases record names differently (e.g. “Hamlin Hamlin McGill INC” vs
+“Hamlin Hamlin McGill Incorporated”), we will still count these records
+as a match.</p>
 </div>
-<div id="basics-merge_plus" class="section level1">
-<h1 class="hasAnchor">
-<a href="#basics-merge_plus" class="anchor"></a>Basics: <code>merge_plus</code>
-</h1>
-<p>The workhorse of <code>fedmatch</code> is <code>merge_plus</code>. <code>merge_plus</code> is an extremely flexible function that can perform several different types of matches: exact, fuzzy, and multivar.</p>
-<div id="exact-matching" class="section level2">
-<h2 class="hasAnchor">
-<a href="#exact-matching" class="anchor"></a>Exact matching</h2>
+<div class="section level2">
+<h2 id="basics-merge_plus">Basics: <code>merge_plus</code><a class="anchor" aria-label="anchor" href="#basics-merge_plus"></a>
+</h2>
+<p>The workhorse of <code>fedmatch</code> is <code>merge_plus</code>.
+<code>merge_plus</code> is an extremely flexible function that can
+perform several different types of matches: exact, fuzzy, and
+multivar.</p>
+<div class="section level3">
+<h3 id="exact-matching">Exact matching<a class="anchor" aria-label="anchor" href="#exact-matching"></a>
+</h3>
 <p>Here are the example datasets that come with fedmatch:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">fedmatch</span><span class="fu">::</span><span class="va"><a href="../reference/corp_data1.html">corp_data1</a></span>
@@ -183,7 +210,8 @@
 <span class="co">#&gt;  8:                 GM                 MI     2222  170,000            8</span>
 <span class="co">#&gt;  9:             AT &amp; T     USA         TN     4000  160,000            9</span>
 <span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10</span></code></pre></div>
-<p>The most basic way to use <code>merge_plus</code> is by simply making it equivalent to <code><a href="https://rdrr.io/r/base/merge.html">base::merge</a></code>.</p>
+<p>The most basic way to use <code>merge_plus</code> is by simply making
+it equivalent to <code><a href="https://rdrr.io/r/base/merge.html" class="external-link">base::merge</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">basic_merge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>data1 <span class="op">=</span> <span class="va">corp_data1</span>, 
                           data2 <span class="op">=</span> <span class="va">corp_data2</span>,
@@ -191,30 +219,43 @@
                           by.y <span class="op">=</span> <span class="st">"Name"</span>, match_type <span class="op">=</span> <span class="st">"exact"</span>, 
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span></code></pre></div>
-<p>This code will run merge on the “Company” and “Name” variables, and return cases where the two have an exact match. The only differences between this and <code><a href="https://rdrr.io/r/base/merge.html">base::merge</a></code> are</p>
+<p>This code will run merge on the “Company” and “Name” variables, and
+return cases where the two have an exact match. The only differences
+between this and <code><a href="https://rdrr.io/r/base/merge.html" class="external-link">base::merge</a></code> are</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>merge_plus</code> requires data1 and data2 each to have a “unique key” that can be used to identify an observation.</li>
+<code>merge_plus</code> requires data1 and data2 each to have a
+“unique key” that can be used to identify an observation.</li>
 <li>
 <code>merge_plus</code> returns a list.</li>
 </ol>
-<p>Let’s take a look at each of the elements of the list returned by <code>merge_plus</code>. These will always be the same, no matter which <code>match_type</code> you select in <code>merge_plus</code>.</p>
-<p>The first item is the matches themselves. This is a <code>data.table</code> with one row for each matching observation, along with all variables present in each data set.</p>
+<p>Let’s take a look at each of the elements of the list returned by
+<code>merge_plus</code>. These will always be the same, no matter which
+<code>match_type</code> you select in <code>merge_plus</code>.</p>
+<p>The first item is the matches themselves. This is a
+<code>data.table</code> with one row for each matching observation,
+along with all variables present in each data set.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt;               Company Country State  SIC Revenue unique_key_1 country</span>
 <span class="co">#&gt; 1:            Walmart     USA    OH 3300     485            1     USA</span>
 <span class="co">#&gt; 2: UnitedHealth Group     USA    MA   NA     184            6     USA</span>
 <span class="co">#&gt;    state_code SIC_code earnings unique_key_2               Name tier</span>
 <span class="co">#&gt; 1:         OH     3380  490,000            1            Walmart  all</span>
 <span class="co">#&gt; 2:         MA     1130  180,000            6 UnitedHealth Group  all</span></code></pre></div>
-<p>The next item is <code>matches_filter</code>. In this example, it’s empty, because we didn’t supply the argument <code>filter</code>. If we did supply <code>filter</code> (which can either be a function that filters, or a numeric cutoff for a matchscore (more on this later)), we would see a subsample of the matches dataset.</p>
+<p>The next item is <code>matches_filter</code>. In this example, it’s
+empty, because we didn’t supply the argument <code>filter</code>. If we
+did supply <code>filter</code> (which can either be a function that
+filters, or a numeric cutoff for a matchscore (more on this later)), we
+would see a subsample of the matches dataset.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">matches_filter</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">matches_filter</span><span class="op">)</span>
 <span class="co">#&gt; Null data.table (0 rows and 0 cols)</span></code></pre></div>
-<p>Next in the list is <code>data1_nomatch</code> and <code>data2_nomatch</code>, which return the rows that were not matched from the datasets.</p>
+<p>Next in the list is <code>data1_nomatch</code> and
+<code>data2_nomatch</code>, which return the rows that were not matched
+from the datasets.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">data1_nomatch</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">data1_nomatch</span><span class="op">)</span>
 <span class="co">#&gt;               Company Country State  SIC Revenue unique_key_1</span>
 <span class="co">#&gt; 1:   Bershire Hataway     USA       2222     223            2</span>
 <span class="co">#&gt; 2:              Apple     USA    CA 3384     215            3</span>
@@ -224,7 +265,7 @@
 <span class="co">#&gt; 6:     General Motors     USA    MI 2222     166            8</span>
 <span class="co">#&gt; 7:               AT&amp;T     USA    TN 4000     163            9</span>
 <span class="co">#&gt; 8: Ford Motor Company     USA    MI   NA     151           10</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">data2_nomatch</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">data2_nomatch</span><span class="op">)</span>
 <span class="co">#&gt;                  Name country state_code SIC_code earnings unique_key_2</span>
 <span class="co">#&gt; 1:  Bershire Hathaway     USA         NE     2220  220,000            2</span>
 <span class="co">#&gt; 2:     Apple Computer     USA         CA       NA  220,000            3</span>
@@ -234,19 +275,29 @@
 <span class="co">#&gt; 6:                 GM                 MI     2222  170,000            8</span>
 <span class="co">#&gt; 7:             AT &amp; T     USA         TN     4000  160,000            9</span>
 <span class="co">#&gt; 8:         Ford Motor     USA         MI     2222  150,000           10</span></code></pre></div>
-<p>Finally, there is <code>match_evaluation</code>, which is a data.table that summarizes how well the match worked. It shows the number of matches in each dataset broken down by tier (more on tiers later), along with the percent matched.</p>
+<p>Finally, there is <code>match_evaluation</code>, which is a
+data.table that summarizes how well the match worked. It shows the
+number of matches in each dataset broken down by tier (more on tiers
+later), along with the percent matched.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">match_evaluation</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">basic_merge</span><span class="op">$</span><span class="va">match_evaluation</span><span class="op">)</span>
 <span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span>
 <span class="co">#&gt; 1:  all       2                2                2           0.2           0.2</span>
 <span class="co">#&gt;    new_unique_1 new_unique_2</span>
 <span class="co">#&gt; 1:            2            2</span></code></pre></div>
 </div>
-<div id="fuzzy-matching" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fuzzy-matching" class="anchor"></a>Fuzzy matching</h2>
-<p>We can also use <code>merge_plus</code> to perform “fuzzy” matches. A fuzzy match uses a string distance algorithm to compute the distance between one string and a set of other strings, then picks the closest string that’s over a certain threshold. <code>fedmatch</code> uses <code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html">stringdist::amatch</a></code> to execute these matches, and you can read more about string distances in the <code>stringdist</code> package documentation.</p>
-<p>Here is an example of how this is implemented in <code>merge_plus</code>.</p>
+<div class="section level3">
+<h3 id="fuzzy-matching">Fuzzy matching<a class="anchor" aria-label="anchor" href="#fuzzy-matching"></a>
+</h3>
+<p>We can also use <code>merge_plus</code> to perform “fuzzy” matches. A
+fuzzy match uses a string distance algorithm to compute the distance
+between one string and a set of other strings, then picks the closest
+string that’s over a certain threshold. <code>fedmatch</code> uses
+<code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html" class="external-link">stringdist::amatch</a></code> to execute these matches, and you can
+read more about string distances in the <code>stringdist</code> package
+documentation.</p>
+<p>Here is an example of how this is implemented in
+<code>merge_plus</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fuzzy_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>data1 <span class="op">=</span> <span class="va">corp_data1</span>, 
                           data2 <span class="op">=</span> <span class="va">corp_data2</span>,
@@ -254,7 +305,7 @@
                           by.y <span class="op">=</span> <span class="st">"Name"</span>, match_type <span class="op">=</span> <span class="st">"fuzzy"</span>, 
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fuzzy_result</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fuzzy_result</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt;    unique_key_2 unique_key_1 Country State  SIC Revenue            Company</span>
 <span class="co">#&gt; 1:            1            1     USA    OH 3300     485            Walmart</span>
 <span class="co">#&gt; 2:            2            2     USA       2222     223   Bershire Hataway</span>
@@ -263,7 +314,12 @@
 <span class="co">#&gt; 1:            Walmart     USA         OH     3380  490,000  all</span>
 <span class="co">#&gt; 2:  Bershire Hathaway     USA         NE     2220  220,000  all</span>
 <span class="co">#&gt; 3: UnitedHealth Group     USA         MA     1130  180,000  all</span></code></pre></div>
-<p>We can see that we picked up an additional match here: “Bershire Hataway” and “Bershire Hathaway.” These are off by 1 character, so the exact match didn’t pick them up, but the fuzzy match did. We can also tweak the fuzzy match settings with the argument <code>fuzzy_settings</code>. This is a list that will be passed to <code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html">stringdist::amatch</a></code>.</p>
+<p>We can see that we picked up an additional match here: “Bershire
+Hataway” and “Bershire Hathaway.” These are off by 1 character, so the
+exact match didn’t pick them up, but the fuzzy match did. We can also
+tweak the fuzzy match settings with the argument
+<code>fuzzy_settings</code>. This is a list that will be passed to
+<code><a href="https://rdrr.io/pkg/stringdist/man/amatch.html" class="external-link">stringdist::amatch</a></code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fuzzy_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>data1 <span class="op">=</span> <span class="va">corp_data1</span>, 
                           data2 <span class="op">=</span> <span class="va">corp_data2</span>,
@@ -272,7 +328,7 @@
                           fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>maxDist <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>,
                           unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                           unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fuzzy_result</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fuzzy_result</span><span class="op">$</span><span class="va">matches</span><span class="op">)</span>
 <span class="co">#&gt;     unique_key_2 unique_key_1 Country State  SIC Revenue            Company</span>
 <span class="co">#&gt;  1:            1            1     USA    OH 3300     485            Walmart</span>
 <span class="co">#&gt;  2:            2            2     USA       2222     223   Bershire Hataway</span>
@@ -295,27 +351,51 @@
 <span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000  all</span>
 <span class="co">#&gt;  9:         Ford Motor     USA         MI     2222  150,000  all</span>
 <span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000  all</span></code></pre></div>
-<p>So, cranking up the <code>maxDist</code> (maximum distance between strings, a threshold for determining matches) gave us a bunch more matches. Note that we return multiple matches per the same unique key sometimes, for example Ford Motor got matched to General Motors and Ford Motor Company. There are many tweaks that one can make via <code>fuzzy_settings</code>, and these change the match behavior significantly. It is worth exploring various options to see which make the most sense for your specific application. See the fuzzy matching vignette for more details, including a new method of string comparison that we call a “Weighted Jaccard” comparison.</p>
+<p>So, cranking up the <code>maxDist</code> (maximum distance between
+strings, a threshold for determining matches) gave us a bunch more
+matches. Note that we return multiple matches per the same unique key
+sometimes, for example Ford Motor got matched to General Motors and Ford
+Motor Company. There are many tweaks that one can make via
+<code>fuzzy_settings</code>, and these change the match behavior
+significantly. It is worth exploring various options to see which make
+the most sense for your specific application. See the fuzzy matching
+vignette for more details, including a new method of string comparison
+that we call a “Weighted Jaccard” comparison.</p>
 </div>
-<div id="multivar-matching" class="section level2">
-<h2 class="hasAnchor">
-<a href="#multivar-matching" class="anchor"></a>Multivar matching</h2>
-<p>The final setting for <code>match_type</code> in <code>merge_plus</code> is a “multivariable match”, or “multivar” for short. This match is complex, and may take some playing around with the code to fully understand how it works. We’ll just go over the basic usage here. The idea behind the multivariable match is to use several variables from each dataset to execute a match, rather than just using the name of an entity.</p>
-<p>One way is to take the set of variables (say, company name, state, and earnings), compare them with some numeric metric, and then perform a linear combination of those metrics to arrive at a final score. Then, you can compare each observation in one dataset to each other observation in the other dataset to pick the match with the highest score.</p>
-<p>The other way is similar, but instead of a linear combination of scores, you can use a logit model. In this method, you create a hand-verified match set between your two datasets, then use a logit model to estimate how much each variable contributes to determining a match.</p>
+<div class="section level3">
+<h3 id="multivar-matching">Multivar matching<a class="anchor" aria-label="anchor" href="#multivar-matching"></a>
+</h3>
+<p>The final setting for <code>match_type</code> in
+<code>merge_plus</code> is a “multivariable match”, or “multivar” for
+short. This match is complex, and may take some playing around with the
+code to fully understand how it works. We’ll just go over the basic
+usage here. The idea behind the multivariable match is to use several
+variables from each dataset to execute a match, rather than just using
+the name of an entity.</p>
+<p>One way is to take the set of variables (say, company name, state,
+and earnings), compare them with some numeric metric, and then perform a
+linear combination of those metrics to arrive at a final score. Then,
+you can compare each observation in one dataset to each other
+observation in the other dataset to pick the match with the highest
+score.</p>
+<p>The other way is similar, but instead of a linear combination of
+scores, you can use a logit model. In this method, you create a
+hand-verified match set between your two datasets, then use a logit
+model to estimate how much each variable contributes to determining a
+match.</p>
 <p>Here’s an example of the first method, the linear combination:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># for simplicity's sake, rename columns in corp_data2</span>
-<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setattr.html">setnames</a></span><span class="op">(</span><span class="va">corp_data2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"country"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Company"</span>, <span class="st">"Country"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setattr.html" class="external-link">setnames</a></span><span class="op">(</span><span class="va">corp_data2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"country"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Company"</span>, <span class="st">"Country"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">multivar_linear_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span><span class="va">corp_data1</span>, <span class="va">corp_data2</span>, 
                                      match_type <span class="op">=</span> <span class="st">"multivar"</span>,
-                                     by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"Company"</span><span class="op">)</span>, 
+                                     by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"Company"</span><span class="op">)</span>, 
                                      unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
-                                     suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>,
+                                     suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>,
                                      unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span>,
                                     
-                                     multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span>compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"indicator"</span>, <span class="st">"stringdist"</span><span class="op">)</span>,
-                                                               wgts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.5</span><span class="op">)</span>,
+                                     multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span>compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"indicator"</span>, <span class="st">"stringdist"</span><span class="op">)</span>,
+                                                               wgts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.5</span><span class="op">)</span>,
                                                               top <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="va">multivar_linear_result</span><span class="op">$</span><span class="va">matches</span>                                     
 <span class="co">#&gt;     unique_key_1          Company_1 Country_1 State  SIC Revenue</span>
@@ -351,17 +431,35 @@
 <span class="co">#&gt;  8:               1       0.9111111      0.9555556  all</span>
 <span class="co">#&gt;  9:               1       0.7333333      0.8666667  all</span>
 <span class="co">#&gt; 10:               1       0.9111111      0.9555556  all</span></code></pre></div>
-<p>To specify this type of match, we put in the <code>match_type</code> as “multivar,” and then we specified how we wanted the match to run by passing the list <code>multivar_settings</code>. Each element of this list is a separate argument to go into <code>multivar_match</code>. The <code>compare_type</code> argument tells the multivar how to compare each variable in the <code>by</code> argument. Because “Country” is a binary variable, we specify “indicator”, and because “Company” is a string variable, we specify “stringdist.” You can see a full list of options for comparison in the <code>multivar_match</code> documentation, or equivalently, the <code>merge_plus</code> <code>score_settings</code> documentation. (<code>merge_plus</code> has an option to compute matchscores post-hoc, as a method of evaluation.)</p>
-<p>Next, here’s an example the second method, using a logit model. First, we’ll set up a fake training table. Normally, one would construct a human-verified match set. Here, I just create a table where the first half are matches, the second half are a mix of matches and not, and then the two comparison variables are biased to be more of a match in the first half of the sample. This is just a way to ensure that our logit model gives us positive coefficients, so that our example makes a little more sense.</p>
+<p>To specify this type of match, we put in the <code>match_type</code>
+as “multivar,” and then we specified how we wanted the match to run by
+passing the list <code>multivar_settings</code>. Each element of this
+list is a separate argument to go into <code>multivar_match</code>. The
+<code>compare_type</code> argument tells the multivar how to compare
+each variable in the <code>by</code> argument. Because “Country” is a
+binary variable, we specify “indicator”, and because “Company” is a
+string variable, we specify “stringdist.” You can see a full list of
+options for comparison in the <code>multivar_match</code> documentation,
+or equivalently, the <code>merge_plus</code> <code>score_settings</code>
+documentation. (<code>merge_plus</code> has an option to compute
+matchscores post-hoc, as a method of evaluation.)</p>
+<p>Next, here’s an example the second method, using a logit model.
+First, we’ll set up a fake training table. Normally, one would construct
+a human-verified match set. Here, I just create a table where the first
+half are matches, the second half are a mix of matches and not, and then
+the two comparison variables are biased to be more of a match in the
+first half of the sample. This is just a way to ensure that our logit
+model gives us positive coefficients, so that our example makes a little
+more sense.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span>
-<span class="va">training_table</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>match <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5e4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span> <span class="op">)</span>, <span class="fl">5e4</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
-                                Company_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.00001</span>, <span class="op">-</span><span class="fl">.00001</span><span class="op">)</span>,
-                                Country_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5e4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fl">5e4</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span>
+<span class="va">training_table</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>match <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5e4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span> <span class="op">)</span>, <span class="fl">5e4</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+                                Company_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.00001</span>, <span class="op">-</span><span class="fl">.00001</span><span class="op">)</span>,
+                                Country_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5e4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fl">5e4</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># training_table</span>
-<span class="va">logit_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">match</span> <span class="op">~</span> <span class="va">Company_compare</span> <span class="op">+</span> <span class="va">Country_compare</span>, family <span class="op">=</span> <span class="st">"binomial"</span>,
+<span class="va">logit_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">match</span> <span class="op">~</span> <span class="va">Company_compare</span> <span class="op">+</span> <span class="va">Country_compare</span>, family <span class="op">=</span> <span class="st">"binomial"</span>,
                    data <span class="op">=</span> <span class="va">training_table</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">logit_model</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">logit_model</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Call:</span>
 <span class="co">#&gt; glm(formula = match ~ Company_compare + Country_compare, family = "binomial", </span>
@@ -386,14 +484,18 @@
 <span class="co">#&gt; AIC: 83056</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></code></pre></div>
-<p>Then, we plug our logit model into the <code>multivar_settings</code>. The code will then use our trained logit model on the variables we specified. Note that the name of the columns in the training set must match the name of the variables in the match datasets, with "_compare" at the end.</p>
+<p>Then, we plug our logit model into the
+<code>multivar_settings</code>. The code will then use our trained logit
+model on the variables we specified. Note that the name of the columns
+in the training set must match the name of the variables in the match
+datasets, with “_compare” at the end.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span><span class="va">corp_data1</span>, <span class="va">corp_data2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"Company"</span><span class="op">)</span>, unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
+<code class="sourceCode R"><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span><span class="va">corp_data1</span>, <span class="va">corp_data2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"Company"</span><span class="op">)</span>, unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>,
                         unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span>, 
                      match_type <span class="op">=</span> <span class="st">"multivar"</span>,
-                     multivar_settings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>logit <span class="op">=</span> <span class="va">logit_model</span>, compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"indicator"</span>, <span class="st">"stringdist"</span><span class="op">)</span>,
+                     multivar_settings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>logit <span class="op">=</span> <span class="va">logit_model</span>, compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"indicator"</span>, <span class="st">"stringdist"</span><span class="op">)</span>,
                         wgts <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,
-                        suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span><span class="op">)</span>
+                        suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">result</span><span class="op">$</span><span class="va">matches</span>
 <span class="co">#&gt;     unique_key_1          Company_1 Country_1 State  SIC Revenue</span>
 <span class="co">#&gt;  1:            1            Walmart       USA    OH 3300     485</span>
@@ -428,13 +530,25 @@
 <span class="co">#&gt;  8:               1       0.9111111      0.9786024  all</span>
 <span class="co">#&gt;  9:               1       0.7333333      0.9496635  all</span>
 <span class="co">#&gt; 10:               1       0.9111111      0.9786024  all</span></code></pre></div>
-<p>Note the last few columns in the data.table: we see the comparison metrics, just like in the linear combination version of <code>multivar_match</code>. But, note that instead of computing a 50/50 linear combination like before, we are now computing a matchscore as the fitted probability of a match based on our logit model. In this toy example, the coefficients are a little strange because of the random data we fed in. But, we see the behavior we’d expect: a higher company name comparison and a country match gives us a higher matchscore.</p>
+<p>Note the last few columns in the data.table: we see the comparison
+metrics, just like in the linear combination version of
+<code>multivar_match</code>. But, note that instead of computing a 50/50
+linear combination like before, we are now computing a matchscore as the
+fitted probability of a match based on our logit model. In this toy
+example, the coefficients are a little strange because of the random
+data we fed in. But, we see the behavior we’d expect: a higher company
+name comparison and a country match gives us a higher matchscore.</p>
 </div>
 </div>
-<div id="summary-and-next-steps" class="section level1">
-<h1 class="hasAnchor">
-<a href="#summary-and-next-steps" class="anchor"></a>Summary and next steps</h1>
-<p>We’ve covered the several different types of matching with <code>fedmatch</code>: exact matching, fuzzy matching, and multivar matching. Each match is useful in its own right, and they become even more useful when combined. That’s where the next step comes in: tier matching with the function <code>tier_match</code>. See the vignette for tier match for more details.</p>
+<div class="section level2">
+<h2 id="summary-and-next-steps">Summary and next steps<a class="anchor" aria-label="anchor" href="#summary-and-next-steps"></a>
+</h2>
+<p>We’ve covered the several different types of matching with
+<code>fedmatch</code>: exact matching, fuzzy matching, and multivar
+matching. Each match is useful in its own right, and they become even
+more useful when combined. That’s where the next step comes in: tier
+matching with the function <code>tier_match</code>. See the vignette for
+tier match for more details.</p>
 </div>
   </div>
 
@@ -449,11 +563,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Melanie Friedrichs, Chris Webster, Blake Marsh, Jacob Dice, Seung Lee.</p>
+  <p></p>
+<p>Developed by Melanie Friedrichs, Chris Webster, Blake Marsh, Jacob Dice, Seung Lee.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>
@@ -461,6 +577,8 @@
 
   
 
+
+  
 
   </body>
 </html>

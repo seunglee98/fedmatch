@@ -1,3 +1,8 @@
+# fedmatch 2.0.6
+- Fixed documentation referencing "X" to be to the proper vignette
+- Fixed documentation referencing "wgt_jaccard_distance" that should be "wgt_jaccard_dist"
+
+
 # fedmatch 2.0.5
 - Fixed bug in `build_tier_settings` that didn't include `sequential_words` argument
 - Fixed bug where `clean_strings` wasn't removing the replacement words even if `remove_words == T`

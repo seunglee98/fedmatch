@@ -45,7 +45,7 @@ print(result$matches[, .(Country_1, Country_2, Country_compare)])
 
 ## -----------------------------------------------------------------------------
 
-print(result$matches[, .(Company_compare, Country_compare, matchscore)])
+print(result$matches[, .(Company_compare, Country_compare, multivar_score)])
 
 ## -----------------------------------------------------------------------------
 set.seed(111)
