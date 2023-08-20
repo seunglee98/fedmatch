@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6</span>
       </span>
     </div>
 
@@ -119,54 +119,54 @@ that tier. All of these arguments will be passed to ‘merge_plus’ in
 sequence, and each of the matches from each tier are saved and
 combined.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tier_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-  a <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"exact"</span><span class="op">)</span>,
-  b <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"fuzzy"</span><span class="op">)</span>,
-  c <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"multivar"</span>, multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span>
-    logit <span class="op">=</span> <span class="cn">NULL</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, wgts <span class="op">=</span> <span class="fl">1</span>,
-    compare_type <span class="op">=</span> <span class="st">"stringdist"</span>, blocks <span class="op">=</span> <span class="cn">NULL</span>, blocks.x <span class="op">=</span> <span class="cn">NULL</span>, blocks.y <span class="op">=</span> <span class="cn">NULL</span>,
-    top <span class="op">=</span> <span class="fl">1</span>, threshold <span class="op">=</span> <span class="cn">NULL</span>
-  <span class="op">)</span><span class="op">)</span>
-
-<span class="op">)</span>
-<span class="co"># tier_list</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tier_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  a <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"exact"</span><span class="op">)</span>,</span>
+<span>  b <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"fuzzy"</span><span class="op">)</span>,</span>
+<span>  c <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"multivar"</span>, multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span></span>
+<span>    logit <span class="op">=</span> <span class="cn">NULL</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, wgts <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    compare_type <span class="op">=</span> <span class="st">"stringdist"</span>, blocks <span class="op">=</span> <span class="cn">NULL</span>, blocks.x <span class="op">=</span> <span class="cn">NULL</span>, blocks.y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    top <span class="op">=</span> <span class="fl">1</span>, threshold <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># tier_list</span></span></code></pre></div>
 <p>This list will perform three matches: ‘a’, an exact match; ‘b’, a
 fuzzy match, and ‘c’, a multivar match. We can get a bit fancier and add
 more settings to each, if we’d like. Remember that each element of each
 tier has to be an argument for <code>merge_plus</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tier_list_v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-  a <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"exact"</span>, clean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  b <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"fuzzy"</span>, clean <span class="op">=</span> <span class="cn">TRUE</span>,
-           fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"wgt_jaccard"</span>,
-                                 maxDist <span class="op">=</span> <span class="fl">.7</span>,
-                                 nthread <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-           clean_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_clean_settings.html">build_clean_settings</a></span><span class="op">(</span>remove_words <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
-  c <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"multivar"</span>, 
-                 multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span>
-    logit <span class="op">=</span> <span class="cn">NULL</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, wgts <span class="op">=</span> <span class="fl">1</span>,
-    compare_type <span class="op">=</span> <span class="st">"stringdist"</span>, blocks <span class="op">=</span> <span class="cn">NULL</span>, blocks.x <span class="op">=</span> <span class="cn">NULL</span>, blocks.y <span class="op">=</span> <span class="cn">NULL</span>,
-    top <span class="op">=</span> <span class="fl">1</span>, threshold <span class="op">=</span> <span class="cn">NULL</span>
-  <span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tier_list_v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  a <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"exact"</span>, clean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  b <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"fuzzy"</span>, clean <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>           fuzzy_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_fuzzy_settings.html">build_fuzzy_settings</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"wgt_jaccard"</span>,</span>
+<span>                                 maxDist <span class="op">=</span> <span class="fl">.7</span>,</span>
+<span>                                 nthread <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>           clean_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_clean_settings.html">build_clean_settings</a></span><span class="op">(</span>remove_words <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  c <span class="op">=</span> <span class="fu"><a href="../reference/build_tier.html">build_tier</a></span><span class="op">(</span>match_type <span class="op">=</span> <span class="st">"multivar"</span>, </span>
+<span>                 multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span></span>
+<span>    logit <span class="op">=</span> <span class="cn">NULL</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, wgts <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    compare_type <span class="op">=</span> <span class="st">"stringdist"</span>, blocks <span class="op">=</span> <span class="cn">NULL</span>, blocks.x <span class="op">=</span> <span class="cn">NULL</span>, blocks.y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    top <span class="op">=</span> <span class="fl">1</span>, threshold <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Let’s take a look at the rest of the syntax for
 <code>tier_match</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tier_match.html">tier_match</a></span><span class="op">(</span><span class="va">corp_data1</span>, <span class="va">corp_data2</span>,
-  by.x <span class="op">=</span> <span class="st">"Company"</span>, by.y <span class="op">=</span> <span class="st">"Name"</span>,
-  unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>, unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span>,
-  tiers <span class="op">=</span> <span class="va">tier_list_v2</span>, takeout <span class="op">=</span> <span class="st">"neither"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  score_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_score_settings.html">build_score_settings</a></span><span class="op">(</span>score_var_x <span class="op">=</span> <span class="st">"Company"</span>,
-                                        score_var_y <span class="op">=</span> <span class="st">"Name"</span>,
-                                        wgts <span class="op">=</span> <span class="fl">1</span>,
-                                        score_type <span class="op">=</span> <span class="st">"stringdist"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; Matching tier 'a'...</span>
-<span class="co">#&gt; Time elapsed: 0.02 secs.</span>
-<span class="co">#&gt; Matching tier 'b'...</span>
-<span class="co">#&gt; Time elapsed: 0.01 secs.</span>
-<span class="co">#&gt; Matching tier 'c'...</span>
-<span class="co">#&gt; Time elapsed: 0.02 secs.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tier_match.html">tier_match</a></span><span class="op">(</span><span class="va">corp_data1</span>, <span class="va">corp_data2</span>,</span>
+<span>  by.x <span class="op">=</span> <span class="st">"Company"</span>, by.y <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>  unique_key_1 <span class="op">=</span> <span class="st">"unique_key_1"</span>, unique_key_2 <span class="op">=</span> <span class="st">"unique_key_2"</span>,</span>
+<span>  tiers <span class="op">=</span> <span class="va">tier_list_v2</span>, takeout <span class="op">=</span> <span class="st">"neither"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  score_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_score_settings.html">build_score_settings</a></span><span class="op">(</span>score_var_x <span class="op">=</span> <span class="st">"Company"</span>,</span>
+<span>                                        score_var_y <span class="op">=</span> <span class="st">"Name"</span>,</span>
+<span>                                        wgts <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                        score_type <span class="op">=</span> <span class="st">"stringdist"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Matching tier 'a'...</span></span>
+<span><span class="co">#&gt; Time elapsed: 0.02 secs.</span></span>
+<span><span class="co">#&gt; Matching tier 'b'...</span></span>
+<span><span class="co">#&gt; Time elapsed: 0.01 secs.</span></span>
+<span><span class="co">#&gt; Matching tier 'c'...</span></span>
+<span><span class="co">#&gt; Time elapsed: 0.02 secs.</span></span></code></pre></div>
 <p>There are two types of arguments for <code>tier_match</code>: those
 that can be passed to <code>merge_plus</code>, and those that are unique
 to <code>tier_match</code>. If anything of the <code>merge_plus</code>
@@ -194,25 +194,25 @@ documentation there for details.</p>
 dataset, the unmatched data, and a match evaluation. Here’s what the
 matches look like:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;             Company Country State  SIC Revenue unique_key_1 country state_code</span>
-<span class="co">#&gt; 1:          walmart     USA    OH 3300     485            1     USA         OH</span>
-<span class="co">#&gt; 2:          walmart     USA    OH 3300     485            1     USA         OH</span>
-<span class="co">#&gt; 3:          Walmart     USA    OH 3300     485            1     USA         OH</span>
-<span class="co">#&gt; 4: Bershire Hataway     USA       2222     223            2     USA         NE</span>
-<span class="co">#&gt; 5:            apple     USA    CA 3384     215            3     USA         CA</span>
-<span class="co">#&gt;    SIC_code earnings unique_key_2              Name matchscore Company_score</span>
-<span class="co">#&gt; 1:     3380  490,000            1           walmart  1.0000000     1.0000000</span>
-<span class="co">#&gt; 2:     3380  490,000            1           walmart  1.0000000     1.0000000</span>
-<span class="co">#&gt; 3:     3380  490,000            1           Walmart  1.0000000     1.0000000</span>
-<span class="co">#&gt; 4:     2220  220,000            2 Bershire Hathaway  0.9882353     0.9882353</span>
-<span class="co">#&gt; 5:       NA  220,000            3    apple computer  0.8714286     0.8714286</span>
-<span class="co">#&gt;    tier Company_compare multivar_score</span>
-<span class="co">#&gt; 1:    a              NA             NA</span>
-<span class="co">#&gt; 2:    b              NA             NA</span>
-<span class="co">#&gt; 3:    c       1.0000000      1.0000000</span>
-<span class="co">#&gt; 4:    c       0.9882353      0.9882353</span>
-<span class="co">#&gt; 5:    b              NA             NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="co">#&gt;             Company Country State  SIC Revenue unique_key_1 country state_code</span></span>
+<span><span class="co">#&gt; 1:          walmart     USA    OH 3300     485            1     USA         OH</span></span>
+<span><span class="co">#&gt; 2:          walmart     USA    OH 3300     485            1     USA         OH</span></span>
+<span><span class="co">#&gt; 3:          Walmart     USA    OH 3300     485            1     USA         OH</span></span>
+<span><span class="co">#&gt; 4: Bershire Hataway     USA       2222     223            2     USA         NE</span></span>
+<span><span class="co">#&gt; 5:            apple     USA    CA 3384     215            3     USA         CA</span></span>
+<span><span class="co">#&gt;    SIC_code earnings unique_key_2              Name matchscore Company_score</span></span>
+<span><span class="co">#&gt; 1:     3380  490,000            1           walmart  1.0000000     1.0000000</span></span>
+<span><span class="co">#&gt; 2:     3380  490,000            1           walmart  1.0000000     1.0000000</span></span>
+<span><span class="co">#&gt; 3:     3380  490,000            1           Walmart  1.0000000     1.0000000</span></span>
+<span><span class="co">#&gt; 4:     2220  220,000            2 Bershire Hathaway  0.9882353     0.9882353</span></span>
+<span><span class="co">#&gt; 5:       NA  220,000            3    apple computer  0.8714286     0.8714286</span></span>
+<span><span class="co">#&gt;    tier Company_compare multivar_score</span></span>
+<span><span class="co">#&gt; 1:    a              NA             NA</span></span>
+<span><span class="co">#&gt; 2:    b              NA             NA</span></span>
+<span><span class="co">#&gt; 3:    c       1.0000000      1.0000000</span></span>
+<span><span class="co">#&gt; 4:    c       0.9882353      0.9882353</span></span>
+<span><span class="co">#&gt; 5:    b              NA             NA</span></span></code></pre></div>
 <p>As you can see, the matches dataset has a column called ‘tier’ that
 indicates which tier the match was from. It also adds any additional
 columns added by the matching process. In this example, we see
@@ -224,17 +224,17 @@ created from the multivar matching tier.</p>
 <p>We also have a match evaluation, now filled out with more details
 broken down by tier:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result</span><span class="op">$</span><span class="va">match_evaluation</span>
-<span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span>
-<span class="co">#&gt; 1:    a       2                2                2           0.2           0.2</span>
-<span class="co">#&gt; 2:    b       7                7                7           0.7           0.7</span>
-<span class="co">#&gt; 3:    c      10               10                9           1.0           0.9</span>
-<span class="co">#&gt; 4:  all      19               10                9           1.0           0.9</span>
-<span class="co">#&gt;    new_unique_1 new_unique_2</span>
-<span class="co">#&gt; 1:            2            2</span>
-<span class="co">#&gt; 2:            5            5</span>
-<span class="co">#&gt; 3:            3            2</span>
-<span class="co">#&gt; 4:           NA           NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">result</span><span class="op">$</span><span class="va">match_evaluation</span></span>
+<span><span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
+<span><span class="co">#&gt; 1:    a       2                2                2           0.2           0.2</span></span>
+<span><span class="co">#&gt; 2:    b       7                7                7           0.7           0.7</span></span>
+<span><span class="co">#&gt; 3:    c      10               10                9           1.0           0.9</span></span>
+<span><span class="co">#&gt; 4:  all      19               10                9           1.0           0.9</span></span>
+<span><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
+<span><span class="co">#&gt; 1:            2            2</span></span>
+<span><span class="co">#&gt; 2:            5            5</span></span>
+<span><span class="co">#&gt; 3:            3            2</span></span>
+<span><span class="co">#&gt; 4:           NA           NA</span></span></code></pre></div>
 <p>We can use this evaluation to figure out which tiers did the ‘best’
 job matching, getting the most unique matches.</p>
 </div>
@@ -257,7 +257,7 @@ job matching, getting the most unique matches.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

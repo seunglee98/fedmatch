@@ -1,6 +1,6 @@
 Package: fedmatch
 Title: Fast, Flexible, and User-Friendly Record Linkage Methods 
-Version: 2.0.5
+Version: 2.0.6
 Authors@R: c(person("Melanie", "Friedrichs", email = "melanie.r.friedrichs@gmail.com", role = c("aut")),
              person("Chris", "Webster", email = "chris0webster@gmail.com", role = c("aut", "cre")),
              person("Blake", "Marsh", email = "blake.marsh@kc.frb.org", role = c("aut")),
@@ -25,7 +25,7 @@ Imports:
     data.table,
     magrittr,
     scales
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = T)
 Suggests: 
     testthat,

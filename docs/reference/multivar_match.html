@@ -19,7 +19,7 @@ highest multivar_score pair for each observation in x."><!-- mathjax --><script 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6</span>
       </span>
     </div>
 
@@ -73,26 +73,26 @@ highest multivar_score pair for each observation in x.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">multivar_match</span><span class="op">(</span>
-  <span class="va">data1</span>,
-  <span class="va">data2</span>,
-  by <span class="op">=</span> <span class="cn">NULL</span>,
-  by.x <span class="op">=</span> <span class="cn">NULL</span>,
-  by.y <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">unique_key_1</span>,
-  <span class="va">unique_key_2</span>,
-  logit <span class="op">=</span> <span class="cn">NULL</span>,
-  missing <span class="op">=</span> <span class="cn">FALSE</span>,
-  wgts <span class="op">=</span> <span class="cn">NULL</span>,
-  compare_type <span class="op">=</span> <span class="st">"diff"</span>,
-  blocks <span class="op">=</span> <span class="cn">NULL</span>,
-  blocks.x <span class="op">=</span> <span class="cn">NULL</span>,
-  blocks.y <span class="op">=</span> <span class="cn">NULL</span>,
-  nthread <span class="op">=</span> <span class="fl">1</span>,
-  top <span class="op">=</span> <span class="fl">1</span>,
-  threshold <span class="op">=</span> <span class="cn">NULL</span>,
-  suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">multivar_match</span><span class="op">(</span></span>
+<span>  <span class="va">data1</span>,</span>
+<span>  <span class="va">data2</span>,</span>
+<span>  by <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  by.x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  by.y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">unique_key_1</span>,</span>
+<span>  <span class="va">unique_key_2</span>,</span>
+<span>  logit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  missing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  wgts <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  compare_type <span class="op">=</span> <span class="st">"diff"</span>,</span>
+<span>  blocks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  blocks.x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  blocks.y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nthread <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  top <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  threshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -138,7 +138,7 @@ highest multivar_score pair for each observation in x.</p>
 
 
 <dt>compare_type</dt>
-<dd><p>a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", and "stringdist". See X for details.</p></dd>
+<dd><p>a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", "stringdist", and "wgt_jaccard_dist". See the Multivar Matching Vignette for details.</p></dd>
 
 
 <dt>blocks</dt>
@@ -198,7 +198,7 @@ use a verified set of matches and <code>calculate_weights</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fedmatch</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fedmatch</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="using-clean_strings">Using clean_strings<a class="anchor" aria-label="anchor" href="#using-clean_strings"></a>
 </h2>
@@ -104,19 +104,19 @@ matching, either within <code>tier_match</code> (see the
 options that allow for many different options.</p>
 <p>Here’s the example string we’ll be using:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">name_vec</span> <span class="op">&lt;-</span> <span class="va">corp_data1</span><span class="op">[</span>, <span class="va">Company</span><span class="op">]</span>
-<span class="va">name_vec</span>
-<span class="co">#&gt;  [1] "Walmart"            "Bershire Hataway"   "Apple"             </span>
-<span class="co">#&gt;  [4] "Exxon Mobile"       "McKesson "          "UnitedHealth Group"</span>
-<span class="co">#&gt;  [7] "CVS Health"         "General Motors"     "AT&amp;T"              </span>
-<span class="co">#&gt; [10] "Ford Motor Company"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">name_vec</span> <span class="op">&lt;-</span> <span class="va">corp_data1</span><span class="op">[</span>, <span class="va">Company</span><span class="op">]</span></span>
+<span><span class="va">name_vec</span></span>
+<span><span class="co">#&gt;  [1] "Walmart"            "Bershire Hataway"   "Apple"             </span></span>
+<span><span class="co">#&gt;  [4] "Exxon Mobile"       "McKesson "          "UnitedHealth Group"</span></span>
+<span><span class="co">#&gt;  [7] "CVS Health"         "General Motors"     "AT&amp;T"              </span></span>
+<span><span class="co">#&gt; [10] "Ford Motor Company"</span></span></code></pre></div>
 <p>First, we can use the basic string cleaning defaults:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "walmart"            "bershire hataway"   "apple"             </span>
-<span class="co">#&gt;  [4] "exxon mobile"       "mckesson"           "unitedhealth group"</span>
-<span class="co">#&gt;  [7] "cvs health"         "general motors"     "atandt"            </span>
-<span class="co">#&gt; [10] "ford motor company"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "walmart"            "bershire hataway"   "apple"             </span></span>
+<span><span class="co">#&gt;  [4] "exxon mobile"       "mckesson"           "unitedhealth group"</span></span>
+<span><span class="co">#&gt;  [7] "cvs health"         "general motors"     "atandt"            </span></span>
+<span><span class="co">#&gt; [10] "ford motor company"</span></span></code></pre></div>
 <p>Without any additional arguments, <code>clean_strings</code> does the
 following:</p>
 <ul>
@@ -135,22 +135,22 @@ equivalents</li>
 column is symbols to replace, and the second is their replacement.
 <code>fedmatch</code> as a built-in set of symbols:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sp_char_words</span><span class="op">)</span>
-<span class="co">#&gt;    character replacement</span>
-<span class="co">#&gt; 1:       \\&amp;         and</span>
-<span class="co">#&gt; 2:       \\$      dollar</span>
-<span class="co">#&gt; 3:       \\%     percent</span>
-<span class="co">#&gt; 4:       \\@          at</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sp_char_words</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    character replacement</span></span>
+<span><span class="co">#&gt; 1:       \\&amp;         and</span></span>
+<span><span class="co">#&gt; 2:       \\$      dollar</span></span>
+<span><span class="co">#&gt; 3:       \\%     percent</span></span>
+<span><span class="co">#&gt; 4:       \\@          at</span></span></code></pre></div>
 <p>But, you can use any data.frame you’d like, to make whatever
 replacements you’d like:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">new_sp_char</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>character <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"o"</span><span class="op">)</span>, replacement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span>, sp_char_words <span class="op">=</span> <span class="va">new_sp_char</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "walmart"                            "bershire hataway"                  </span>
-<span class="co">#&gt;  [3] "apple"                              "exxapplen mapplebile"              </span>
-<span class="co">#&gt;  [5] "mckessapplen"                       "unitedhealth grappleup"            </span>
-<span class="co">#&gt;  [7] "cvs health"                         "general mappletapplers"            </span>
-<span class="co">#&gt;  [9] "at t"                               "fapplerd mappletappler capplempany"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">new_sp_char</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>character <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"o"</span><span class="op">)</span>, replacement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span>, sp_char_words <span class="op">=</span> <span class="va">new_sp_char</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "walmart"                            "bershire hataway"                  </span></span>
+<span><span class="co">#&gt;  [3] "apple"                              "exxapplen mapplebile"              </span></span>
+<span><span class="co">#&gt;  [5] "mckessapplen"                       "unitedhealth grappleup"            </span></span>
+<span><span class="co">#&gt;  [7] "cvs health"                         "general mappletapplers"            </span></span>
+<span><span class="co">#&gt;  [9] "at t"                               "fapplerd mappletappler capplempany"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="common_words">common_words<a class="anchor" aria-label="anchor" href="#common_words"></a>
@@ -160,32 +160,32 @@ replacements you’d like:</p>
 example.) <code>fedmatch</code> has a built-in set of 54 words and their
 replacements:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">corporate_words</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;     abbr     long.names</span>
-<span class="co">#&gt; 1: accep     acceptance</span>
-<span class="co">#&gt; 2:  amer        america</span>
-<span class="co">#&gt; 3: assoc     associates</span>
-<span class="co">#&gt; 4:    cl company listed</span>
-<span class="co">#&gt; 5: cmnty      community</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">corporate_words</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     abbr     long.names</span></span>
+<span><span class="co">#&gt; 1: accep     acceptance</span></span>
+<span><span class="co">#&gt; 2:  amer        america</span></span>
+<span><span class="co">#&gt; 3: assoc     associates</span></span>
+<span><span class="co">#&gt; 4:    cl company listed</span></span>
+<span><span class="co">#&gt; 5: cmnty      community</span></span></code></pre></div>
 <p>But, you can use whatever words you’d like:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span>, common_words <span class="op">=</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>word <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"general"</span>, <span class="st">"almart"</span><span class="op">)</span>,
-                                                              replacement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bananas"</span>, <span class="st">"oranges"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "walmart"            "bershire hataway"   "apple"             </span>
-<span class="co">#&gt;  [4] "exxon mobile"       "mckesson"           "unitedhealth group"</span>
-<span class="co">#&gt;  [7] "cvs health"         "bananas motors"     "atandt"            </span>
-<span class="co">#&gt; [10] "ford motor company"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span>, common_words <span class="op">=</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>word <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"general"</span>, <span class="st">"almart"</span><span class="op">)</span>,</span>
+<span>                                                              replacement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bananas"</span>, <span class="st">"oranges"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "walmart"            "bershire hataway"   "apple"             </span></span>
+<span><span class="co">#&gt;  [4] "exxon mobile"       "mckesson"           "unitedhealth group"</span></span>
+<span><span class="co">#&gt;  [7] "cvs health"         "bananas motors"     "atandt"            </span></span>
+<span><span class="co">#&gt; [10] "ford motor company"</span></span></code></pre></div>
 <p>(bananas motors sounds like a lovely place to work). Note that the
 ‘almart’ in ‘walmart’ didn’t get replaced, because common_words respects
 word boundaries.,</p>
 <p>You can also use a related function, <code>word_frequency</code>, to
 look for the most common strings in your data:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/word_frequency.html">word_frequency</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hi"</span>, <span class="st">"Hello"</span>, <span class="st">"bye    "</span><span class="op">)</span>, <span class="fl">1e4</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;     Word Count</span>
-<span class="co">#&gt; 1:   bye  3391</span>
-<span class="co">#&gt; 2: hello  3375</span>
-<span class="co">#&gt; 3:    hi  3234</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/word_frequency.html">word_frequency</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hi"</span>, <span class="st">"Hello"</span>, <span class="st">"bye    "</span><span class="op">)</span>, <span class="fl">1e4</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     Word Count</span></span>
+<span><span class="co">#&gt; 1:    hi  3380</span></span>
+<span><span class="co">#&gt; 2: hello  3326</span></span>
+<span><span class="co">#&gt; 3:   bye  3294</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="remove-characters-and-words">Remove characters and words<a class="anchor" aria-label="anchor" href="#remove-characters-and-words"></a>
@@ -194,19 +194,19 @@ look for the most common strings in your data:</p>
 the words in ‘common_words’ or specify a set of characters to remove
 rather than replacing them.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span>, sp_char_words <span class="op">=</span> <span class="va">new_sp_char</span>, remove_char <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "w lm rt"                           "bershire h t w y"                 </span>
-<span class="co">#&gt;  [3] "pple"                              "exxapplen mapplebile"             </span>
-<span class="co">#&gt;  [5] "m kessapplen"                      "unitedhe lth grappleup"           </span>
-<span class="co">#&gt;  [7] "vs he lth"                         "gener l mappletapplers"           </span>
-<span class="co">#&gt;  [9] "t t"                               "fapplerd mappletappler applemp ny"</span>
-<span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span>, common_words <span class="op">=</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>word <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"general"</span>, <span class="st">"company"</span><span class="op">)</span>,
-                                                              replacement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bananas"</span>, <span class="st">"oranges"</span><span class="op">)</span><span class="op">)</span>,
-              remove_words <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "walmart"            "bershire hataway"   "apple"             </span>
-<span class="co">#&gt;  [4] "exxon mobile"       "mckesson"           "unitedhealth group"</span>
-<span class="co">#&gt;  [7] "cvs health"         "motors"             "atandt"            </span>
-<span class="co">#&gt; [10] "ford motor"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span>, sp_char_words <span class="op">=</span> <span class="va">new_sp_char</span>, remove_char <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "w lm rt"                           "bershire h t w y"                 </span></span>
+<span><span class="co">#&gt;  [3] "pple"                              "exxapplen mapplebile"             </span></span>
+<span><span class="co">#&gt;  [5] "m kessapplen"                      "unitedhe lth grappleup"           </span></span>
+<span><span class="co">#&gt;  [7] "vs he lth"                         "gener l mappletapplers"           </span></span>
+<span><span class="co">#&gt;  [9] "t t"                               "fapplerd mappletappler applemp ny"</span></span>
+<span><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="va">name_vec</span>, common_words <span class="op">=</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>word <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"general"</span>, <span class="st">"company"</span><span class="op">)</span>,</span>
+<span>                                                              replacement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bananas"</span>, <span class="st">"oranges"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              remove_words <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "walmart"            "bershire hataway"   "apple"             </span></span>
+<span><span class="co">#&gt;  [4] "exxon mobile"       "mckesson"           "unitedhealth group"</span></span>
+<span><span class="co">#&gt;  [7] "cvs health"         "motors"             "atandt"            </span></span>
+<span><span class="co">#&gt; [10] "ford motor"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="stem">stem<a class="anchor" aria-label="anchor" href="#stem"></a>
@@ -215,8 +215,8 @@ rather than replacing them.</p>
 <code><a href="https://rdrr.io/pkg/SnowballC/man/wordStem.html" class="external-link">SnowballC::wordStem</a></code>. ‘stemming’ words means removing common
 suffixes:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"call"</span>, <span class="st">"calling"</span>, <span class="st">"called"</span><span class="op">)</span>, stem <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] "call" "call" "call"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/clean_strings.html">clean_strings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"call"</span>, <span class="st">"calling"</span>, <span class="st">"called"</span><span class="op">)</span>, stem <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "call" "call" "call"</span></span></code></pre></div>
 <p>See the documentation in <code><a href="https://rdrr.io/pkg/SnowballC/man/wordStem.html" class="external-link">SnowballC::wordStem</a></code> for
 details.</p>
 </div>
@@ -240,7 +240,7 @@ details.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

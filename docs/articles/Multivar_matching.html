@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fedmatch</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.6</span>
       </span>
     </div>
 
@@ -96,8 +96,8 @@ Webster</h4>
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fedmatch</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fedmatch</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
 </h2>
@@ -121,98 +121,98 @@ best match for each</p>
 <h2 id="syntax">Syntax<a class="anchor" aria-label="anchor" href="#syntax"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"corp_data1"</span>, package <span class="op">=</span> <span class="st">"fedmatch"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"corp_data2"</span>, package <span class="op">=</span> <span class="st">"fedmatch"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"corp_data1"</span>, package <span class="op">=</span> <span class="st">"fedmatch"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"corp_data2"</span>, package <span class="op">=</span> <span class="st">"fedmatch"</span><span class="op">)</span></span></code></pre></div>
 <p>The basic syntax is as follows, using the example company data in
 fedmatch:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corp_data1_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data1</span><span class="op">)</span>
-<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data1_test</span><span class="op">)</span>
-<span class="va">corp_data2_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data2</span><span class="op">)</span>
-<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data2_test</span><span class="op">)</span>
-
-<span class="va">corp_data1_test</span><span class="op">[</span>, <span class="va">id_1</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span>
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">id_2</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span>
-
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Country</span> <span class="op">:=</span> <span class="va">country</span><span class="op">]</span>
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Company</span> <span class="op">:=</span> <span class="va">Name</span><span class="op">]</span>
-<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>
-  data1 <span class="op">=</span> <span class="va">corp_data1_test</span>,
-  data2 <span class="op">=</span> <span class="va">corp_data2_test</span>,
-  match_type <span class="op">=</span> <span class="st">"multivar"</span>,
-  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"Company"</span><span class="op">)</span>,
-   suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>,
-  unique_key_1 <span class="op">=</span> <span class="st">"id_1"</span>,
-  unique_key_2 <span class="op">=</span> <span class="st">"id_2"</span>, 
-  multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span>
-  compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"indicator"</span>, <span class="st">"stringdist"</span><span class="op">)</span>,
-  wgts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.5</span><span class="op">)</span>, nthread <span class="op">=</span> <span class="fl">1</span>
- 
-<span class="op">)</span><span class="op">)</span>
-<span class="va">result</span>
-<span class="co">#&gt; $matches</span>
-<span class="co">#&gt;     unique_key_1          Company_1 Country_1 State  SIC Revenue id_1</span>
-<span class="co">#&gt;  1:            1            Walmart       USA    OH 3300     485    1</span>
-<span class="co">#&gt;  2:            2   Bershire Hataway       USA       2222     223    2</span>
-<span class="co">#&gt;  3:            3              Apple       USA    CA 3384     215    3</span>
-<span class="co">#&gt;  4:            4       Exxon Mobile       USA    TX 2222     205    4</span>
-<span class="co">#&gt;  5:            5          McKesson    Germany    MA  222     192    5</span>
-<span class="co">#&gt;  6:            6 UnitedHealth Group       USA    MA   NA     184    6</span>
-<span class="co">#&gt;  7:            7         CVS Health       USA    RI 1112     177    7</span>
-<span class="co">#&gt;  8:            9               AT&amp;T       USA    TN 4000     163    9</span>
-<span class="co">#&gt;  9:            8     General Motors       USA    MI 2222     166    8</span>
-<span class="co">#&gt; 10:           10 Ford Motor Company       USA    MI   NA     151   10</span>
-<span class="co">#&gt;                   Name country state_code SIC_code earnings unique_key_2 id_2</span>
-<span class="co">#&gt;  1:            Walmart     USA         OH     3380  490,000            1    1</span>
-<span class="co">#&gt;  2:  Bershire Hathaway     USA         NE     2220  220,000            2    2</span>
-<span class="co">#&gt;  3:     Apple Computer     USA         CA       NA  220,000            3    3</span>
-<span class="co">#&gt;  4: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span>
-<span class="co">#&gt;  5:     McKesson Corp.                 MA     2222  190,000            5    5</span>
-<span class="co">#&gt;  6: UnitedHealth Group     USA         MA     1130  180,000            6    6</span>
-<span class="co">#&gt;  7: UnitedHealth Group     USA         MA     1130  180,000            6    6</span>
-<span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9    9</span>
-<span class="co">#&gt;  9:         Ford Motor     USA         MI     2222  150,000           10   10</span>
-<span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10   10</span>
-<span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span>
-<span class="co">#&gt;  1:       USA            Walmart               1       1.0000000      1.0000000</span>
-<span class="co">#&gt;  2:       USA  Bershire Hathaway               1       0.9882353      0.9941176</span>
-<span class="co">#&gt;  3:       USA     Apple Computer               1       0.8714286      0.9357143</span>
-<span class="co">#&gt;  4:       USA Exxon Mobile Inc.                1       0.9333333      0.9666667</span>
-<span class="co">#&gt;  5:               McKesson Corp.               0       0.9285714      0.4642857</span>
-<span class="co">#&gt;  6:       USA UnitedHealth Group               1       1.0000000      1.0000000</span>
-<span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.5333333      0.7666667</span>
-<span class="co">#&gt;  8:       USA             AT &amp; T               1       0.9111111      0.9555556</span>
-<span class="co">#&gt;  9:       USA         Ford Motor               1       0.7333333      0.8666667</span>
-<span class="co">#&gt; 10:       USA         Ford Motor               1       0.9111111      0.9555556</span>
-<span class="co">#&gt;     tier</span>
-<span class="co">#&gt;  1:  all</span>
-<span class="co">#&gt;  2:  all</span>
-<span class="co">#&gt;  3:  all</span>
-<span class="co">#&gt;  4:  all</span>
-<span class="co">#&gt;  5:  all</span>
-<span class="co">#&gt;  6:  all</span>
-<span class="co">#&gt;  7:  all</span>
-<span class="co">#&gt;  8:  all</span>
-<span class="co">#&gt;  9:  all</span>
-<span class="co">#&gt; 10:  all</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $matches_filter</span>
-<span class="co">#&gt; Null data.table (0 rows and 0 cols)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $data1_nomatch</span>
-<span class="co">#&gt; Empty data.table (0 rows and 7 cols): Company,Country,State,SIC,Revenue,unique_key_1...</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $data2_nomatch</span>
-<span class="co">#&gt;    Name country state_code SIC_code earnings unique_key_2 id_2 Country Company</span>
-<span class="co">#&gt; 1:  CVS                 RI     1122  180,000            7    7             CVS</span>
-<span class="co">#&gt; 2:   GM                 MI     2222  170,000            8    8              GM</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $match_evaluation</span>
-<span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span>
-<span class="co">#&gt; 1:  all      10               10                8             1           0.8</span>
-<span class="co">#&gt;    new_unique_1 new_unique_2</span>
-<span class="co">#&gt; 1:           10            8</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corp_data1_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data1</span><span class="op">)</span></span>
+<span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data1_test</span><span class="op">)</span></span>
+<span><span class="va">corp_data2_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data2</span><span class="op">)</span></span>
+<span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data2_test</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">corp_data1_test</span><span class="op">[</span>, <span class="va">id_1</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">id_2</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Country</span> <span class="op">:=</span> <span class="va">country</span><span class="op">]</span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Company</span> <span class="op">:=</span> <span class="va">Name</span><span class="op">]</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span></span>
+<span>  data1 <span class="op">=</span> <span class="va">corp_data1_test</span>,</span>
+<span>  data2 <span class="op">=</span> <span class="va">corp_data2_test</span>,</span>
+<span>  match_type <span class="op">=</span> <span class="st">"multivar"</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"Company"</span><span class="op">)</span>,</span>
+<span>   suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>,</span>
+<span>  unique_key_1 <span class="op">=</span> <span class="st">"id_1"</span>,</span>
+<span>  unique_key_2 <span class="op">=</span> <span class="st">"id_2"</span>, </span>
+<span>  multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span></span>
+<span>  compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"indicator"</span>, <span class="st">"stringdist"</span><span class="op">)</span>,</span>
+<span>  wgts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.5</span><span class="op">)</span>, nthread <span class="op">=</span> <span class="fl">1</span></span>
+<span> </span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">result</span></span>
+<span><span class="co">#&gt; $matches</span></span>
+<span><span class="co">#&gt;     unique_key_1          Company_1 Country_1 State  SIC Revenue id_1</span></span>
+<span><span class="co">#&gt;  1:            1            Walmart       USA    OH 3300     485    1</span></span>
+<span><span class="co">#&gt;  2:            2   Bershire Hataway       USA       2222     223    2</span></span>
+<span><span class="co">#&gt;  3:            3              Apple       USA    CA 3384     215    3</span></span>
+<span><span class="co">#&gt;  4:            4       Exxon Mobile       USA    TX 2222     205    4</span></span>
+<span><span class="co">#&gt;  5:            5          McKesson    Germany    MA  222     192    5</span></span>
+<span><span class="co">#&gt;  6:            6 UnitedHealth Group       USA    MA   NA     184    6</span></span>
+<span><span class="co">#&gt;  7:            7         CVS Health       USA    RI 1112     177    7</span></span>
+<span><span class="co">#&gt;  8:            9               AT&amp;T       USA    TN 4000     163    9</span></span>
+<span><span class="co">#&gt;  9:            8     General Motors       USA    MI 2222     166    8</span></span>
+<span><span class="co">#&gt; 10:           10 Ford Motor Company       USA    MI   NA     151   10</span></span>
+<span><span class="co">#&gt;                   Name country state_code SIC_code earnings unique_key_2 id_2</span></span>
+<span><span class="co">#&gt;  1:            Walmart     USA         OH     3380  490,000            1    1</span></span>
+<span><span class="co">#&gt;  2:  Bershire Hathaway     USA         NE     2220  220,000            2    2</span></span>
+<span><span class="co">#&gt;  3:     Apple Computer     USA         CA       NA  220,000            3    3</span></span>
+<span><span class="co">#&gt;  4: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span></span>
+<span><span class="co">#&gt;  5:     McKesson Corp.                 MA     2222  190,000            5    5</span></span>
+<span><span class="co">#&gt;  6: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
+<span><span class="co">#&gt;  7: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
+<span><span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9    9</span></span>
+<span><span class="co">#&gt;  9:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
+<span><span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
+<span><span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span></span>
+<span><span class="co">#&gt;  1:       USA            Walmart               1       1.0000000      1.0000000</span></span>
+<span><span class="co">#&gt;  2:       USA  Bershire Hathaway               1       0.9882353      0.9941176</span></span>
+<span><span class="co">#&gt;  3:       USA     Apple Computer               1       0.8714286      0.9357143</span></span>
+<span><span class="co">#&gt;  4:       USA Exxon Mobile Inc.                1       0.9333333      0.9666667</span></span>
+<span><span class="co">#&gt;  5:               McKesson Corp.               0       0.9285714      0.4642857</span></span>
+<span><span class="co">#&gt;  6:       USA UnitedHealth Group               1       1.0000000      1.0000000</span></span>
+<span><span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.5333333      0.7666667</span></span>
+<span><span class="co">#&gt;  8:       USA             AT &amp; T               1       0.9111111      0.9555556</span></span>
+<span><span class="co">#&gt;  9:       USA         Ford Motor               1       0.7333333      0.8666667</span></span>
+<span><span class="co">#&gt; 10:       USA         Ford Motor               1       0.9111111      0.9555556</span></span>
+<span><span class="co">#&gt;     tier</span></span>
+<span><span class="co">#&gt;  1:  all</span></span>
+<span><span class="co">#&gt;  2:  all</span></span>
+<span><span class="co">#&gt;  3:  all</span></span>
+<span><span class="co">#&gt;  4:  all</span></span>
+<span><span class="co">#&gt;  5:  all</span></span>
+<span><span class="co">#&gt;  6:  all</span></span>
+<span><span class="co">#&gt;  7:  all</span></span>
+<span><span class="co">#&gt;  8:  all</span></span>
+<span><span class="co">#&gt;  9:  all</span></span>
+<span><span class="co">#&gt; 10:  all</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $matches_filter</span></span>
+<span><span class="co">#&gt; Null data.table (0 rows and 0 cols)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $data1_nomatch</span></span>
+<span><span class="co">#&gt; Empty data.table (0 rows and 7 cols): Company,Country,State,SIC,Revenue,unique_key_1...</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $data2_nomatch</span></span>
+<span><span class="co">#&gt;    Name country state_code SIC_code earnings unique_key_2 id_2 Country Company</span></span>
+<span><span class="co">#&gt; 1:  CVS                 RI     1122  180,000            7    7             CVS</span></span>
+<span><span class="co">#&gt; 2:   GM                 MI     2222  170,000            8    8              GM</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $match_evaluation</span></span>
+<span><span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
+<span><span class="co">#&gt; 1:  all      10               10                8             1           0.8</span></span>
+<span><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
+<span><span class="co">#&gt; 1:           10            8</span></span></code></pre></div>
 <p>Let’s go through the arguments:</p>
 <ul>
 <li>The first 7 arguments are identical to those in
@@ -261,48 +261,48 @@ each variable in <code>by</code>: two for the original columns in the
 data, and one column with the suffix ‘compare’ that has the numerical
 value for the given comparison. For example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">Company_1</span>, <span class="va">Company_2</span>, <span class="va">Company_compare</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;              Company_1          Company_2 Company_compare</span>
-<span class="co">#&gt;  1:            Walmart            Walmart       1.0000000</span>
-<span class="co">#&gt;  2:   Bershire Hataway  Bershire Hathaway       0.9882353</span>
-<span class="co">#&gt;  3:              Apple     Apple Computer       0.8714286</span>
-<span class="co">#&gt;  4:       Exxon Mobile Exxon Mobile Inc.        0.9333333</span>
-<span class="co">#&gt;  5:          McKesson      McKesson Corp.       0.9285714</span>
-<span class="co">#&gt;  6: UnitedHealth Group UnitedHealth Group       1.0000000</span>
-<span class="co">#&gt;  7:         CVS Health UnitedHealth Group       0.5333333</span>
-<span class="co">#&gt;  8:               AT&amp;T             AT &amp; T       0.9111111</span>
-<span class="co">#&gt;  9:     General Motors         Ford Motor       0.7333333</span>
-<span class="co">#&gt; 10: Ford Motor Company         Ford Motor       0.9111111</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">Country_1</span>, <span class="va">Country_2</span>, <span class="va">Country_compare</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;     Country_1 Country_2 Country_compare</span>
-<span class="co">#&gt;  1:       USA       USA               1</span>
-<span class="co">#&gt;  2:       USA       USA               1</span>
-<span class="co">#&gt;  3:       USA       USA               1</span>
-<span class="co">#&gt;  4:       USA       USA               1</span>
-<span class="co">#&gt;  5:   Germany                         0</span>
-<span class="co">#&gt;  6:       USA       USA               1</span>
-<span class="co">#&gt;  7:       USA       USA               1</span>
-<span class="co">#&gt;  8:       USA       USA               1</span>
-<span class="co">#&gt;  9:       USA       USA               1</span>
-<span class="co">#&gt; 10:       USA       USA               1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">Company_1</span>, <span class="va">Company_2</span>, <span class="va">Company_compare</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;              Company_1          Company_2 Company_compare</span></span>
+<span><span class="co">#&gt;  1:            Walmart            Walmart       1.0000000</span></span>
+<span><span class="co">#&gt;  2:   Bershire Hataway  Bershire Hathaway       0.9882353</span></span>
+<span><span class="co">#&gt;  3:              Apple     Apple Computer       0.8714286</span></span>
+<span><span class="co">#&gt;  4:       Exxon Mobile Exxon Mobile Inc.        0.9333333</span></span>
+<span><span class="co">#&gt;  5:          McKesson      McKesson Corp.       0.9285714</span></span>
+<span><span class="co">#&gt;  6: UnitedHealth Group UnitedHealth Group       1.0000000</span></span>
+<span><span class="co">#&gt;  7:         CVS Health UnitedHealth Group       0.5333333</span></span>
+<span><span class="co">#&gt;  8:               AT&amp;T             AT &amp; T       0.9111111</span></span>
+<span><span class="co">#&gt;  9:     General Motors         Ford Motor       0.7333333</span></span>
+<span><span class="co">#&gt; 10: Ford Motor Company         Ford Motor       0.9111111</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">Country_1</span>, <span class="va">Country_2</span>, <span class="va">Country_compare</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     Country_1 Country_2 Country_compare</span></span>
+<span><span class="co">#&gt;  1:       USA       USA               1</span></span>
+<span><span class="co">#&gt;  2:       USA       USA               1</span></span>
+<span><span class="co">#&gt;  3:       USA       USA               1</span></span>
+<span><span class="co">#&gt;  4:       USA       USA               1</span></span>
+<span><span class="co">#&gt;  5:   Germany                         0</span></span>
+<span><span class="co">#&gt;  6:       USA       USA               1</span></span>
+<span><span class="co">#&gt;  7:       USA       USA               1</span></span>
+<span><span class="co">#&gt;  8:       USA       USA               1</span></span>
+<span><span class="co">#&gt;  9:       USA       USA               1</span></span>
+<span><span class="co">#&gt; 10:       USA       USA               1</span></span></code></pre></div>
 <p>Further, it adds one additional column for the overall
 multivar_score. In our example, we set the weights each equal to 0.5, so
 the multivar_score is simply the average of our two comparison
 variables:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">Company_compare</span>, <span class="va">Country_compare</span>, <span class="va">multivar_score</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;     Company_compare Country_compare multivar_score</span>
-<span class="co">#&gt;  1:       1.0000000               1      1.0000000</span>
-<span class="co">#&gt;  2:       0.9882353               1      0.9941176</span>
-<span class="co">#&gt;  3:       0.8714286               1      0.9357143</span>
-<span class="co">#&gt;  4:       0.9333333               1      0.9666667</span>
-<span class="co">#&gt;  5:       0.9285714               0      0.4642857</span>
-<span class="co">#&gt;  6:       1.0000000               1      1.0000000</span>
-<span class="co">#&gt;  7:       0.5333333               1      0.7666667</span>
-<span class="co">#&gt;  8:       0.9111111               1      0.9555556</span>
-<span class="co">#&gt;  9:       0.7333333               1      0.8666667</span>
-<span class="co">#&gt; 10:       0.9111111               1      0.9555556</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">matches</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">Company_compare</span>, <span class="va">Country_compare</span>, <span class="va">multivar_score</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     Company_compare Country_compare multivar_score</span></span>
+<span><span class="co">#&gt;  1:       1.0000000               1      1.0000000</span></span>
+<span><span class="co">#&gt;  2:       0.9882353               1      0.9941176</span></span>
+<span><span class="co">#&gt;  3:       0.8714286               1      0.9357143</span></span>
+<span><span class="co">#&gt;  4:       0.9333333               1      0.9666667</span></span>
+<span><span class="co">#&gt;  5:       0.9285714               0      0.4642857</span></span>
+<span><span class="co">#&gt;  6:       1.0000000               1      1.0000000</span></span>
+<span><span class="co">#&gt;  7:       0.5333333               1      0.7666667</span></span>
+<span><span class="co">#&gt;  8:       0.9111111               1      0.9555556</span></span>
+<span><span class="co">#&gt;  9:       0.7333333               1      0.8666667</span></span>
+<span><span class="co">#&gt; 10:       0.9111111               1      0.9555556</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="calculating-weights-from-a-training-set">Calculating weights from a training set<a class="anchor" aria-label="anchor" href="#calculating-weights-from-a-training-set"></a>
@@ -316,19 +316,19 @@ Wikipedia page</a>. Essentially, fedmatch looks for which variables are
 most likely to match when two records match, and uses this criteria to
 weight the variables. Here is an example of how this would work:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span>
-<span class="va">fake_result_table</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>
-    Company_1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABC Corp"</span>, <span class="st">"XYZ Corporation"</span>, <span class="st">"Apple Corp"</span>, <span class="st">"Banana Corp"</span><span class="op">)</span>,
-    Company_2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABC Corporation"</span>, <span class="st">"XYZ Inc"</span>, <span class="st">"Apple Incorporated"</span>, <span class="st">"Banana Stand"</span><span class="op">)</span>,
-    Country_1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"USA"</span>, <span class="st">"TUR"</span>, <span class="st">"USA"</span><span class="op">)</span>,
-    Country_2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MEX"</span>, <span class="st">"USA"</span>, <span class="st">"TUR"</span>, <span class="st">"USA"</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="va">calculated_weights</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_weights.html">calculate_weights</a></span><span class="op">(</span><span class="va">fake_result_table</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Company"</span>, <span class="st">"Country"</span><span class="op">)</span>,
-                                        compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"stringdist"</span>, <span class="st">"indicator"</span><span class="op">)</span>,
-                                        suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">calculated_weights</span><span class="op">$</span><span class="va">w</span>
-<span class="co">#&gt;   Company   Country </span>
-<span class="co">#&gt; 0.7349053 0.2650947</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span></span>
+<span><span class="va">fake_result_table</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<span>    Company_1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABC Corp"</span>, <span class="st">"XYZ Corporation"</span>, <span class="st">"Apple Corp"</span>, <span class="st">"Banana Corp"</span><span class="op">)</span>,</span>
+<span>    Company_2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABC Corporation"</span>, <span class="st">"XYZ Inc"</span>, <span class="st">"Apple Incorporated"</span>, <span class="st">"Banana Stand"</span><span class="op">)</span>,</span>
+<span>    Country_1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"USA"</span>, <span class="st">"TUR"</span>, <span class="st">"USA"</span><span class="op">)</span>,</span>
+<span>    Country_2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MEX"</span>, <span class="st">"USA"</span>, <span class="st">"TUR"</span>, <span class="st">"USA"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">calculated_weights</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_weights.html">calculate_weights</a></span><span class="op">(</span><span class="va">fake_result_table</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Company"</span>, <span class="st">"Country"</span><span class="op">)</span>,</span>
+<span>                                        compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"stringdist"</span>, <span class="st">"indicator"</span><span class="op">)</span>,</span>
+<span>                                        suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">calculated_weights</span><span class="op">$</span><span class="va">w</span></span>
+<span><span class="co">#&gt;   Company   Country </span></span>
+<span><span class="co">#&gt; 0.7349053 0.2650947</span></span></code></pre></div>
 <p>In this dummy example, the names are giving us more information about
 the match quality than the countries, and so the weights are
 correspondingly higher. If you’d like more details on the exact
@@ -348,134 +348,130 @@ hand, and is similar to the type of data set used with
 and non-matches for the logit model to be well-trained. Here is an
 example of how this would look:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span>
-<span class="va">corp_data1_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data1</span><span class="op">)</span>
-<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data1_test</span><span class="op">)</span>
-<span class="va">corp_data2_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data2</span><span class="op">)</span>
-<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data2_test</span><span class="op">)</span>
-<span class="va">corp_data1_test</span><span class="op">[</span>, <span class="va">id_1</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span>
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">id_2</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span>
-
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Country</span> <span class="op">:=</span> <span class="va">country</span><span class="op">]</span>
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Company</span> <span class="op">:=</span> <span class="va">Name</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span>
-<span class="va">fake_result_table</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>
-  match <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">1e5</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  Company_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>,
-  Country_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fl">1e5</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">logit_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">match</span> <span class="op">~</span> <span class="va">Company_compare</span> <span class="op">+</span> <span class="va">Country_compare</span>,
-  family <span class="op">=</span> <span class="st">"binomial"</span>,
-  data <span class="op">=</span> <span class="va">fake_result_table</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">logit_model</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; glm(formula = match ~ Company_compare + Country_compare, family = "binomial", </span>
-<span class="co">#&gt;     data = fake_result_table)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Deviance Residuals: </span>
-<span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span>
-<span class="co">#&gt; -1.4962  -1.4758   0.8941   0.9032   0.9109  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt;                 Estimate Std. Error z value Pr(&gt;|z|)    </span>
-<span class="co">#&gt; (Intercept)      0.69243    0.01502  46.097   &lt;2e-16 ***</span>
-<span class="co">#&gt; Company_compare -0.02710    0.02324  -1.166   0.2436    </span>
-<span class="co">#&gt; Country_compare  0.03155    0.01342   2.351   0.0187 *  </span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     Null deviance: 127258  on 99999  degrees of freedom</span>
-<span class="co">#&gt; Residual deviance: 127251  on 99997  degrees of freedom</span>
-<span class="co">#&gt; AIC: 127257</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Number of Fisher Scoring iterations: 4</span>
-
-<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span><span class="va">corp_data1_test</span>, <span class="va">corp_data2_test</span>,
-                     match_type <span class="op">=</span> <span class="st">"multivar"</span>,
-                     multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span>logit <span class="op">=</span> <span class="va">logit_model</span>, compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"indicator"</span>, <span class="st">"stringdist"</span><span class="op">)</span>,
-  wgts <span class="op">=</span> <span class="cn">NULL</span>, nthread <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"Company"</span><span class="op">)</span>, unique_key_1 <span class="op">=</span> <span class="st">"id_1"</span>,
-  unique_key_2 <span class="op">=</span> <span class="st">"id_2"</span>, 
-  suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">result</span>
-<span class="co">#&gt; $matches</span>
-<span class="co">#&gt;     unique_key_1          Company_1 Country_1 State  SIC Revenue id_1</span>
-<span class="co">#&gt;  1:            4       Exxon Mobile       USA    TX 2222     205    4</span>
-<span class="co">#&gt;  2:            5          McKesson    Germany    MA  222     192    5</span>
-<span class="co">#&gt;  3:            6 UnitedHealth Group       USA    MA   NA     184    6</span>
-<span class="co">#&gt;  4:            9               AT&amp;T       USA    TN 4000     163    9</span>
-<span class="co">#&gt;  5:            2   Bershire Hataway       USA       2222     223    2</span>
-<span class="co">#&gt;  6:            7         CVS Health       USA    RI 1112     177    7</span>
-<span class="co">#&gt;  7:           10 Ford Motor Company       USA    MI   NA     151   10</span>
-<span class="co">#&gt;  8:            1            Walmart       USA    OH 3300     485    1</span>
-<span class="co">#&gt;  9:            8     General Motors       USA    MI 2222     166    8</span>
-<span class="co">#&gt; 10:            3              Apple       USA    CA 3384     215    3</span>
-<span class="co">#&gt;                   Name country state_code SIC_code earnings unique_key_2 id_2</span>
-<span class="co">#&gt;  1:            Walmart     USA         OH     3380  490,000            1    1</span>
-<span class="co">#&gt;  2:            Walmart     USA         OH     3380  490,000            1    1</span>
-<span class="co">#&gt;  3:            Walmart     USA         OH     3380  490,000            1    1</span>
-<span class="co">#&gt;  4:            Walmart     USA         OH     3380  490,000            1    1</span>
-<span class="co">#&gt;  5: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span>
-<span class="co">#&gt;  6: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span>
-<span class="co">#&gt;  7: UnitedHealth Group     USA         MA     1130  180,000            6    6</span>
-<span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9    9</span>
-<span class="co">#&gt;  9:             AT &amp; T     USA         TN     4000  160,000            9    9</span>
-<span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10   10</span>
-<span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span>
-<span class="co">#&gt;  1:       USA            Walmart               1       0.0000000      0.6734819</span>
-<span class="co">#&gt;  2:       USA            Walmart               0       0.0000000      0.6665064</span>
-<span class="co">#&gt;  3:       USA            Walmart               1       0.3650794      0.6713026</span>
-<span class="co">#&gt;  4:       USA            Walmart               1       0.0000000      0.6734819</span>
-<span class="co">#&gt;  5:       USA Exxon Mobile Inc.                1       0.2847222      0.6717829</span>
-<span class="co">#&gt;  6:       USA Exxon Mobile Inc.                1       0.3777778      0.6712266</span>
-<span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.4497354      0.6707962</span>
-<span class="co">#&gt;  8:       USA             AT &amp; T               1       0.0000000      0.6734819</span>
-<span class="co">#&gt;  9:       USA             AT &amp; T               1       0.4126984      0.6710178</span>
-<span class="co">#&gt; 10:       USA         Ford Motor               1       0.0000000      0.6734819</span>
-<span class="co">#&gt;     tier</span>
-<span class="co">#&gt;  1:  all</span>
-<span class="co">#&gt;  2:  all</span>
-<span class="co">#&gt;  3:  all</span>
-<span class="co">#&gt;  4:  all</span>
-<span class="co">#&gt;  5:  all</span>
-<span class="co">#&gt;  6:  all</span>
-<span class="co">#&gt;  7:  all</span>
-<span class="co">#&gt;  8:  all</span>
-<span class="co">#&gt;  9:  all</span>
-<span class="co">#&gt; 10:  all</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $matches_filter</span>
-<span class="co">#&gt; Null data.table (0 rows and 0 cols)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $data1_nomatch</span>
-<span class="co">#&gt; Empty data.table (0 rows and 7 cols): Company,Country,State,SIC,Revenue,unique_key_1...</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $data2_nomatch</span>
-<span class="co">#&gt;                 Name country state_code SIC_code earnings unique_key_2 id_2</span>
-<span class="co">#&gt; 1: Bershire Hathaway     USA         NE     2220  220,000            2    2</span>
-<span class="co">#&gt; 2:    Apple Computer     USA         CA       NA  220,000            3    3</span>
-<span class="co">#&gt; 3:    McKesson Corp.                 MA     2222  190,000            5    5</span>
-<span class="co">#&gt; 4:               CVS                 RI     1122  180,000            7    7</span>
-<span class="co">#&gt; 5:                GM                 MI     2222  170,000            8    8</span>
-<span class="co">#&gt;    Country           Company</span>
-<span class="co">#&gt; 1:     USA Bershire Hathaway</span>
-<span class="co">#&gt; 2:     USA    Apple Computer</span>
-<span class="co">#&gt; 3:            McKesson Corp.</span>
-<span class="co">#&gt; 4:                       CVS</span>
-<span class="co">#&gt; 5:                        GM</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $match_evaluation</span>
-<span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span>
-<span class="co">#&gt; 1:  all      10               10                5             1           0.5</span>
-<span class="co">#&gt;    new_unique_1 new_unique_2</span>
-<span class="co">#&gt; 1:           10            5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span></span>
+<span><span class="va">corp_data1_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data1</span><span class="op">)</span></span>
+<span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data1_test</span><span class="op">)</span></span>
+<span><span class="va">corp_data2_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data2</span><span class="op">)</span></span>
+<span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data2_test</span><span class="op">)</span></span>
+<span><span class="va">corp_data1_test</span><span class="op">[</span>, <span class="va">id_1</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">id_2</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Country</span> <span class="op">:=</span> <span class="va">country</span><span class="op">]</span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Company</span> <span class="op">:=</span> <span class="va">Name</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span></span>
+<span><span class="va">fake_result_table</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<span>  match <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">1e5</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  Company_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>,</span>
+<span>  Country_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fl">1e5</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">logit_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">match</span> <span class="op">~</span> <span class="va">Company_compare</span> <span class="op">+</span> <span class="va">Country_compare</span>,</span>
+<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">fake_result_table</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">logit_model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; glm(formula = match ~ Company_compare + Country_compare, family = "binomial", </span></span>
+<span><span class="co">#&gt;     data = fake_result_table)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;                 Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)      0.69243    0.01502  46.097   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; Company_compare -0.02710    0.02324  -1.166   0.2436    </span></span>
+<span><span class="co">#&gt; Country_compare  0.03155    0.01342   2.351   0.0187 *  </span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     Null deviance: 127258  on 99999  degrees of freedom</span></span>
+<span><span class="co">#&gt; Residual deviance: 127251  on 99997  degrees of freedom</span></span>
+<span><span class="co">#&gt; AIC: 127257</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></span>
+<span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span><span class="va">corp_data1_test</span>, <span class="va">corp_data2_test</span>,</span>
+<span>                     match_type <span class="op">=</span> <span class="st">"multivar"</span>,</span>
+<span>                     multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span>logit <span class="op">=</span> <span class="va">logit_model</span>, compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"indicator"</span>, <span class="st">"stringdist"</span><span class="op">)</span>,</span>
+<span>  wgts <span class="op">=</span> <span class="cn">NULL</span>, nthread <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"Company"</span><span class="op">)</span>, unique_key_1 <span class="op">=</span> <span class="st">"id_1"</span>,</span>
+<span>  unique_key_2 <span class="op">=</span> <span class="st">"id_2"</span>, </span>
+<span>  suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">result</span></span>
+<span><span class="co">#&gt; $matches</span></span>
+<span><span class="co">#&gt;     unique_key_1          Company_1 Country_1 State  SIC Revenue id_1</span></span>
+<span><span class="co">#&gt;  1:            4       Exxon Mobile       USA    TX 2222     205    4</span></span>
+<span><span class="co">#&gt;  2:            5          McKesson    Germany    MA  222     192    5</span></span>
+<span><span class="co">#&gt;  3:            6 UnitedHealth Group       USA    MA   NA     184    6</span></span>
+<span><span class="co">#&gt;  4:            9               AT&amp;T       USA    TN 4000     163    9</span></span>
+<span><span class="co">#&gt;  5:            2   Bershire Hataway       USA       2222     223    2</span></span>
+<span><span class="co">#&gt;  6:            7         CVS Health       USA    RI 1112     177    7</span></span>
+<span><span class="co">#&gt;  7:           10 Ford Motor Company       USA    MI   NA     151   10</span></span>
+<span><span class="co">#&gt;  8:            1            Walmart       USA    OH 3300     485    1</span></span>
+<span><span class="co">#&gt;  9:            8     General Motors       USA    MI 2222     166    8</span></span>
+<span><span class="co">#&gt; 10:            3              Apple       USA    CA 3384     215    3</span></span>
+<span><span class="co">#&gt;                   Name country state_code SIC_code earnings unique_key_2 id_2</span></span>
+<span><span class="co">#&gt;  1:            Walmart     USA         OH     3380  490,000            1    1</span></span>
+<span><span class="co">#&gt;  2:            Walmart     USA         OH     3380  490,000            1    1</span></span>
+<span><span class="co">#&gt;  3:            Walmart     USA         OH     3380  490,000            1    1</span></span>
+<span><span class="co">#&gt;  4:            Walmart     USA         OH     3380  490,000            1    1</span></span>
+<span><span class="co">#&gt;  5: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span></span>
+<span><span class="co">#&gt;  6: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span></span>
+<span><span class="co">#&gt;  7: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
+<span><span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9    9</span></span>
+<span><span class="co">#&gt;  9:             AT &amp; T     USA         TN     4000  160,000            9    9</span></span>
+<span><span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
+<span><span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span></span>
+<span><span class="co">#&gt;  1:       USA            Walmart               1       0.0000000      0.6734819</span></span>
+<span><span class="co">#&gt;  2:       USA            Walmart               0       0.0000000      0.6665064</span></span>
+<span><span class="co">#&gt;  3:       USA            Walmart               1       0.3650794      0.6713026</span></span>
+<span><span class="co">#&gt;  4:       USA            Walmart               1       0.0000000      0.6734819</span></span>
+<span><span class="co">#&gt;  5:       USA Exxon Mobile Inc.                1       0.2847222      0.6717829</span></span>
+<span><span class="co">#&gt;  6:       USA Exxon Mobile Inc.                1       0.3777778      0.6712266</span></span>
+<span><span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.4497354      0.6707962</span></span>
+<span><span class="co">#&gt;  8:       USA             AT &amp; T               1       0.0000000      0.6734819</span></span>
+<span><span class="co">#&gt;  9:       USA             AT &amp; T               1       0.4126984      0.6710178</span></span>
+<span><span class="co">#&gt; 10:       USA         Ford Motor               1       0.0000000      0.6734819</span></span>
+<span><span class="co">#&gt;     tier</span></span>
+<span><span class="co">#&gt;  1:  all</span></span>
+<span><span class="co">#&gt;  2:  all</span></span>
+<span><span class="co">#&gt;  3:  all</span></span>
+<span><span class="co">#&gt;  4:  all</span></span>
+<span><span class="co">#&gt;  5:  all</span></span>
+<span><span class="co">#&gt;  6:  all</span></span>
+<span><span class="co">#&gt;  7:  all</span></span>
+<span><span class="co">#&gt;  8:  all</span></span>
+<span><span class="co">#&gt;  9:  all</span></span>
+<span><span class="co">#&gt; 10:  all</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $matches_filter</span></span>
+<span><span class="co">#&gt; Null data.table (0 rows and 0 cols)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $data1_nomatch</span></span>
+<span><span class="co">#&gt; Empty data.table (0 rows and 7 cols): Company,Country,State,SIC,Revenue,unique_key_1...</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $data2_nomatch</span></span>
+<span><span class="co">#&gt;                 Name country state_code SIC_code earnings unique_key_2 id_2</span></span>
+<span><span class="co">#&gt; 1: Bershire Hathaway     USA         NE     2220  220,000            2    2</span></span>
+<span><span class="co">#&gt; 2:    Apple Computer     USA         CA       NA  220,000            3    3</span></span>
+<span><span class="co">#&gt; 3:    McKesson Corp.                 MA     2222  190,000            5    5</span></span>
+<span><span class="co">#&gt; 4:               CVS                 RI     1122  180,000            7    7</span></span>
+<span><span class="co">#&gt; 5:                GM                 MI     2222  170,000            8    8</span></span>
+<span><span class="co">#&gt;    Country           Company</span></span>
+<span><span class="co">#&gt; 1:     USA Bershire Hathaway</span></span>
+<span><span class="co">#&gt; 2:     USA    Apple Computer</span></span>
+<span><span class="co">#&gt; 3:            McKesson Corp.</span></span>
+<span><span class="co">#&gt; 4:                       CVS</span></span>
+<span><span class="co">#&gt; 5:                        GM</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $match_evaluation</span></span>
+<span><span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
+<span><span class="co">#&gt; 1:  all      10               10                5             1           0.5</span></span>
+<span><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
+<span><span class="co">#&gt; 1:           10            5</span></span></code></pre></div>
 <p>Instead of using a weighted sum of comparison scores, we use
 <code>base::predict</code> to arrive at a multivar_score that can be
 interpreted as a match probability. A word of caution: the logit
@@ -512,59 +508,59 @@ parallel.</li>
 </ol>
 <p>Here’s how the blocking works:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corp_data1_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data1</span><span class="op">)</span>
-<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data1_test</span><span class="op">)</span>
-<span class="va">corp_data2_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data2</span><span class="op">)</span>
-<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data2_test</span><span class="op">)</span>
-<span class="va">corp_data1_test</span><span class="op">[</span>, <span class="va">id_1</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span>
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">id_2</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span>
-
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Country</span> <span class="op">:=</span> <span class="va">country</span><span class="op">]</span>
-<span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Company</span> <span class="op">:=</span> <span class="va">Name</span><span class="op">]</span>
-<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span>
-  data1 <span class="op">=</span> <span class="va">corp_data1_test</span>,
-  data2 <span class="op">=</span> <span class="va">corp_data2_test</span>,
-  match_type <span class="op">=</span> <span class="st">"multivar"</span>,
-  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Company"</span><span class="op">)</span>,
-   suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>,
-  unique_key_1 <span class="op">=</span> <span class="st">"id_1"</span>,
-  unique_key_2 <span class="op">=</span> <span class="st">"id_2"</span>, 
-  multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span>
-  compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"stringdist"</span><span class="op">)</span>,
-  wgts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, nthread <span class="op">=</span> <span class="fl">1</span>, blocks <span class="op">=</span> <span class="st">"Country"</span>
- 
-<span class="op">)</span><span class="op">)</span>
-<span class="va">result</span><span class="op">$</span><span class="va">matches</span>
-<span class="co">#&gt;    unique_key_1 Country          Company_1 State  SIC Revenue id_1</span>
-<span class="co">#&gt; 1:            1     USA            Walmart    OH 3300     485    1</span>
-<span class="co">#&gt; 2:            2     USA   Bershire Hataway       2222     223    2</span>
-<span class="co">#&gt; 3:            3     USA              Apple    CA 3384     215    3</span>
-<span class="co">#&gt; 4:            4     USA       Exxon Mobile    TX 2222     205    4</span>
-<span class="co">#&gt; 5:            6     USA UnitedHealth Group    MA   NA     184    6</span>
-<span class="co">#&gt; 6:            7     USA         CVS Health    RI 1112     177    7</span>
-<span class="co">#&gt; 7:            9     USA               AT&amp;T    TN 4000     163    9</span>
-<span class="co">#&gt; 8:            8     USA     General Motors    MI 2222     166    8</span>
-<span class="co">#&gt; 9:           10     USA Ford Motor Company    MI   NA     151   10</span>
-<span class="co">#&gt;                  Name country state_code SIC_code earnings unique_key_2 id_2</span>
-<span class="co">#&gt; 1:            Walmart     USA         OH     3380  490,000            1    1</span>
-<span class="co">#&gt; 2:  Bershire Hathaway     USA         NE     2220  220,000            2    2</span>
-<span class="co">#&gt; 3:     Apple Computer     USA         CA       NA  220,000            3    3</span>
-<span class="co">#&gt; 4: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span>
-<span class="co">#&gt; 5: UnitedHealth Group     USA         MA     1130  180,000            6    6</span>
-<span class="co">#&gt; 6: UnitedHealth Group     USA         MA     1130  180,000            6    6</span>
-<span class="co">#&gt; 7:             AT &amp; T     USA         TN     4000  160,000            9    9</span>
-<span class="co">#&gt; 8:         Ford Motor     USA         MI     2222  150,000           10   10</span>
-<span class="co">#&gt; 9:         Ford Motor     USA         MI     2222  150,000           10   10</span>
-<span class="co">#&gt;             Company_2 Company_compare multivar_score tier</span>
-<span class="co">#&gt; 1:            Walmart       1.0000000      1.0000000  all</span>
-<span class="co">#&gt; 2:  Bershire Hathaway       0.9882353      0.9882353  all</span>
-<span class="co">#&gt; 3:     Apple Computer       0.8714286      0.8714286  all</span>
-<span class="co">#&gt; 4: Exxon Mobile Inc.        0.9333333      0.9333333  all</span>
-<span class="co">#&gt; 5: UnitedHealth Group       1.0000000      1.0000000  all</span>
-<span class="co">#&gt; 6: UnitedHealth Group       0.5333333      0.5333333  all</span>
-<span class="co">#&gt; 7:             AT &amp; T       0.9111111      0.9111111  all</span>
-<span class="co">#&gt; 8:         Ford Motor       0.7333333      0.7333333  all</span>
-<span class="co">#&gt; 9:         Ford Motor       0.9111111      0.9111111  all</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corp_data1_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data1</span><span class="op">)</span></span>
+<span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data1_test</span><span class="op">)</span></span>
+<span><span class="va">corp_data2_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">corp_data2</span><span class="op">)</span></span>
+<span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">corp_data2_test</span><span class="op">)</span></span>
+<span><span class="va">corp_data1_test</span><span class="op">[</span>, <span class="va">id_1</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">id_2</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">.N</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Country</span> <span class="op">:=</span> <span class="va">country</span><span class="op">]</span></span>
+<span><span class="va">corp_data2_test</span><span class="op">[</span>, <span class="va">Company</span> <span class="op">:=</span> <span class="va">Name</span><span class="op">]</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_plus.html">merge_plus</a></span><span class="op">(</span></span>
+<span>  data1 <span class="op">=</span> <span class="va">corp_data1_test</span>,</span>
+<span>  data2 <span class="op">=</span> <span class="va">corp_data2_test</span>,</span>
+<span>  match_type <span class="op">=</span> <span class="st">"multivar"</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Company"</span><span class="op">)</span>,</span>
+<span>   suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span>,</span>
+<span>  unique_key_1 <span class="op">=</span> <span class="st">"id_1"</span>,</span>
+<span>  unique_key_2 <span class="op">=</span> <span class="st">"id_2"</span>, </span>
+<span>  multivar_settings <span class="op">=</span> <span class="fu"><a href="../reference/build_multivar_settings.html">build_multivar_settings</a></span><span class="op">(</span></span>
+<span>  compare_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"stringdist"</span><span class="op">)</span>,</span>
+<span>  wgts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, nthread <span class="op">=</span> <span class="fl">1</span>, blocks <span class="op">=</span> <span class="st">"Country"</span></span>
+<span> </span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">result</span><span class="op">$</span><span class="va">matches</span></span>
+<span><span class="co">#&gt;    unique_key_1 Country          Company_1 State  SIC Revenue id_1</span></span>
+<span><span class="co">#&gt; 1:            1     USA            Walmart    OH 3300     485    1</span></span>
+<span><span class="co">#&gt; 2:            2     USA   Bershire Hataway       2222     223    2</span></span>
+<span><span class="co">#&gt; 3:            3     USA              Apple    CA 3384     215    3</span></span>
+<span><span class="co">#&gt; 4:            4     USA       Exxon Mobile    TX 2222     205    4</span></span>
+<span><span class="co">#&gt; 5:            6     USA UnitedHealth Group    MA   NA     184    6</span></span>
+<span><span class="co">#&gt; 6:            7     USA         CVS Health    RI 1112     177    7</span></span>
+<span><span class="co">#&gt; 7:            9     USA               AT&amp;T    TN 4000     163    9</span></span>
+<span><span class="co">#&gt; 8:            8     USA     General Motors    MI 2222     166    8</span></span>
+<span><span class="co">#&gt; 9:           10     USA Ford Motor Company    MI   NA     151   10</span></span>
+<span><span class="co">#&gt;                  Name country state_code SIC_code earnings unique_key_2 id_2</span></span>
+<span><span class="co">#&gt; 1:            Walmart     USA         OH     3380  490,000            1    1</span></span>
+<span><span class="co">#&gt; 2:  Bershire Hathaway     USA         NE     2220  220,000            2    2</span></span>
+<span><span class="co">#&gt; 3:     Apple Computer     USA         CA       NA  220,000            3    3</span></span>
+<span><span class="co">#&gt; 4: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span></span>
+<span><span class="co">#&gt; 5: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
+<span><span class="co">#&gt; 6: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
+<span><span class="co">#&gt; 7:             AT &amp; T     USA         TN     4000  160,000            9    9</span></span>
+<span><span class="co">#&gt; 8:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
+<span><span class="co">#&gt; 9:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
+<span><span class="co">#&gt;             Company_2 Company_compare multivar_score tier</span></span>
+<span><span class="co">#&gt; 1:            Walmart       1.0000000      1.0000000  all</span></span>
+<span><span class="co">#&gt; 2:  Bershire Hathaway       0.9882353      0.9882353  all</span></span>
+<span><span class="co">#&gt; 3:     Apple Computer       0.8714286      0.8714286  all</span></span>
+<span><span class="co">#&gt; 4: Exxon Mobile Inc.        0.9333333      0.9333333  all</span></span>
+<span><span class="co">#&gt; 5: UnitedHealth Group       1.0000000      1.0000000  all</span></span>
+<span><span class="co">#&gt; 6: UnitedHealth Group       0.5333333      0.5333333  all</span></span>
+<span><span class="co">#&gt; 7:             AT &amp; T       0.9111111      0.9111111  all</span></span>
+<span><span class="co">#&gt; 8:         Ford Motor       0.7333333      0.7333333  all</span></span>
+<span><span class="co">#&gt; 9:         Ford Motor       0.9111111      0.9111111  all</span></span></code></pre></div>
 <p>For our dummy example data, this isn’t that useful (we just drop one
 observation with the Country being Germany). But, if there is a field in
 the data that is well-populated and trusted, it can be used to
@@ -596,7 +592,7 @@ the parallel process, see <code><a href="https://rdrr.io/r/parallel/clusterApply
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

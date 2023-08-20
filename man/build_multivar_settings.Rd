@@ -24,7 +24,7 @@ build_multivar_settings(
 
 \item{wgts}{rather than a lm model, you can supply weights to calculate matchscore. Can be weights from \code{calculate_weights}.}
 
-\item{compare_type}{a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", and "stringdist". See X for details.}
+\item{compare_type}{a vector with the same length as "by" that describes how to compare the variables. Options are "in", "indicator", "substr", "difference", "ratio", "stringdist", and "wgt_jaccard_dist". See the Multivar Matching Vignette for details.}
 
 \item{blocks}{variable present in both data sets to "block" on before computing scores. Matchscores will only be computed for observations that share a block. See details.}
 

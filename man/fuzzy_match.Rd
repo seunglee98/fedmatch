@@ -13,8 +13,8 @@ fuzzy_match(
   suffixes,
   unique_key_1,
   unique_key_2,
-  fuzzy_settings = list(method = "jw", p = 0.1, maxDist = 0.05, matchNA = FALSE,
-    nthread = getOption("sd_num_thread"))
+  fuzzy_settings = list(method = "jw", p = 0.1, maxDist = 0.05, matchNA = FALSE, nthread
+    = getOption("sd_num_thread"))
 )
 }
 \arguments{
