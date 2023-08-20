@@ -51,26 +51,30 @@ compare_row <- function(row_x, data2,
     if (compare_type_i == "in") {
       df_c[, c(variable_compare) := fifelse(stringr::str_detect(get(variable_y), get(variable_x)), 1, 0)]
     }
-    if (compare_type_i == "indicator") {
+    else if (compare_type_i == "indicator") {
       df_c[, c(variable_compare) := fifelse(get(variable_x) == get(variable_y) & !is.na(get(variable_x)) & !is.na(get(variable_y)), 1, 0)]
     }
-    if (compare_type_i == "substr") {
+    else if (compare_type_i == "substr") {
       df_c[, c(variable_compare) := fifelse(get(variable_x) == substr(get(variable_y), 1, nchar(get(variable_x))), 1, 0)]
     }
-    if (compare_type_i == "difference") {
+    else if (compare_type_i == "difference") {
       df_c[, c(variable_compare) := scales::rescale(get(variable_x) - get(variable_y))]
     }
-    if (compare_type_i == "ratio") {
+    else if (compare_type_i == "ratio") {
       df_c[, c(variable_compare) := scales::rescale(get(variable_x) / get(variable_y))]
     }
-    if (compare_type_i == "stringdist") {
+    else if (compare_type_i == "stringdist") {
       df_c[, c(variable_compare) := 1 - stringdist::stringdist(get(variable_x), get(variable_y), method = "jw", p = 0.1)]
     }
-    if (compare_type_i == "wgt_jaccard_dist") {
+    else if (compare_type_i == "wgt_jaccard_dist") {
 
       df_c[, c(variable_compare) := 1 - wgt_jaccard_distance(get(variable_x), get(variable_y), corpus = corpus[[i]])]
 
     }
+    else {
+      stop("compare_type must be one of the valid comparison types. See documentation.")
+    }
+
   } ## end comparison calculations
 
   #-----------------------
