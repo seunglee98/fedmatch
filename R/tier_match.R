@@ -21,14 +21,14 @@
 #' @param clean_settings list. Settings for string cleaning. See \code{clean_strings} and \code{build_clean_settings}.
 #' @param score_settings list. Settings for post-hoc matchscoring. See \code{build_score_settings}.
 #' @param filter function or numeric. Filters a merged data1-data2 dataset. If a function, should take in
-#'       a data.frame (data1 and data2 merged by name1 and name2) and spit out a trimmed verion
+#'       a data.frame (data1 and data2 merged by name1 and name2) and spit out a trimmed version
 #'       of the data.frame (fewer rows). Think of this function as applying other conditions
 #'       to matches, other than a match by name. The first argument of filter should be the data.frame.
 #'       If numeric, will drop all observations with a matchscore lower than or equal to filter.
 #' @param filter.args list. Arguments passed to filter, if a function
 #' @param multivar_settings list of settings to go to the multivar match if match_type
 #' == 'multivar'. See \code{multivar-match}.
-#' @param evaluate Function to evalute merge_plus output. see \code{evaluate_match}.
+#' @param evaluate Function to evaluate merge_plus output. see \code{evaluate_match}.
 #' @param evaluate.args list. Arguments passed to function specified by evaluate
 #' @param takeout character vector, either 'data1', 'data2', 'both', or 'neither'. Removes observations after each tier from the selected dataset.
 #' @param verbose boolean, whether or not to print tier names and time to match each tier as the matching happens.

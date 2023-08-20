@@ -19,13 +19,13 @@
 #' == 'multivar'. See \code{multivar-match}.
 #' @param filter function or numeric. Filters a merged data1-data2 dataset. If a
 #'   function, should take in a data.frame (data1 and data2 merged by name1 and
-#'   name2) and spit out a trimmed verion of the data.frame (fewer rows). Think
+#'   name2) and spit out a trimmed version of the data.frame (fewer rows). Think
 #'   of this function as applying other conditions to matches, other than a
 #'   match by name. The first argument of filter should be the data.frame. If
 #'   numeric, will drop all observations with a matchscore lower than or equal
 #'   to filter.
 #' @param filter.args list. Arguments passed to filter, if a function
-#' @param evaluate Function to evalute merge_plus output.
+#' @param evaluate Function to evaluate merge_plus output.
 #' @param evaluate.args list. Arguments passed to evaluate
 #' @param sequential_words data.table of words in the same format of the common_words argument in \code{clean_strings}. Each of these will be replaced from the by columns.
 #' @param allow.cartesian whether or not to allow many-many matches, see data.table::merge()

@@ -58,7 +58,7 @@ fuzzy. If 'multivar,' match is multivar-based. See \code{multivar_match},}
 
 \item{filter}{function or numeric. Filters a merged data1-data2 dataset. If a
 function, should take in a data.frame (data1 and data2 merged by name1 and
-name2) and spit out a trimmed verion of the data.frame (fewer rows). Think
+name2) and spit out a trimmed version of the data.frame (fewer rows). Think
 of this function as applying other conditions to matches, other than a
 match by name. The first argument of filter should be the data.frame. If
 numeric, will drop all observations with a matchscore lower than or equal
@@ -66,7 +66,7 @@ to filter.}
 
 \item{filter.args}{list. Arguments passed to filter, if a function}
 
-\item{evaluate}{Function to evalute merge_plus output.}
+\item{evaluate}{Function to evaluate merge_plus output.}
 
 \item{evaluate.args}{list. Arguments passed to evaluate}
 
