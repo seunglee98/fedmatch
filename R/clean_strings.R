@@ -72,7 +72,7 @@ clean_strings <- function(string,
   }
 
   # basic cleaning 1;
-  ## lowcase the strings
+  ## lowercase the strings
   clean_str <- sting_orig <- NULL # due to NSE notes in R CMD check
   string_table[, clean_str := stringr::str_to_lower(string_orig)]
 
