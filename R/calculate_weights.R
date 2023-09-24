@@ -55,7 +55,7 @@ calculate_weights <- function(data, variables, compare_type = "stringdist",
   # Calculating m & u probabilities
   for (i in 1:length(variables)) {
 
-    ## getting names for convienience
+    ## getting names for convenience
     variable <- variables[i]
     compare_type_i <- compare_type[i]
 
