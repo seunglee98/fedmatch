@@ -48,7 +48,7 @@ calculate_weights <- function(data, variables, compare_type = "stringdist",
     }
   }
 
-  ## intializing vectors
+  ## initializing vectors
   m <- u <- rep(NA, length(variables))
 
 
