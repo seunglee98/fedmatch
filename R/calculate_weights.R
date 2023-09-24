@@ -22,7 +22,7 @@
 #' @param suffixes character vector. Suffixes of of the variables that indicate what data they are from. Default is same as the default for base R merge, c('.x','.y')
 #' @param non_negative logical. Do you want to allow negative weights?
 #'
-#' @return list with m probabilities, u probabilites, w weights, and settings, the list argument requried as an input for score_settings in merge_plus using the calculate weights.
+#' @return list with m probabilities, u probabilities, w weights, and settings, the list argument requried as an input for score_settings in merge_plus using the calculate weights.
 #' @import data.table
 #' @export
 #'
