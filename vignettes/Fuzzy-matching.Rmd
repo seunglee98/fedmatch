@@ -52,7 +52,7 @@ Thus, if the two strings share all of the same letters, then the distance is 0, 
 We take one step further and innovate to create a new measure of string distance, which we call the *Weighted Jaccard* distance. Rather than looking at the sets of letters in each string, we look at the set of words in each string. Then, we construct a corpus of all of the words in the two columns to be matched and compute the log inverse frequency for each word:
 
 $$w_i = \log \left( \frac{N}{n_i} \right), $$
-where $N$ is the total number of unique words in the sample, and $n_i$ is the number of occurences of word $i$ in the sample.
+where $N$ is the total number of unique words in the sample, and $n_i$ is the number of occurrences of word $i$ in the sample.
 
 For example, the word 'Corporation' appears frequently in the names of companies in common data sets, and so its log inverse frequency would be low. But, the word 'Apple' probably only appears in a few company names out of the many thousands in the data, so its log inverse frequency score would be high.
 

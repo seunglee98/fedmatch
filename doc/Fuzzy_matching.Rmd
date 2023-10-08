@@ -80,7 +80,7 @@ Note that 'Bershire Hathaway' matched to 'Bershire Hataway,' which makes sense -
 
 ### An important technical Note
 
-*An important technical note:* to get the Weighted Jaccard method to run quickly, you need to ensure that R is configured to use multiple threads in conjunction with C++. On linux, this can be done by making a file called 'Makevars' (no file extension) in \~/.R/ , with the following two lines of text:
+*An important technical note:* to get the Weighted Jaccard method to run quickly, you need to ensure that R is configured to use multiple threads in conjunction with C++. On Linux, this can be done by making a file called 'Makevars' (no file extension) in \~/.R/ , with the following two lines of text:
 
 -   PKG_CXXFLAGS = "-fopenmp"
 -   PKG_LIBS = "-fopenmp"

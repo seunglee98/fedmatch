@@ -62,7 +62,7 @@ img.icon {
   height: auto;
 }
 
-/* Fix bug in bootstrap (only seen in firefox) */
+/* Fix bug in bootstrap (only seen in Firefox) */
 summary {
   display: list-item;
 }

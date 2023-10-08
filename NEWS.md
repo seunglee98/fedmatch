@@ -34,7 +34,7 @@
 
 - Fixed bugs in Makevars so that C++ code runs in parallel
 - Fixed bugs in `tier_match` that stopped matches from being removed in between tiers
-- Fixed bugs preventing the successful build on other platforms besides native linux
+- Fixed bugs preventing the successful build on other platforms besides native Linux
 
 # fedmatch 2.0.0
 

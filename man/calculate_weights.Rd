@@ -24,7 +24,7 @@ calculate_weights(
 \item{non_negative}{logical. Do you want to allow negative weights?}
 }
 \value{
-list with m probabilities, u probabilites, w weights, and settings, the list argument requried as an input for score_settings in merge_plus using the calculate weights.
+list with m probabilities, u probabilities, w weights, and settings, the list argument required as an input for score_settings in merge_plus using the calculate weights.
 }
 \description{
 Calculate weights for comparison variables based on \eqn{m} and \eqn{u}

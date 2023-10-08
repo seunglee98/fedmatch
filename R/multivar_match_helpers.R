@@ -31,7 +31,7 @@ compare_row <- function(row_x, data2,
   #------------------------
   ## generate comparisons
   #------------------------
-  # note that this requi
+  # note that this requires ??
   variables_to_compare <- paste0(by.x, "_compare")
 
   for (i in 1:k) {
