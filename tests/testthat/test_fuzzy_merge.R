@@ -69,7 +69,7 @@ testthat::test_that("weighted jaccard match works", {
     suffixes = c("_1", "_2"),
     fuzzy_settings = build_fuzzy_settings(
       method = "wgt_jaccard", p = 0.1, maxDist = 0.5,
-      matchNA = FALSE, nthread = 2
+      matchNA = FALSE, nthread = 1
     )
   )
   expect_true(is.data.table(result$matches))
@@ -83,7 +83,7 @@ testthat::test_that("fuzzy matching works with builder", {
   setnames(corp_data2_test, "Name", "Company")
   fuzzy_settings <- build_fuzzy_settings(
     method = "wgt_jaccard",
-    nthread = 2
+    nthread = 1
   )
   result <- merge_plus(
     data1 = corp_data1_test,

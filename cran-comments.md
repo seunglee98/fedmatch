@@ -1,11 +1,16 @@
 ## Test environments
 
-* Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-* Ubuntu Linux 20.04.1 LTS, R-release, GCC
-* Fedora Linux, R-devel, clang, gfortran
-* Debian Linux, R-devel, GCC ASAN/UBSAN
-* macOS 10.13.6 High Sierra, R-release
+* Windows
+* macOS 14.0 Sonoma, R-release
+* Windows Server 2022, R-devel, 64 bit
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs or NOTEs.
+I received the following NOTEs:
+
+- 'Skipping checking math rendering: package 'V8' unavailable', on Windows Server 2022. 
+- 'Found the following files/directories: ''NULL''', on Windows Server 2022.
+- 'Found the following files/directories: 'lastMiKTeXException'' on Windows Server 2022.
+- 'checking CRAN incoming feasibility ... NOTE: maintainer chris0webster@gmail.com' on Windows Server 2022.
+
+I received no WARNINGs or ERRORs.
