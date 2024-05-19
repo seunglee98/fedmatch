@@ -57,7 +57,7 @@ compare_row <- function(row_x, data2,
       df_c[, c(variable_compare) := fifelse(get(variable_x) == substr(get(variable_y), 1, nchar(get(variable_x))), 1, 0)]
     }
     else if (compare_type_i == "difference") {
-      df_c[, c(variable_compare) := scales::rescale(get(variable_x) - get(variable_y))]
+      df_c[, c(variable_compare) := scales::rescale(-abs(get(variable_x) - get(variable_y)))]
     }
     else if (compare_type_i == "ratio") {
       df_c[, c(variable_compare) := scales::rescale(get(variable_x) / get(variable_y))]
