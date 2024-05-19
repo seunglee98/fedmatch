@@ -3,6 +3,8 @@
 - Fixed documentation referencing "wgt_jaccard_distance" that should be "wgt_jaccard_dist"
 - Fixed issue so that multivar_match warns when invalid compare_types are used
 - Fixed issue where wgt_jaccard_dist wasn't listed as a valid compare type
+- Fixed bug where 'difference' comparison method would assign wrong scores for negative numbers
+- Improved documentation around scoring for post-hoc matchscores
 
 
 # fedmatch 2.0.5

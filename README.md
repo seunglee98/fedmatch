@@ -23,15 +23,14 @@ the [fedmatch website](https://seunglee98.github.io/fedmatch/).
 
 ## Features
 
--   String cleaning tools
--   Fuzzy matching with standard string distance metrics from the
-    package `stringdist`
--   A new fuzzy matching method which we call a *Weighted Jaccard*
-    metric
--   Numeric matching using a trained logit model
--   A system to sequentially execute many different types of match
-    algorithms
--   A system for evaluating matches post-hoc
+- String cleaning tools
+- Fuzzy matching with standard string distance metrics from the package
+  `stringdist`
+- A new fuzzy matching method which we call a *Weighted Jaccard* metric
+- Numeric matching using a trained logit model
+- A system to sequentially execute many different types of match
+  algorithms
+- A system for evaluating matches post-hoc
 
 # Installation
 
@@ -64,7 +63,5 @@ paper:
 
 Gregory J. Cohen, Jacob Dice, Melanie Friedrichs, Kamran Gupta, William
 Hayes, Isabel Kitschelt, Seung Jung Lee, W. Blake Marsh, Nathan Mislang,
-Maya Shaton, Martin Sicilian, Chris Webster. “[The U.S. Syndicated Loan
-Market: Matching
-Data.](https://onlinelibrary.wiley.com/doi/full/10.1111/jfir.12261)”
-Journal of Financial Research, 2021.
+Maya Shaton, Martin Sicilian, Chris Webster. “The U.S. Syndicated Loan
+Market: Matching Data.” Journal of Financial Research, 2021.

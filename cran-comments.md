@@ -1,16 +1,13 @@
 ## Test environments
 
-* Windows
 * macOS 14.0 Sonoma, R-release
-* Windows Server 2022, R-devel, 64 bit
+* Windows, R-development
 
 ## R CMD check results
 
 I received the following NOTEs:
 
-- 'Skipping checking math rendering: package 'V8' unavailable', on Windows Server 2022. 
-- 'Found the following files/directories: ''NULL''', on Windows Server 2022.
-- 'Found the following files/directories: 'lastMiKTeXException'' on Windows Server 2022.
-- 'checking CRAN incoming feasibility ... NOTE: maintainer chris0webster@gmail.com' on Windows Server 2022.
+- The package documentation generates several HTML NOTES regarding attributes like "type" in <link> and <script> tags, and missing "summary" in <table> tags. These are minor and do not affect the usability or functionality of the documentation. Necessary checks have been performed to ensure that the documentation remains accessible and informative.
+-
 
 I received no WARNINGs or ERRORs.
