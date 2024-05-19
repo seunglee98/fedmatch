@@ -223,7 +223,7 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
           matches[, c(variable_score) := fifelse(get(variable_x) == substr(get(variable_y), 1, nchar(get(variable_x))), 1, 0)]
         }
         if (score_type_i == "difference") {
-          matches[, c(variable_compare) := scales::rescale(-abs(get(variable_x) - get(variable_y)))]
+          matches[, c(variable_score) := scales::rescale(-abs(get(variable_x) - get(variable_y)))]
         }
         if (score_type_i == "ratio") {
           matches[, c(variable_score) := scales::rescale(get(variable_x) / get(variable_y))]

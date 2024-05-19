@@ -21,7 +21,7 @@ build_score_settings(
 
 \item{wgts}{numeric vector. The weights for the linear sum of scores}
 
-\item{score_type}{character vector.}
+\item{score_type}{Charcter vector. Options are "in", "indicator", "substr", "difference", "ratio", "stringdist". See the Multivar Matching Vignette for details.}
 }
 \value{
 a list containing options for the 'score_settings' argument of \code{merge_plus}.
