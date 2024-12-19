@@ -1,0 +1,210 @@
+---
+title: "Introduction to fedmatch"
+author: Chris Webster
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to fedmatch}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Background
+With an ever-expanding set of financial data providers, each covering many of the same firms and entities, matching data sets that do not share common identifiers has never been more important.`fedmatch` is a set of tools for performing record linkage between two data
+sets. It allows for a variety of different matching techniques, letting
+the user build a matching algorithm for their specific application. Although fedmatch was designed with economic data in mind (i.e. loans or companies), it is very flexible, so it can be used for any matching problem. With `fedmatch`, a researcher or analyst can quickly go from having 0 matches between two datasets to having many. With more time and care, they can use more advanced techniques to pull out even more matches.
+
+Fedmatch has many features, including:
+
+- Tools to clean strings (see below)
+- Matching on names (see below, and the fuzzy matching vignette)
+- A new method of string comparison, which we dub "Weighted Jaccard" (see the fuzzy matching vignette)
+- Matching using probabilistic methods and logit models (see the multivar match vignette)
+- Matching using many different methods in sequence, pulling matches out as you go along (see the tier match vignette)
+
+This vignette will explain the basics of fedmatch, including the `merge_plus` function and the `clean_strings` function. From there, other vignettes go further into the details of the different matching types.
+```{r setup, include = F}
+library(fedmatch)
+library(data.table)
+```
+
+# Name cleaning
+
+Before diving into the matching code, we'll first go over the `clean_strings` function that can help standardize company names across data sets.
+
+A basic example of clean strings looks like this:
+
+```{r}
+raw_names <- c("Hamlin, Hamlin, McGill", "Schweibert & Cokely ", "Wexler McGill, LLC",
+               "Davis and Main, Inc.")
+clean_names <- clean_strings(raw_names)
+clean_names
+```
+
+Without any additional arguments, `clean_strings` does the following:
+
+- Make everything lowercase
+- Replace the special characters &, @, %, $ with their word equivalents
+- Remove all other special characters (e.g. commas, periods)
+- Convert tabs to spaces
+- Remove extra spaces
+
+As described in the manual for `clean_strings`, one can specify further arguments to remove words or try different replacements. Fedmatch comes with a set of words that are commonly used for this, but you can use whatever you'd like. (You can also use `word_frequency` to look for common words in your data.)
+
+```{r}
+fedmatch::corporate_words[1:5]
+scrubbed_names <- clean_strings(raw_names, common_words = fedmatch::corporate_words)
+scrubbed_names
+```
+
+Through string cleaning, we can make it so that even if two different databases record names differently (e.g. "Hamlin Hamlin McGill INC" vs "Hamlin Hamlin McGill Incorporated"), we will still count these records as a match.
+
+# Basics: `merge_plus`
+The workhorse of `fedmatch` is `merge_plus`. `merge_plus` is an extremely flexible function that can perform several different types of matches: exact, fuzzy, and multivar.
+
+## Exact matching
+Here are the example datasets that come with fedmatch:
+```{r}
+fedmatch::corp_data1
+fedmatch::corp_data2
+
+```
+The most basic way to use `merge_plus` is by simply making it equivalent to `base::merge`.
+```{r}
+basic_merge <- merge_plus(data1 = corp_data1, 
+                          data2 = corp_data2,
+                          by.x = "Company",
+                          by.y = "Name", match_type = "exact", 
+                          unique_key_1 = "unique_key_1",
+                          unique_key_2 = "unique_key_2")
+```
+This code will run merge on the "Company" and "Name" variables, and return cases where the two have an exact match. The only differences between this and `base::merge` are 
+
+1. `merge_plus` requires data1 and data2 each to have a "unique key" that can be used to identify an observation.
+1. `merge_plus` returns a list.
+
+Let's take a look at each of the elements of the list returned by `merge_plus`. These will always be the same, no matter which `match_type` you select in `merge_plus`.
+
+The first item is the matches themselves. This is a `data.table` with one row for each matching observation, along with all variables present in each data set. 
+```{r}
+print(basic_merge$matches)
+```
+
+The next item is `matches_filter`. In this example, it's empty, because we didn't supply the argument `filter`. If we did supply `filter` (which can either be a function that filters, or a numeric cutoff for a matchscore (more on this later)), we would see a subsample of the matches dataset.
+```{r}
+print(basic_merge$matches_filter)
+```
+
+Next in the list is `data1_nomatch` and `data2_nomatch`, which return the rows that were not matched from the datasets.
+```{r}
+print(basic_merge$data1_nomatch)
+print(basic_merge$data2_nomatch)
+```
+
+Finally, there is `match_evaluation`, which is a data.table that summarizes how well the match worked. It shows the number of matches in each dataset broken down by tier (more on tiers later), along with the percent matched.
+
+```{r}
+print(basic_merge$match_evaluation)
+```
+
+
+## Fuzzy matching
+
+We can also use `merge_plus` to perform "fuzzy" matches. A fuzzy match uses a string distance algorithm to compute the distance between one string and a set of other strings, then picks the closest string that's over a certain threshold. `fedmatch` uses `stringdist::amatch` to execute these matches, and you can read more about string distances in the `stringdist` package documentation.
+
+Here is an example of how this is implemented in `merge_plus`.
+```{r}
+fuzzy_result <- merge_plus(data1 = corp_data1, 
+                          data2 = corp_data2,
+                          by.x = "Company",
+                          by.y = "Name", match_type = "fuzzy", 
+                          unique_key_1 = "unique_key_1",
+                          unique_key_2 = "unique_key_2")
+print(fuzzy_result$matches)
+```
+We can see that we picked up an additional match here: "Bershire Hataway" and "Bershire Hathaway." These are off by 1 character, so the exact match didn't pick them up, but the fuzzy match did. We can also tweak the fuzzy match settings with the argument `fuzzy_settings`. This is a list that will be passed to `stringdist::amatch`.
+```{r}
+fuzzy_result <- merge_plus(data1 = corp_data1, 
+                          data2 = corp_data2,
+                          by.x = "Company",
+                          by.y = "Name", match_type = "fuzzy", 
+                          fuzzy_settings = build_fuzzy_settings(maxDist = .5),
+                          unique_key_1 = "unique_key_1",
+                          unique_key_2 = "unique_key_2")
+print(fuzzy_result$matches)
+```
+So, cranking up the `maxDist` (maximum distance between strings, a threshold for determining matches) gave us a bunch more matches. Note that we return multiple matches per the same unique key sometimes, for example Ford Motor got matched to General Motors and Ford Motor Company. There are many tweaks that one can make via `fuzzy_settings`, and these change the match behavior significantly. It is worth exploring various options to see which make the most sense for your specific application. See the fuzzy matching vignette for more details, including a new method of string comparison that we call a "Weighted Jaccard" comparison.
+
+## Multivar matching
+
+The final setting for `match_type` in `merge_plus` is a "multivariable match", or "multivar" for short. This match is complex, and may take some playing around with the code to fully understand how it works. We'll just go over the basic usage here. The idea behind the multivariable match is to use several variables from each dataset to execute a match, rather than just using the name of an entity.
+
+One way is to take the set of variables (say, company name, state, and earnings), compare them with some numeric metric, and then perform a linear combination of those metrics to arrive at a final score. Then, you can compare each observation in one dataset to each other observation in the other dataset to pick the match with the highest score. 
+
+The other way is similar, but instead of a linear combination of scores, you can use a logit model. In this method, you create a hand-verified match set between your two datasets, then use a logit model to estimate how much each variable contributes to determining a match.
+
+Here's an example of the first method, the linear combination:
+
+```{r}
+# for simplicity's sake, rename columns in corp_data2
+data.table::setnames(corp_data2, c("Name", "country"), c("Company", "Country"))
+multivar_linear_result <- merge_plus(corp_data1, corp_data2, 
+                                     match_type = "multivar",
+                                     by = c("Country", "Company"), 
+                                     unique_key_1 = "unique_key_1",
+                                     suffixes = c("_1", "_2"),
+                                     unique_key_2 = "unique_key_2",
+                                    
+                                     multivar_settings = build_multivar_settings(compare_type = c("indicator", "stringdist"),
+                                                               wgts = c(.5, .5),
+                                                              top = 1))
+multivar_linear_result$matches                                     
+```
+
+To specify this type of match, we put in the `match_type` as "multivar," and
+then we specified how we wanted the match to run by passing the list
+`multivar_settings`. Each element of this list is a separate argument to go into
+`multivar_match`. The `compare_type` argument tells the multivar how to compare
+each variable in the `by` argument. Because "Country" is a binary variable, we
+specify "indicator", and because "Company" is a string variable, we specify
+"stringdist." You can see a full list of options for comparison in the
+`multivar_match` documentation, or equivalently, the `merge_plus`
+`score_settings` documentation. (`merge_plus` has an option to compute
+matchscores post-hoc, as a method of evaluation.)
+
+Next, here's an example the second method, using a logit model. First, we'll set up a fake training table. Normally, one would construct a human-verified match set. Here, I just create a table where the first half are matches, the second half are a mix of matches and not, and then the two comparison variables are biased to be more of a match in the first half of the sample. This is just a way to ensure that our logit model gives us positive coefficients, so that our example makes a little more sense.
+
+```{r}
+set.seed(111)
+training_table <- data.table::data.table(match = c(rep(1, 5e4), sample(c(0,1 ), 5e4, replace = TRUE)),
+                                Company_compare = seq(1, 0.00001, -.00001),
+                                Country_compare = c(rep(1, 5e4), sample(c(1, 0), 5e4, replace = TRUE)))
+# training_table
+logit_model <- glm(match ~ Company_compare + Country_compare, family = "binomial",
+                   data = training_table)
+summary(logit_model)
+```
+
+Then, we plug our logit model into the `multivar_settings`. The code will then use our trained logit model on the variables we specified. Note that the name of the columns in the training set must match the name of the variables in the match datasets, with "_compare" at the end. 
+
+```{r}
+result <- merge_plus(corp_data1, corp_data2, by = c("Country", "Company"), unique_key_1 = "unique_key_1",
+                        unique_key_2 = "unique_key_2", 
+                     match_type = "multivar",
+                     multivar_settings = list(logit = logit_model, compare_type = c("indicator", "stringdist"),
+                        wgts = NULL),
+                        suffixes = c("_1", "_2"))
+result$matches
+```
+
+Note the last few columns in the data.table: we see the comparison metrics, just like in the linear combination version of `multivar_match`. But, note that instead of computing a 50/50 linear combination like before, we are now computing a matchscore as the fitted probability of a match based on our logit model. In this toy example, the coefficients are a little strange because of the random data we fed in. But, we see the behavior we'd expect: a higher company name comparison and a country match gives us a higher matchscore.
+
+# Summary and next steps
+
+We've covered the several different types of matching with `fedmatch`: exact matching, fuzzy matching, and multivar matching. Each match is useful in its own right, and they become even more useful when combined. That's where the next step comes in: tier matching with the function `tier_match`. See the vignette for tier match for more details.

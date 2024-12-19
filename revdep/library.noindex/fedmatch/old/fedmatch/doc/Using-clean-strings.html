@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Using clean_strings</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using clean_strings</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(fedmatch)</span></code></pre></div>
+<div id="using-clean_strings" class="section level1">
+<h1>Using clean_strings</h1>
+<p><code>clean_strings</code> is the way to prepare strings for name
+matching, either within <code>tier_match</code> (see the
+<code>Using-tier-match</code> vignette). There are several useful
+options that allow for many different options.</p>
+<p>Here’s the example string we’ll be using:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>name_vec <span class="ot">&lt;-</span> corp_data1[, Company]</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>name_vec</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Walmart&quot;            &quot;Bershire Hataway&quot;   &quot;Apple&quot;             </span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;Exxon Mobile&quot;       &quot;McKesson &quot;          &quot;UnitedHealth Group&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;CVS Health&quot;         &quot;General Motors&quot;     &quot;AT&amp;T&quot;              </span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; [10] &quot;Ford Motor Company&quot;</span></span></code></pre></div>
+<p>First, we can use the basic string cleaning defaults:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">clean_strings</span>(name_vec)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;walmart&quot;            &quot;bershire hataway&quot;   &quot;apple&quot;             </span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;exxon mobile&quot;       &quot;mckesson&quot;           &quot;unitedhealth group&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;cvs health&quot;         &quot;general motors&quot;     &quot;atandt&quot;            </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [10] &quot;ford motor company&quot;</span></span></code></pre></div>
+<p>Without any additional arguments, <code>clean_strings</code> does the
+following:</p>
+<ul>
+<li>Make everything lowercase</li>
+<li>Replace the special characters &amp;, @, %, $ with their word
+equivalents</li>
+<li>Remove all other special characters (e.g. commas, periods)</li>
+<li>Convert tabs to spaces</li>
+<li>Remove extra spaces</li>
+</ul>
+<p>Then, we have a few different options we can use.</p>
+<div id="sp_char_words" class="section level2">
+<h2>sp_char_words</h2>
+<p><code>sp_char_words</code> is a data.frame with 2 columns: the first
+column is symbols to replace, and the second is their replacement.
+<code>fedmatch</code> as a built-in set of symbols:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">print</span>(sp_char_words)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt;    character replacement</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;       &lt;char&gt;      &lt;char&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; 1:       \\&amp;         and</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; 2:       \\$      dollar</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; 3:       \\%     percent</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; 4:       \\@          at</span></span></code></pre></div>
+<p>But, you can use any data.frame you’d like, to make whatever
+replacements you’d like:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>new_sp_char <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">character =</span> <span class="fu">c</span>(<span class="st">&quot;o&quot;</span>), <span class="at">replacement =</span> <span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">clean_strings</span>(name_vec, <span class="at">sp_char_words =</span> new_sp_char)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;walmart&quot;                            &quot;bershire hataway&quot;                  </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;apple&quot;                              &quot;exxapplen mapplebile&quot;              </span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;mckessapplen&quot;                       &quot;unitedhealth grappleup&quot;            </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;cvs health&quot;                         &quot;general mappletapplers&quot;            </span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;at t&quot;                               &quot;fapplerd mappletappler capplempany&quot;</span></span></code></pre></div>
+</div>
+<div id="common_words" class="section level2">
+<h2>common_words</h2>
+<p><code>common_words</code> is similar, but it respects word boundaries
+(so you don’t replace every usage of ‘Corp’ with ‘Corporation’, for
+example.) <code>fedmatch</code> has a built-in set of 54 words and their
+replacements:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">print</span>(corporate_words[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt;      abbr     long.names</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt;    &lt;char&gt;         &lt;char&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; 1:  accep     acceptance</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; 2:   amer        america</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; 3:  assoc     associates</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; 4:     cl company listed</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; 5:  cmnty      community</span></span></code></pre></div>
+<p>But, you can use whatever words you’d like:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">clean_strings</span>(name_vec, <span class="at">common_words =</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">word =</span> <span class="fu">c</span>(<span class="st">&quot;general&quot;</span>, <span class="st">&quot;almart&quot;</span>),</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                                                              <span class="at">replacement =</span> <span class="fu">c</span>(<span class="st">&quot;bananas&quot;</span>, <span class="st">&quot;oranges&quot;</span>)))</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;walmart&quot;            &quot;bershire hataway&quot;   &quot;apple&quot;             </span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;exxon mobile&quot;       &quot;mckesson&quot;           &quot;unitedhealth group&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;cvs health&quot;         &quot;bananas motors&quot;     &quot;atandt&quot;            </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; [10] &quot;ford motor company&quot;</span></span></code></pre></div>
+<p>(bananas motors sounds like a lovely place to work). Note that the
+‘almart’ in ‘walmart’ didn’t get replaced, because common_words respects
+word boundaries.,</p>
+<p>You can also use a related function, <code>word_frequency</code>, to
+look for the most common strings in your data:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">word_frequency</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;hi&quot;</span>, <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;bye    &quot;</span>), <span class="fl">1e4</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt;      Word Count</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt;    &lt;char&gt; &lt;int&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; 1:  hello  3376</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; 2:    bye  3323</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; 3:     hi  3301</span></span></code></pre></div>
+</div>
+<div id="remove-characters-and-words" class="section level2">
+<h2>Remove characters and words</h2>
+<p>remove_words and remove_char are booleans that let you simply remove
+the words in ‘common_words’ or specify a set of characters to remove
+rather than replacing them.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">clean_strings</span>(name_vec, <span class="at">sp_char_words =</span> new_sp_char, <span class="at">remove_char =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;w lm rt&quot;                           &quot;bershire h t w y&quot;                 </span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;pple&quot;                              &quot;exxapplen mapplebile&quot;             </span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;m kessapplen&quot;                      &quot;unitedhe lth grappleup&quot;           </span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;vs he lth&quot;                         &quot;gener l mappletapplers&quot;           </span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;t t&quot;                               &quot;fapplerd mappletappler applemp ny&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">clean_strings</span>(name_vec, <span class="at">common_words =</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">word =</span> <span class="fu">c</span>(<span class="st">&quot;general&quot;</span>, <span class="st">&quot;company&quot;</span>),</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>                                                              <span class="at">replacement =</span> <span class="fu">c</span>(<span class="st">&quot;bananas&quot;</span>, <span class="st">&quot;oranges&quot;</span>)),</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>              <span class="at">remove_words =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;walmart&quot;            &quot;bershire hataway&quot;   &quot;apple&quot;             </span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;exxon mobile&quot;       &quot;mckesson&quot;           &quot;unitedhealth group&quot;</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;cvs health&quot;         &quot;motors&quot;             &quot;atandt&quot;            </span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; [10] &quot;ford motor&quot;</span></span></code></pre></div>
+</div>
+<div id="stem" class="section level2">
+<h2>stem</h2>
+<p><code>stem</code> is a boolean that lets you stem words, using
+<code>SnowballC::wordStem</code>. ‘stemming’ words means removing common
+suffixes:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">clean_strings</span>(<span class="fu">c</span>( <span class="st">&quot;call&quot;</span>, <span class="st">&quot;calling&quot;</span>, <span class="st">&quot;called&quot;</span>), <span class="at">stem =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;call&quot; &quot;call&quot; &quot;call&quot;</span></span></code></pre></div>
+<p>See the documentation in <code>SnowballC::wordStem</code> for
+details.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -78,6 +78,9 @@ fuzzy_match <- function(data1,
     "osa", "lv", "dl", "hamming", "lcs", "qgram", "cosine",
     "jaccard", "jw", "soundex"
   )) {
+    if (length(fuzzy_settings[["nthread"]]) <= 0) {
+      fuzzy_settings[["nthread"]] <- 1
+    }
     match_indices <- do.call(stringdist::amatch, c(list(data1[[by.x]], data2[[by.y]]), fuzzy_settings))
 
     # our special weighted jaccard method

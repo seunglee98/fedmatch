@@ -1,6 +1,3 @@
-# fedmatch 2.0.7
-- Fixed error with stringdist receiving zero-length number of threads
-
 # fedmatch 2.0.6
 - Fixed documentation referencing "X" to be to the proper vignette
 - Fixed documentation referencing "wgt_jaccard_distance" that should be "wgt_jaccard_dist"

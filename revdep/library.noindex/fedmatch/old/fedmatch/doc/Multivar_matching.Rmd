@@ -1,0 +1,197 @@
+---
+title: "Multivar Matching"
+author: Chris Webster
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Multivar Matching}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(fedmatch)
+library(data.table)
+```
+
+# Background
+
+While name matching is covered well by the tools in`fedmatch::merge_plus()` and `fedmatch::fuzzy_match()`, sometimes it is useful to pull in additional information besides names. These could include company information fields like industry code, zip codes, countries, and the like. Or, for loans, it could include loan amounts, origination dates, or industry codes. Or, one could even want to use multiple different names at the same time. This is where `fedmatch::multivar_match()` comes into play. It lets you compare two records based on multiple fields. It does so by assigning a numeric value from 0-1 for each field, and then computing a weighted sum (or predicts a probability with a logit model), arriving at a final multivar_score for a given pair of records. It computes these multivar_scores for every possible combination of records, and picks the best match for each
+
+# Syntax
+
+```{r}
+
+data("corp_data1", package = "fedmatch")
+data("corp_data2", package = "fedmatch")
+```  
+The basic syntax is as follows, using the example company data in fedmatch:
+```{r}
+corp_data1_test <- copy(corp_data1)
+data.table::setDT(corp_data1_test)
+corp_data2_test <- copy(corp_data2)
+data.table::setDT(corp_data2_test)
+
+corp_data1_test[, id_1 := seq(1, .N)]
+corp_data2_test[, id_2 := seq(1, .N)]
+
+corp_data2_test[, Country := country]
+corp_data2_test[, Company := Name]
+result <- merge_plus(
+  data1 = corp_data1_test,
+  data2 = corp_data2_test,
+  match_type = "multivar",
+  by = c("Country", "Company"),
+   suffixes = c("_1", "_2"),
+  unique_key_1 = "id_1",
+  unique_key_2 = "id_2", 
+  multivar_settings = build_multivar_settings(
+  compare_type = c("indicator", "stringdist"),
+  wgts = c(.5, .5), nthread = 1
+ 
+))
+result
+```
+
+Let's go through the arguments:
+
+- The first 7 arguments are identical to those in `merge_plus`, except 'by' can contain multiple elements, unlike with `merge_plus`.
+- 'compare_type' is a character vector, equal to the length of the 'by' vector, that describes how to compare each field. The options are "in", "indicator",  "difference", "ratio", and "stringdist". Each of the comparison metrics are scaled such that they are also in between 0 and 1.
+  - "indicator" is a binary indicator for if the two fields match exactly.
+  - "in" is a binary indicator for one string being within the other (e.g. 'abc corp' and 'abc' would get a score of 1 )
+  - "difference" computes the numeric difference between the two columns, scaled by the largest difference in the dataset
+  - "ratio" computes the ratio between the two columns, always such that the ratio is less than 1
+  - "stringdist" computes the Jaro-Winkler string distance between the strings.
+  - "wgt_jaccard_dist" computes the weighted jaccard distance between the strings (see fuzzy matching vignette for details on how this is computed.)
+- 'wgts' is a vector of weights, length equal to the length of the 'by' vector, that describes how to weight each field for computing a multivar_score. 
+- 'nthread' is how many threads to use when making the comparisons, see `parallel::makeCluster()`
+- 'logit' is a logit model (described in detail later) that can be used instead of 'wgts' to combine the comparison scores into a final multivar_score using `base::predict()`
+
+
+
+# Return value
+
+`multivar_match` returns a data.table with the columns from both `data_1` and `data_2`, just like `base::merge()`. In addition, it returns three columns for each variable in `by`: two for the original columns in the data, and one column with the suffix 'compare' that has the numerical value for the given comparison. For example:
+
+```{r}
+print(result$matches[, .(Company_1, Company_2, Company_compare)])
+print(result$matches[, .(Country_1, Country_2, Country_compare)])
+```
+
+Further, it adds one additional column for the overall multivar_score. In our example, we set the weights each equal to 0.5, so the multivar_score is simply the average of our two comparison variables:
+
+```{r}
+
+print(result$matches[, .(Company_compare, Country_compare, multivar_score)])
+```
+
+# Calculating weights from a training set
+
+If you're not sure what the weights for each variable should be, you can use the function `fedmatch::calculate_weights()` in conjunction with a validated match set to get an estimate. This uses the methodology from Felligi and Sunter's seminal paper *A Theory for Record Linkage*. You can find more information on the [Record Linkage Wikipedia page](https://en.wikipedia.org/wiki/Record_linkage). Essentially, fedmatch looks for which variables are most likely to match when two records match, and uses this criteria to weight the variables. Here is an example of how this would work:
+
+```{r}
+set.seed(111)
+fake_result_table <- data.table::data.table(
+    Company_1 = c("ABC Corp", "XYZ Corporation", "Apple Corp", "Banana Corp"),
+    Company_2 = c("ABC Corporation", "XYZ Inc", "Apple Incorporated", "Banana Stand"),
+    Country_1 = c("USA", "USA", "TUR", "USA"),
+    Country_2 = c("MEX", "USA", "TUR", "USA")
+  )
+calculated_weights <- calculate_weights(fake_result_table, c("Company", "Country"),
+                                        compare_type = c("stringdist", "indicator"),
+                                        suffixes = c("_1", "_2"))
+calculated_weights$w
+
+```
+
+In this dummy example, the names are giving us more information about the match quality than the countries,
+and so the weights are correspondingly higher. If you'd like more details on the exact methodology, see the manual documentation for `calculate_weights`. 
+
+# Using a logit model instead of a linear sum
+
+Rather than using a linear combination of the comparison variables, we can instead train a logit model on a training set of matches and non-matches. The explanatory variables are each of the comparison variables, and the dependent variable is a binary 1/0 for if the two records are a match or not. This data set needs to be constructed by hand, and is similar to the type of data set used with `calculate_weights.` However, it must contain both matches and non-matches for the logit model to be well-trained. Here is an example of how this would look:
+
+```{r}
+set.seed(111)
+corp_data1_test <- copy(corp_data1)
+data.table::setDT(corp_data1_test)
+corp_data2_test <- copy(corp_data2)
+data.table::setDT(corp_data2_test)
+corp_data1_test[, id_1 := seq(1, .N)]
+corp_data2_test[, id_2 := seq(1, .N)]
+
+corp_data2_test[, Country := country]
+corp_data2_test[, Company := Name]
+set.seed(111)
+fake_result_table <- data.table::data.table(
+  match = sample(c(1, 0, 1), 1e5, replace = TRUE),
+  Company_compare = runif(1e5),
+  Country_compare = sample(c(1, 0), 1e5, replace = TRUE)
+)
+
+logit_model <- glm(match ~ Company_compare + Country_compare,
+  family = "binomial",
+  data = fake_result_table
+)
+
+summary(logit_model)
+
+result <- merge_plus(corp_data1_test, corp_data2_test,
+                     match_type = "multivar",
+                     multivar_settings = build_multivar_settings(logit = logit_model, compare_type = c("indicator", "stringdist"),
+  wgts = NULL, nthread = 1),
+  by = c("Country", "Company"), unique_key_1 = "id_1",
+  unique_key_2 = "id_2", 
+  suffixes = c("_1", "_2")
+)
+result
+```
+
+Instead of using a weighted sum of comparison scores, we use `base::predict` to arrive at a multivar_score that can be interpreted as a match probability. A word of caution: the logit parameters can give very non-intuitive results for the resultant multivar_scores, because the [logit function](https://en.wikipedia.org/wiki/Logit) is of course non-linear. For example, in one project we were working on, there was a coefficient of 40 and a coefficient of 3. However, if the variable with the coefficient of '3' had a comparison score of 0, then the highest the multivar_score could be was only around 0.6! This was very un-intuitive for us, and shows the complex nature of the logit model. 
+
+All that said, the logit model has the benefit of returning an easily-interpretable multivar_score: with a large enough (and clean enough) training set, the fitted multivar_score is simply the probability of a match. This is contrast to the multivar_scores returned by the linear combination: these numbers have no immediate meaning, and can vary dramatically for each project. In one project, a score of .6 might be very good, and in another, very bad. It is a good idea to try both the logit and linear methods and play around with each for your individual project.
+
+# Parallelization and saving time
+Because this method of matching relies on comparing each row of a data set to each other row of a dataset, the time needed to perform a match grows very quickly as the size of each data set increases. There are several ways to help with this:
+
+1. Cut down on the number of comparisons that need to be done by grouping on one or more variables (say, countries) and only making comparisons within those groups, or
+1. Use many cores to split the work up and run the comparisons in parallel.
+
+Here's how the blocking works:
+
+```{r}
+corp_data1_test <- copy(corp_data1)
+data.table::setDT(corp_data1_test)
+corp_data2_test <- copy(corp_data2)
+data.table::setDT(corp_data2_test)
+corp_data1_test[, id_1 := seq(1, .N)]
+corp_data2_test[, id_2 := seq(1, .N)]
+
+corp_data2_test[, Country := country]
+corp_data2_test[, Company := Name]
+result <- merge_plus(
+  data1 = corp_data1_test,
+  data2 = corp_data2_test,
+  match_type = "multivar",
+  by = c("Company"),
+   suffixes = c("_1", "_2"),
+  unique_key_1 = "id_1",
+  unique_key_2 = "id_2", 
+  multivar_settings = build_multivar_settings(
+  compare_type = c( "stringdist"),
+  wgts = c(1), nthread = 1, blocks = "Country"
+ 
+))
+result$matches
+```
+
+For our dummy example data, this isn't that useful (we just drop one observation with the Country being Germany). But, if there is a field in the data that is well-populated and trusted, it can be used to dramatically cut down on the number of observations.
+
+Parallelization is implemented with the `nthread` argument and `parallel::parLapply()`. The data is split into groups equal to `nthread`, and then each core does its comparison, all at the same time. This of course can dramatically speed up the process, but requires more memory and computing power. For details on the parallel process, see `parallel::parLapply` and `parallel::makeCluster`. 
+
