@@ -9,6 +9,7 @@ test_that("scoring works at all", {
     data1 = corp_data1_test,
     data2 = corp_data2_test, by.x = "Company", by.y = "Name",
     unique_key_1 = "id_1", unique_key_2 = "id_2", suffixes = c("_1", "_2"),
+    fuzzy_settings = build_fuzzy_settings(nthread = 1),
     score_settings = build_score_settings(
       score_var_x = c("Company", "Country"),
       score_var_y = c("Name", "country"),

@@ -30,11 +30,11 @@ test_that("match_evaluate returns matches that are correct, different unique key
   corp_data2 <- copy(fedmatch::corp_data2)
   tier_list <- list(
     a = list(match_type = "exact"),
-    b = list(match_type = "fuzzy"),
+    b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
     c = list(match_type = "multivar", multivar_settings = list(
       logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
-      top = 1, threshold = NULL
+      top = 1, threshold = NULL, nthread = 1
     )),
     d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
   )
@@ -66,7 +66,7 @@ test_that("match_evaluate returns new unique matches", {
   corp_data2 <- copy(fedmatch::corp_data2)
   tier_list <- list(
     a = list(match_type = "exact"),
-    b = list(match_type = "fuzzy", fuzzy_setting = build_fuzzy_settings(nthread = 1)),
+    b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
     c = list(match_type = "multivar", multivar_settings = build_multivar_settings(
       logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,

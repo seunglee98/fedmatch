@@ -81,10 +81,15 @@ fuzzy_match <- function(data1,
     if (length(fuzzy_settings[["nthread"]]) <= 0) {
       fuzzy_settings[["nthread"]] <- 1
     }
+    # print(fuzzy_settings[["nthread"]])
     match_indices <- do.call(stringdist::amatch, c(list(data1[[by.x]], data2[[by.y]]), fuzzy_settings))
 
     # our special weighted jaccard method
   } else if (fuzzy_settings[["method"]] == "wgt_jaccard") {
+    if (length(fuzzy_settings[["nthread"]]) <= 0) {
+      fuzzy_settings[["nthread"]] <- 1
+    }
+    # print(fuzzy_settings[["nthread"]])
     corpus <- build_corpus(data1[[by.x]], data2[[by.y]])
     jaccard_result <- wgt_jaccard(
       corpus$word, corpus$log_inv_freq,

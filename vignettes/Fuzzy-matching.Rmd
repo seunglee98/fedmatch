@@ -116,7 +116,7 @@ result1 <- fedmatch::merge_plus(
     match_type = "fuzzy",
     data2 = dummy_data1, by.x = "name", by.y = "name",
     unique_key_1 = "id2", unique_key_2 = "id1",
-    suffixes = c("_1", "_2"), fuzzy_settings = build_fuzzy_settings(maxDist = .5))
+    suffixes = c("_1", "_2"), fuzzy_settings = build_fuzzy_settings(maxDist = .5, nthread = 1))
 print(result1$matches)
 ```
 

@@ -276,7 +276,8 @@ test_that("fuzzy match works with different by's in tier_match", {
     a = list(
       match_type = "fuzzy",
       by.x = "name",
-      by.y = "name"
+      by.y = "name",
+      fuzzy_settings = build_fuzzy_settings(nthread = 1)
     ),
     a = list(
       match_type = "fuzzy",

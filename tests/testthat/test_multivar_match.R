@@ -53,7 +53,7 @@ testthat::test_that("multivar works as part of a tier match", {
 
   tier_list <- list(
     a = list(match_type = "exact"),
-    b = list(match_type = "fuzzy"),
+    b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
     c = list(
       match_type = "multivar",
       by.x = c("Company", "Country"),
