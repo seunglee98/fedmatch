@@ -20,7 +20,7 @@ testthat::test_that("fuzzy_match returns a non-empty table", {
   result <- fuzzy_match(
     data1 = corp_data1_test,
     data2 = corp_data2_test, by.x = "Company", by.y = "Name",
-    unique_key_1 = "id_1", unique_key_2 = "id_2", suffixes = c("_1", "_2")
+    unique_key_1 = "id_1", unique_key_2 = "id_2", suffixes = c("_1", "_2"), fuzzy_settings = build_fuzzy_settings(nthread = 1)
   )
   expect_true(result[, .N] != 0)
 })
@@ -34,7 +34,7 @@ testthat::test_that("fuzzy_match can handle two ids of the same name", {
     result <- fuzzy_match(
       data1 = corp_data1_test,
       data2 = corp_data2_test, by.x = "Company", by.y = "Name",
-      unique_key_1 = "id", unique_key_2 = "id", suffixes = c("_1", "_2")
+      unique_key_1 = "id", unique_key_2 = "id", suffixes = c("_1", "_2"), fuzzy_settings = build_fuzzy_settings(nthread = 1)
     )
   }
 
@@ -108,7 +108,7 @@ testthat::test_that("fuzzy matching works with unique key names", {
     match_type = "fuzzy",
     data2 = corp_data2_test, by.x = "Company", by.y = "Company",
     unique_key_1 = "unique_key_1", unique_key_2 = "unique_key_2",
-    suffixes = c("_1", "_2")
+    suffixes = c("_1", "_2"), fuzzy_settings = build_fuzzy_settings(nthread = 1)
   )
   expect_true(is.data.table(result$matches))
 })
@@ -130,7 +130,7 @@ testthat::test_that("fuzzy matching doesn't work the same if data is inverted", 
     match_type = "fuzzy",
     data1 = dummy_data2, by.x = "name2", by.y = "name1",
     unique_key_1 = "id2", unique_key_2 = "id1",
-    fuzzy_settings = build_fuzzy_settings(maxDist = .75),
+    fuzzy_settings = build_fuzzy_settings(maxDist = .75, nthread = 1),
     suffixes = c("_1", "_2"))
 
   expect_true(result1$matches[, .N] != result2$matches[, .N])
@@ -154,7 +154,7 @@ testthat::test_that("fuzzy matching doesn't work wgt jaccard the same if data is
     data1 = dummy_data2, by.x = "name", by.y = "name",
     unique_key_1 = "id2", unique_key_2 = "id1",
     suffixes = c("_1", "_2"),
-    fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard"))
+    fuzzy_settings = build_fuzzy_settings(method = "wgt_jaccard", nthread = 1))
 
   expect_true(result1$matches[, .N] != result2$matches[, .N])
 })

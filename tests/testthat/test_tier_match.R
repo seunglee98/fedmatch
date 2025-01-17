@@ -4,11 +4,11 @@ test_that("tier_match can handle unique keys being named unique_key_1 and unique
   corp_data2 <- fedmatch::corp_data2
   tier_list <- list(
     a = list(match_type = "exact"),
-    b = list(match_type = "fuzzy"),
+    b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
     c = list(match_type = "multivar", multivar_settings = list(
       logit = NULL, missing = FALSE, wgts = 1,
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
-      top = 1, threshold = NULL
+      top = 1, threshold = NULL, nthread = 1
     ))
   )
   # tier_list <- list(a = list(match_type = "exact"))
@@ -31,11 +31,11 @@ test_that("tier_match can handle unique keys being NOT named unique_key_1 and un
     # corp_data1
     tier_list <- list(
       a = list(match_type = "exact"),
-      b = list(match_type = "fuzzy"),
+      b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
       c = list(match_type = "multivar", multivar_settings = list(
         logit = NULL, missing = FALSE, wgts = c(1),
         compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
-        top = 1, threshold = NULL
+        top = 1, threshold = NULL, nthread = 1
       )),
       d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
     )
@@ -63,11 +63,11 @@ test_that("tier_match can handle by's being the same", {
   corp_data1
   tier_list <- list(
     a = list(match_type = "exact"),
-    b = list(match_type = "fuzzy"),
+    b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
     c = list(match_type = "multivar", multivar_settings = list(
       logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
-      top = 1, threshold = NULL
+      top = 1, threshold = NULL, nthread = 1
     )),
     d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
   )
@@ -103,11 +103,11 @@ test_that("tier_match can handle by's being the same with scoring", {
   corp_data1
   tier_list <- list(
     a = list(match_type = "exact"),
-    b = list(match_type = "fuzzy"),
+    b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
     c = list(match_type = "multivar", multivar_settings = build_multivar_settings(
       logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
-      top = 1, threshold = NULL
+      top = 1, threshold = NULL, nthread = 1
     )),
     d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
   )
@@ -151,11 +151,11 @@ test_that("sequential word dropping works", {
   )
   tier_list <- list(
     a = list(match_type = "exact"),
-    b = list(match_type = "fuzzy"),
+    b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
     c = build_tier(match_type = "multivar", multivar_settings = list(
       logit = NULL, missing = FALSE, wgts = c(1),
       compare_type = "stringdist", blocks = NULL, blocks.x = NULL, blocks.y = NULL,
-      top = 1, threshold = NULL
+      top = 1, threshold = NULL, nthread = 1
     )),
     d = build_tier(
       match_type = "exact", clean_settings = list(remove_words = TRUE),
@@ -281,7 +281,8 @@ test_that("fuzzy match works with different by's in tier_match", {
     a = list(
       match_type = "fuzzy",
       by.x = "name2",
-      by.y = "name"
+      by.y = "name",
+      fuzzy_settings = build_fuzzy_settings(nthread = 1)
     )
   )
   corp_data1[, unique_k_1 := unique_key_1][, unique_key_1 := NULL]
