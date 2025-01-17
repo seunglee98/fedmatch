@@ -30,27 +30,27 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,58 +61,57 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -121,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -336,8 +342,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fedmatch)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(fedmatch)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
 <div id="background" class="section level1">
 <h1>Background</h1>
 <p>While name matching is covered well by the tools
@@ -358,97 +364,111 @@ best match for each</p>
 </div>
 <div id="syntax" class="section level1">
 <h1>Syntax</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corp_data1&quot;</span>, <span class="at">package =</span> <span class="st">&quot;fedmatch&quot;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corp_data2&quot;</span>, <span class="at">package =</span> <span class="st">&quot;fedmatch&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corp_data1&quot;</span>, <span class="at">package =</span> <span class="st">&quot;fedmatch&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corp_data2&quot;</span>, <span class="at">package =</span> <span class="st">&quot;fedmatch&quot;</span>)</span></code></pre></div>
 <p>The basic syntax is as follows, using the example company data in
 fedmatch:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>corp_data1_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data1)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data1_test)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>corp_data2_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data2)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data2_test)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>corp_data1_test[, id_1 <span class="sc">:</span><span class="er">=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, id_2 <span class="sc">:</span><span class="er">=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, Country <span class="sc">:</span><span class="er">=</span> country]</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, Company <span class="sc">:</span><span class="er">=</span> Name]</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data1 =</span> corp_data1_test,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data2 =</span> corp_data2_test,</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Company&quot;</span>),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>   <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>),</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">unique_key_1 =</span> <span class="st">&quot;id_1&quot;</span>,</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">unique_key_2 =</span> <span class="st">&quot;id_2&quot;</span>, </span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">compare_type =</span> <span class="fu">c</span>(<span class="st">&quot;indicator&quot;</span>, <span class="st">&quot;stringdist&quot;</span>),</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">wgts =</span> <span class="fu">c</span>(.<span class="dv">5</span>, .<span class="dv">5</span>), <span class="at">nthread =</span> <span class="dv">1</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>result</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $matches</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     unique_key_1          Company_1 Country_1 State  SIC Revenue id_1</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:            1            Walmart       USA    OH 3300     485    1</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:            2   Bershire Hataway       USA       2222     223    2</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:            3              Apple       USA    CA 3384     215    3</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:            4       Exxon Mobile       USA    TX 2222     205    4</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:            5          McKesson    Germany    MA  222     192    5</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:            6 UnitedHealth Group       USA    MA   NA     184    6</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:            7         CVS Health       USA    RI 1112     177    7</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:            9               AT&amp;T       USA    TN 4000     163    9</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:            8     General Motors       USA    MI 2222     166    8</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:           10 Ford Motor Company       USA    MI   NA     151   10</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   Name country state_code SIC_code earnings unique_key_2 id_2</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:            Walmart     USA         OH     3380  490,000            1    1</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:  Bershire Hathaway     USA         NE     2220  220,000            2    2</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:     Apple Computer     USA         CA       NA  220,000            3    3</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:     McKesson Corp.                 MA     2222  190,000            5    5</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9    9</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:       USA            Walmart               1       1.0000000      1.0000000</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:       USA  Bershire Hathaway               1       0.9882353      0.9941176</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:       USA     Apple Computer               1       0.8714286      0.9357143</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:       USA Exxon Mobile Inc.                1       0.9333333      0.9666667</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:               McKesson Corp.               0       0.9285714      0.4642857</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:       USA UnitedHealth Group               1       1.0000000      1.0000000</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.5333333      0.7666667</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:       USA             AT &amp; T               1       0.9111111      0.9555556</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:       USA         Ford Motor               1       0.7333333      0.8666667</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:       USA         Ford Motor               1       0.9111111      0.9555556</span></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     tier</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:  all</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:  all</span></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:  all</span></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:  all</span></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:  all</span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:  all</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:  all</span></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:  all</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:  all</span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:  all</span></span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $matches_filter</span></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Null data.table (0 rows and 0 cols)</span></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $data1_nomatch</span></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Empty data.table (0 rows and 7 cols): Company,Country,State,SIC,Revenue,unique_key_1...</span></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $data2_nomatch</span></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Name country state_code SIC_code earnings unique_key_2 id_2 Country Company</span></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:  CVS                 RI     1122  180,000            7    7             CVS</span></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:   GM                 MI     2222  170,000            8    8              GM</span></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $match_evaluation</span></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:  all      10               10                8             1           0.8</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:           10            8</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>corp_data1_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data1)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data1_test)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>corp_data2_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data2)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data2_test)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>corp_data1_test[, id_1 <span class="sc">:=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>corp_data2_test[, id_2 <span class="sc">:=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>corp_data2_test[, Country <span class="sc">:=</span> country]</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>corp_data2_test[, Company <span class="sc">:=</span> Name]</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  <span class="at">data1 =</span> corp_data1_test,</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  <span class="at">data2 =</span> corp_data2_test,</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>  <span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Company&quot;</span>),</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>   <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>),</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>  <span class="at">unique_key_1 =</span> <span class="st">&quot;id_1&quot;</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>  <span class="at">unique_key_2 =</span> <span class="st">&quot;id_2&quot;</span>, </span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>  <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>  <span class="at">compare_type =</span> <span class="fu">c</span>(<span class="st">&quot;indicator&quot;</span>, <span class="st">&quot;stringdist&quot;</span>),</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>  <span class="at">wgts =</span> <span class="fu">c</span>(.<span class="dv">5</span>, .<span class="dv">5</span>), <span class="at">nthread =</span> <span class="dv">1</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a> </span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>))</span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>result</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; $matches</span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt; Key: &lt;id_2&gt;</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt; Index: &lt;tier&gt;</span></span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt;     unique_key_1          Company_1 Country_1  State   SIC Revenue  id_1</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt;            &lt;int&gt;             &lt;char&gt;    &lt;char&gt; &lt;char&gt; &lt;num&gt;   &lt;num&gt; &lt;int&gt;</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt;  1:            1            Walmart       USA     OH  3300     485     1</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt;  2:            2   Bershire Hataway       USA         2222     223     2</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt;  3:            3              Apple       USA     CA  3384     215     3</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt;  4:            4       Exxon Mobile       USA     TX  2222     205     4</span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt;  5:            5          McKesson    Germany     MA   222     192     5</span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt;  6:            6 UnitedHealth Group       USA     MA    NA     184     6</span></span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt;  7:            7         CVS Health       USA     RI  1112     177     7</span></span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt;  8:            9               AT&amp;T       USA     TN  4000     163     9</span></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt;  9:            8     General Motors       USA     MI  2222     166     8</span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt; 10:           10 Ford Motor Company       USA     MI    NA     151    10</span></span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt;                   Name country state_code SIC_code earnings unique_key_2  id_2</span></span>
+<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co">#&gt;                 &lt;char&gt;  &lt;char&gt;     &lt;char&gt;    &lt;num&gt;   &lt;char&gt;        &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a><span class="co">#&gt;  1:            Walmart     USA         OH     3380  490,000            1     1</span></span>
+<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a><span class="co">#&gt;  2:  Bershire Hathaway     USA         NE     2220  220,000            2     2</span></span>
+<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a><span class="co">#&gt;  3:     Apple Computer     USA         CA       NA  220,000            3     3</span></span>
+<span id="cb3-45"><a href="#cb3-45" tabindex="-1"></a><span class="co">#&gt;  4: Exxon Mobile Inc.      USA         TX     2222  210,000            4     4</span></span>
+<span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a><span class="co">#&gt;  5:     McKesson Corp.                 MA     2222  190,000            5     5</span></span>
+<span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a><span class="co">#&gt;  6: UnitedHealth Group     USA         MA     1130  180,000            6     6</span></span>
+<span id="cb3-48"><a href="#cb3-48" tabindex="-1"></a><span class="co">#&gt;  7: UnitedHealth Group     USA         MA     1130  180,000            6     6</span></span>
+<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a><span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9     9</span></span>
+<span id="cb3-50"><a href="#cb3-50" tabindex="-1"></a><span class="co">#&gt;  9:         Ford Motor     USA         MI     2222  150,000           10    10</span></span>
+<span id="cb3-51"><a href="#cb3-51" tabindex="-1"></a><span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10    10</span></span>
+<span id="cb3-52"><a href="#cb3-52" tabindex="-1"></a><span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span></span>
+<span id="cb3-53"><a href="#cb3-53" tabindex="-1"></a><span class="co">#&gt;        &lt;char&gt;             &lt;char&gt;           &lt;num&gt;           &lt;num&gt;          &lt;num&gt;</span></span>
+<span id="cb3-54"><a href="#cb3-54" tabindex="-1"></a><span class="co">#&gt;  1:       USA            Walmart               1       1.0000000      1.0000000</span></span>
+<span id="cb3-55"><a href="#cb3-55" tabindex="-1"></a><span class="co">#&gt;  2:       USA  Bershire Hathaway               1       0.9882353      0.9941176</span></span>
+<span id="cb3-56"><a href="#cb3-56" tabindex="-1"></a><span class="co">#&gt;  3:       USA     Apple Computer               1       0.8714286      0.9357143</span></span>
+<span id="cb3-57"><a href="#cb3-57" tabindex="-1"></a><span class="co">#&gt;  4:       USA Exxon Mobile Inc.                1       0.9333333      0.9666667</span></span>
+<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a><span class="co">#&gt;  5:               McKesson Corp.               0       0.9285714      0.4642857</span></span>
+<span id="cb3-59"><a href="#cb3-59" tabindex="-1"></a><span class="co">#&gt;  6:       USA UnitedHealth Group               1       1.0000000      1.0000000</span></span>
+<span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a><span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.5333333      0.7666667</span></span>
+<span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a><span class="co">#&gt;  8:       USA             AT &amp; T               1       0.9111111      0.9555556</span></span>
+<span id="cb3-62"><a href="#cb3-62" tabindex="-1"></a><span class="co">#&gt;  9:       USA         Ford Motor               1       0.7333333      0.8666667</span></span>
+<span id="cb3-63"><a href="#cb3-63" tabindex="-1"></a><span class="co">#&gt; 10:       USA         Ford Motor               1       0.9111111      0.9555556</span></span>
+<span id="cb3-64"><a href="#cb3-64" tabindex="-1"></a><span class="co">#&gt;       tier</span></span>
+<span id="cb3-65"><a href="#cb3-65" tabindex="-1"></a><span class="co">#&gt;     &lt;char&gt;</span></span>
+<span id="cb3-66"><a href="#cb3-66" tabindex="-1"></a><span class="co">#&gt;  1:    all</span></span>
+<span id="cb3-67"><a href="#cb3-67" tabindex="-1"></a><span class="co">#&gt;  2:    all</span></span>
+<span id="cb3-68"><a href="#cb3-68" tabindex="-1"></a><span class="co">#&gt;  3:    all</span></span>
+<span id="cb3-69"><a href="#cb3-69" tabindex="-1"></a><span class="co">#&gt;  4:    all</span></span>
+<span id="cb3-70"><a href="#cb3-70" tabindex="-1"></a><span class="co">#&gt;  5:    all</span></span>
+<span id="cb3-71"><a href="#cb3-71" tabindex="-1"></a><span class="co">#&gt;  6:    all</span></span>
+<span id="cb3-72"><a href="#cb3-72" tabindex="-1"></a><span class="co">#&gt;  7:    all</span></span>
+<span id="cb3-73"><a href="#cb3-73" tabindex="-1"></a><span class="co">#&gt;  8:    all</span></span>
+<span id="cb3-74"><a href="#cb3-74" tabindex="-1"></a><span class="co">#&gt;  9:    all</span></span>
+<span id="cb3-75"><a href="#cb3-75" tabindex="-1"></a><span class="co">#&gt; 10:    all</span></span>
+<span id="cb3-76"><a href="#cb3-76" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-77"><a href="#cb3-77" tabindex="-1"></a><span class="co">#&gt; $matches_filter</span></span>
+<span id="cb3-78"><a href="#cb3-78" tabindex="-1"></a><span class="co">#&gt; Null data.table (0 rows and 0 cols)</span></span>
+<span id="cb3-79"><a href="#cb3-79" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-80"><a href="#cb3-80" tabindex="-1"></a><span class="co">#&gt; $data1_nomatch</span></span>
+<span id="cb3-81"><a href="#cb3-81" tabindex="-1"></a><span class="co">#&gt; Empty data.table (0 rows and 7 cols): Company,Country,State,SIC,Revenue,unique_key_1...</span></span>
+<span id="cb3-82"><a href="#cb3-82" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-83"><a href="#cb3-83" tabindex="-1"></a><span class="co">#&gt; $data2_nomatch</span></span>
+<span id="cb3-84"><a href="#cb3-84" tabindex="-1"></a><span class="co">#&gt;      Name country state_code SIC_code earnings unique_key_2  id_2 Country</span></span>
+<span id="cb3-85"><a href="#cb3-85" tabindex="-1"></a><span class="co">#&gt;    &lt;char&gt;  &lt;char&gt;     &lt;char&gt;    &lt;num&gt;   &lt;char&gt;        &lt;int&gt; &lt;int&gt;  &lt;char&gt;</span></span>
+<span id="cb3-86"><a href="#cb3-86" tabindex="-1"></a><span class="co">#&gt; 1:    CVS                 RI     1122  180,000            7     7        </span></span>
+<span id="cb3-87"><a href="#cb3-87" tabindex="-1"></a><span class="co">#&gt; 2:     GM                 MI     2222  170,000            8     8        </span></span>
+<span id="cb3-88"><a href="#cb3-88" tabindex="-1"></a><span class="co">#&gt;    Company</span></span>
+<span id="cb3-89"><a href="#cb3-89" tabindex="-1"></a><span class="co">#&gt;     &lt;char&gt;</span></span>
+<span id="cb3-90"><a href="#cb3-90" tabindex="-1"></a><span class="co">#&gt; 1:     CVS</span></span>
+<span id="cb3-91"><a href="#cb3-91" tabindex="-1"></a><span class="co">#&gt; 2:      GM</span></span>
+<span id="cb3-92"><a href="#cb3-92" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-93"><a href="#cb3-93" tabindex="-1"></a><span class="co">#&gt; $match_evaluation</span></span>
+<span id="cb3-94"><a href="#cb3-94" tabindex="-1"></a><span class="co">#&gt; Index: &lt;tier&gt;</span></span>
+<span id="cb3-95"><a href="#cb3-95" tabindex="-1"></a><span class="co">#&gt;      tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
+<span id="cb3-96"><a href="#cb3-96" tabindex="-1"></a><span class="co">#&gt;    &lt;char&gt;   &lt;int&gt;            &lt;int&gt;            &lt;int&gt;         &lt;num&gt;         &lt;num&gt;</span></span>
+<span id="cb3-97"><a href="#cb3-97" tabindex="-1"></a><span class="co">#&gt; 1:    all      10               10                8             1           0.8</span></span>
+<span id="cb3-98"><a href="#cb3-98" tabindex="-1"></a><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
+<span id="cb3-99"><a href="#cb3-99" tabindex="-1"></a><span class="co">#&gt;           &lt;int&gt;        &lt;int&gt;</span></span>
+<span id="cb3-100"><a href="#cb3-100" tabindex="-1"></a><span class="co">#&gt; 1:           10            8</span></span></code></pre></div>
 <p>Let’s go through the arguments:</p>
 <ul>
 <li>The first 7 arguments are identical to those in
@@ -492,47 +512,50 @@ from both <code>data_1</code> and <code>data_2</code>, just like
 each variable in <code>by</code>: two for the original columns in the
 data, and one column with the suffix ‘compare’ that has the numerical
 value for the given comparison. For example:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>matches[, .(Company_1, Company_2, Company_compare)])</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Company_1          Company_2 Company_compare</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:            Walmart            Walmart       1.0000000</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:   Bershire Hataway  Bershire Hathaway       0.9882353</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:              Apple     Apple Computer       0.8714286</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:       Exxon Mobile Exxon Mobile Inc.        0.9333333</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:          McKesson      McKesson Corp.       0.9285714</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6: UnitedHealth Group UnitedHealth Group       1.0000000</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:         CVS Health UnitedHealth Group       0.5333333</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:               AT&amp;T             AT &amp; T       0.9111111</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:     General Motors         Ford Motor       0.7333333</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10: Ford Motor Company         Ford Motor       0.9111111</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>matches[, .(Country_1, Country_2, Country_compare)])</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Country_1 Country_2 Country_compare</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:       USA       USA               1</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:       USA       USA               1</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:       USA       USA               1</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:       USA       USA               1</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:   Germany                         0</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:       USA       USA               1</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:       USA       USA               1</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:       USA       USA               1</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:       USA       USA               1</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:       USA       USA               1</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>matches[, .(Company_1, Company_2, Company_compare)])</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt;              Company_1          Company_2 Company_compare</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;                 &lt;char&gt;             &lt;char&gt;           &lt;num&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt;  1:            Walmart            Walmart       1.0000000</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;  2:   Bershire Hataway  Bershire Hathaway       0.9882353</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt;  3:              Apple     Apple Computer       0.8714286</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt;  4:       Exxon Mobile Exxon Mobile Inc.        0.9333333</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;  5:          McKesson      McKesson Corp.       0.9285714</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt;  6: UnitedHealth Group UnitedHealth Group       1.0000000</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt;  7:         CVS Health UnitedHealth Group       0.5333333</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt;  8:               AT&amp;T             AT &amp; T       0.9111111</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt;  9:     General Motors         Ford Motor       0.7333333</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; 10: Ford Motor Company         Ford Motor       0.9111111</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>matches[, .(Country_1, Country_2, Country_compare)])</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt;     Country_1 Country_2 Country_compare</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt;        &lt;char&gt;    &lt;char&gt;           &lt;num&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt;  1:       USA       USA               1</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt;  2:       USA       USA               1</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt;  3:       USA       USA               1</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt;  4:       USA       USA               1</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt;  5:   Germany                         0</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt;  6:       USA       USA               1</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt;  7:       USA       USA               1</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt;  8:       USA       USA               1</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt;  9:       USA       USA               1</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; 10:       USA       USA               1</span></span></code></pre></div>
 <p>Further, it adds one additional column for the overall
 multivar_score. In our example, we set the weights each equal to 0.5, so
 the multivar_score is simply the average of our two comparison
 variables:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>matches[, .(Company_compare, Country_compare, multivar_score)])</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Company_compare Country_compare multivar_score</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:       1.0000000               1      1.0000000</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:       0.9882353               1      0.9941176</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:       0.8714286               1      0.9357143</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:       0.9333333               1      0.9666667</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:       0.9285714               0      0.4642857</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:       1.0000000               1      1.0000000</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:       0.5333333               1      0.7666667</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:       0.9111111               1      0.9555556</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:       0.7333333               1      0.8666667</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:       0.9111111               1      0.9555556</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>matches[, .(Company_compare, Country_compare, multivar_score)])</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt;     Company_compare Country_compare multivar_score</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;               &lt;num&gt;           &lt;num&gt;          &lt;num&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;  1:       1.0000000               1      1.0000000</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;  2:       0.9882353               1      0.9941176</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;  3:       0.8714286               1      0.9357143</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;  4:       0.9333333               1      0.9666667</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  5:       0.9285714               0      0.4642857</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;  6:       1.0000000               1      1.0000000</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  7:       0.5333333               1      0.7666667</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;  8:       0.9111111               1      0.9555556</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;  9:       0.7333333               1      0.8666667</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; 10:       0.9111111               1      0.9555556</span></span></code></pre></div>
 </div>
 <div id="calculating-weights-from-a-training-set" class="section level1">
 <h1>Calculating weights from a training set</h1>
@@ -544,19 +567,19 @@ Record Linkage</em>. You can find more information on the <a href="https://en.wi
 Wikipedia page</a>. Essentially, fedmatch looks for which variables are
 most likely to match when two records match, and uses this criteria to
 weight the variables. Here is an example of how this would work:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fake_result_table <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Company_1 =</span> <span class="fu">c</span>(<span class="st">&quot;ABC Corp&quot;</span>, <span class="st">&quot;XYZ Corporation&quot;</span>, <span class="st">&quot;Apple Corp&quot;</span>, <span class="st">&quot;Banana Corp&quot;</span>),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Company_2 =</span> <span class="fu">c</span>(<span class="st">&quot;ABC Corporation&quot;</span>, <span class="st">&quot;XYZ Inc&quot;</span>, <span class="st">&quot;Apple Incorporated&quot;</span>, <span class="st">&quot;Banana Stand&quot;</span>),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Country_1 =</span> <span class="fu">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;TUR&quot;</span>, <span class="st">&quot;USA&quot;</span>),</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Country_2 =</span> <span class="fu">c</span>(<span class="st">&quot;MEX&quot;</span>, <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;TUR&quot;</span>, <span class="st">&quot;USA&quot;</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>calculated_weights <span class="ot">&lt;-</span> <span class="fu">calculate_weights</span>(fake_result_table, <span class="fu">c</span>(<span class="st">&quot;Company&quot;</span>, <span class="st">&quot;Country&quot;</span>),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">compare_type =</span> <span class="fu">c</span>(<span class="st">&quot;stringdist&quot;</span>, <span class="st">&quot;indicator&quot;</span>),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>))</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>calculated_weights<span class="sc">$</span>w</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Company   Country </span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0.7349053 0.2650947</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>fake_result_table <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    <span class="at">Company_1 =</span> <span class="fu">c</span>(<span class="st">&quot;ABC Corp&quot;</span>, <span class="st">&quot;XYZ Corporation&quot;</span>, <span class="st">&quot;Apple Corp&quot;</span>, <span class="st">&quot;Banana Corp&quot;</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    <span class="at">Company_2 =</span> <span class="fu">c</span>(<span class="st">&quot;ABC Corporation&quot;</span>, <span class="st">&quot;XYZ Inc&quot;</span>, <span class="st">&quot;Apple Incorporated&quot;</span>, <span class="st">&quot;Banana Stand&quot;</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="at">Country_1 =</span> <span class="fu">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;TUR&quot;</span>, <span class="st">&quot;USA&quot;</span>),</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    <span class="at">Country_2 =</span> <span class="fu">c</span>(<span class="st">&quot;MEX&quot;</span>, <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;TUR&quot;</span>, <span class="st">&quot;USA&quot;</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  )</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>calculated_weights <span class="ot">&lt;-</span> <span class="fu">calculate_weights</span>(fake_result_table, <span class="fu">c</span>(<span class="st">&quot;Company&quot;</span>, <span class="st">&quot;Country&quot;</span>),</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>                                        <span class="at">compare_type =</span> <span class="fu">c</span>(<span class="st">&quot;stringdist&quot;</span>, <span class="st">&quot;indicator&quot;</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>                                        <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>calculated_weights<span class="sc">$</span>w</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;   Company   Country </span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; 0.7349053 0.2650947</span></span></code></pre></div>
 <p>In this dummy example, the names are giving us more information about
 the match quality than the countries, and so the weights are
 correspondingly higher. If you’d like more details on the exact
@@ -574,134 +597,141 @@ hand, and is similar to the type of data set used with
 <code>calculate_weights.</code> However, it must contain both matches
 and non-matches for the logit model to be well-trained. Here is an
 example of how this would look:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>corp_data1_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data1)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data1_test)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>corp_data2_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data2)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data2_test)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>corp_data1_test[, id_1 <span class="sc">:</span><span class="er">=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, id_2 <span class="sc">:</span><span class="er">=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, Country <span class="sc">:</span><span class="er">=</span> country]</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, Company <span class="sc">:</span><span class="er">=</span> Name]</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>fake_result_table <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">match =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="fl">1e5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Company_compare =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>),</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">Country_compare =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="fl">1e5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>logit_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(match <span class="sc">~</span> Company_compare <span class="sc">+</span> Country_compare,</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>,</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> fake_result_table</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logit_model)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; glm(formula = match ~ Company_compare + Country_compare, family = &quot;binomial&quot;, </span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = fake_result_table)</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deviance Residuals: </span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -1.4962  -1.4758   0.8941   0.9032   0.9109  </span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)      0.69243    0.01502  46.097   &lt;2e-16 ***</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Company_compare -0.02710    0.02324  -1.166   0.2436    </span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Country_compare  0.03155    0.01342   2.351   0.0187 *  </span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Null deviance: 127258  on 99999  degrees of freedom</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual deviance: 127251  on 99997  degrees of freedom</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AIC: 127257</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(corp_data1_test, corp_data2_test,</span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>                     <span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>,</span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>                     <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(<span class="at">logit =</span> logit_model, <span class="at">compare_type =</span> <span class="fu">c</span>(<span class="st">&quot;indicator&quot;</span>, <span class="st">&quot;stringdist&quot;</span>),</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">wgts =</span> <span class="cn">NULL</span>, <span class="at">nthread =</span> <span class="dv">1</span>),</span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Company&quot;</span>), <span class="at">unique_key_1 =</span> <span class="st">&quot;id_1&quot;</span>,</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">unique_key_2 =</span> <span class="st">&quot;id_2&quot;</span>, </span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>)</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>result</span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $matches</span></span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     unique_key_1          Company_1 Country_1 State  SIC Revenue id_1</span></span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:            4       Exxon Mobile       USA    TX 2222     205    4</span></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:            5          McKesson    Germany    MA  222     192    5</span></span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:            6 UnitedHealth Group       USA    MA   NA     184    6</span></span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:            9               AT&amp;T       USA    TN 4000     163    9</span></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:            2   Bershire Hataway       USA       2222     223    2</span></span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:            7         CVS Health       USA    RI 1112     177    7</span></span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:           10 Ford Motor Company       USA    MI   NA     151   10</span></span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:            1            Walmart       USA    OH 3300     485    1</span></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:            8     General Motors       USA    MI 2222     166    8</span></span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:            3              Apple       USA    CA 3384     215    3</span></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   Name country state_code SIC_code earnings unique_key_2 id_2</span></span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:            Walmart     USA         OH     3380  490,000            1    1</span></span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:            Walmart     USA         OH     3380  490,000            1    1</span></span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:            Walmart     USA         OH     3380  490,000            1    1</span></span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:            Walmart     USA         OH     3380  490,000            1    1</span></span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span></span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9    9</span></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:             AT &amp; T     USA         TN     4000  160,000            9    9</span></span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span></span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:       USA            Walmart               1       0.0000000      0.6734819</span></span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:       USA            Walmart               0       0.0000000      0.6665064</span></span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:       USA            Walmart               1       0.3650794      0.6713026</span></span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:       USA            Walmart               1       0.0000000      0.6734819</span></span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:       USA Exxon Mobile Inc.                1       0.2847222      0.6717829</span></span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:       USA Exxon Mobile Inc.                1       0.3777778      0.6712266</span></span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.4497354      0.6707962</span></span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:       USA             AT &amp; T               1       0.0000000      0.6734819</span></span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:       USA             AT &amp; T               1       0.4126984      0.6710178</span></span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:       USA         Ford Motor               1       0.0000000      0.6734819</span></span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     tier</span></span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:  all</span></span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:  all</span></span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:  all</span></span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:  all</span></span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:  all</span></span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:  all</span></span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:  all</span></span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:  all</span></span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:  all</span></span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:  all</span></span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $matches_filter</span></span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Null data.table (0 rows and 0 cols)</span></span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $data1_nomatch</span></span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Empty data.table (0 rows and 7 cols): Company,Country,State,SIC,Revenue,unique_key_1...</span></span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $data2_nomatch</span></span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 Name country state_code SIC_code earnings unique_key_2 id_2</span></span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1: Bershire Hathaway     USA         NE     2220  220,000            2    2</span></span>
-<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:    Apple Computer     USA         CA       NA  220,000            3    3</span></span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:    McKesson Corp.                 MA     2222  190,000            5    5</span></span>
-<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:               CVS                 RI     1122  180,000            7    7</span></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:                GM                 MI     2222  170,000            8    8</span></span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Country           Company</span></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:     USA Bershire Hathaway</span></span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:     USA    Apple Computer</span></span>
-<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:            McKesson Corp.</span></span>
-<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:                       CVS</span></span>
-<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:                        GM</span></span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $match_evaluation</span></span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:  all      10               10                5             1           0.5</span></span>
-<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:           10            5</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>corp_data1_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data1)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data1_test)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>corp_data2_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data2)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data2_test)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>corp_data1_test[, id_1 <span class="sc">:=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>corp_data2_test[, id_2 <span class="sc">:=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>corp_data2_test[, Country <span class="sc">:=</span> country]</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>corp_data2_test[, Company <span class="sc">:=</span> Name]</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>fake_result_table <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  <span class="at">match =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="fl">1e5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  <span class="at">Company_compare =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>),</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>  <span class="at">Country_compare =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="fl">1e5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>)</span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>logit_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(match <span class="sc">~</span> Company_compare <span class="sc">+</span> Country_compare,</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>,</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>  <span class="at">data =</span> fake_result_table</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>)</span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="fu">summary</span>(logit_model)</span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="co">#&gt; glm(formula = match ~ Company_compare + Country_compare, family = &quot;binomial&quot;, </span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="co">#&gt;     data = fake_result_table)</span></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;                 Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt; (Intercept)      0.69243    0.01502  46.097   &lt;2e-16 ***</span></span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt; Company_compare -0.02710    0.02324  -1.166   0.2436    </span></span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt; Country_compare  0.03155    0.01342   2.351   0.0187 *  </span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="co">#&gt;     Null deviance: 127258  on 99999  degrees of freedom</span></span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="co">#&gt; Residual deviance: 127251  on 99997  degrees of freedom</span></span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="co">#&gt; AIC: 127257</span></span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(corp_data1_test, corp_data2_test,</span>
+<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a>                     <span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>,</span>
+<span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a>                     <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(<span class="at">logit =</span> logit_model, <span class="at">compare_type =</span> <span class="fu">c</span>(<span class="st">&quot;indicator&quot;</span>, <span class="st">&quot;stringdist&quot;</span>),</span>
+<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a>  <span class="at">wgts =</span> <span class="cn">NULL</span>, <span class="at">nthread =</span> <span class="dv">1</span>),</span>
+<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Company&quot;</span>), <span class="at">unique_key_1 =</span> <span class="st">&quot;id_1&quot;</span>,</span>
+<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a>  <span class="at">unique_key_2 =</span> <span class="st">&quot;id_2&quot;</span>, </span>
+<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a>  <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>)</span>
+<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a>)</span>
+<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a>result</span>
+<span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a><span class="co">#&gt; $matches</span></span>
+<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a><span class="co">#&gt; Key: &lt;id_2&gt;</span></span>
+<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a><span class="co">#&gt; Index: &lt;tier&gt;</span></span>
+<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a><span class="co">#&gt;     unique_key_1          Company_1 Country_1  State   SIC Revenue  id_1</span></span>
+<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="co">#&gt;            &lt;int&gt;             &lt;char&gt;    &lt;char&gt; &lt;char&gt; &lt;num&gt;   &lt;num&gt; &lt;int&gt;</span></span>
+<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a><span class="co">#&gt;  1:            4       Exxon Mobile       USA     TX  2222     205     4</span></span>
+<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a><span class="co">#&gt;  2:            5          McKesson    Germany     MA   222     192     5</span></span>
+<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a><span class="co">#&gt;  3:            6 UnitedHealth Group       USA     MA    NA     184     6</span></span>
+<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a><span class="co">#&gt;  4:            9               AT&amp;T       USA     TN  4000     163     9</span></span>
+<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a><span class="co">#&gt;  5:            2   Bershire Hataway       USA         2222     223     2</span></span>
+<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a><span class="co">#&gt;  6:            7         CVS Health       USA     RI  1112     177     7</span></span>
+<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a><span class="co">#&gt;  7:           10 Ford Motor Company       USA     MI    NA     151    10</span></span>
+<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a><span class="co">#&gt;  8:            1            Walmart       USA     OH  3300     485     1</span></span>
+<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a><span class="co">#&gt;  9:            8     General Motors       USA     MI  2222     166     8</span></span>
+<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a><span class="co">#&gt; 10:            3              Apple       USA     CA  3384     215     3</span></span>
+<span id="cb7-69"><a href="#cb7-69" tabindex="-1"></a><span class="co">#&gt;                   Name country state_code SIC_code earnings unique_key_2  id_2</span></span>
+<span id="cb7-70"><a href="#cb7-70" tabindex="-1"></a><span class="co">#&gt;                 &lt;char&gt;  &lt;char&gt;     &lt;char&gt;    &lt;num&gt;   &lt;char&gt;        &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb7-71"><a href="#cb7-71" tabindex="-1"></a><span class="co">#&gt;  1:            Walmart     USA         OH     3380  490,000            1     1</span></span>
+<span id="cb7-72"><a href="#cb7-72" tabindex="-1"></a><span class="co">#&gt;  2:            Walmart     USA         OH     3380  490,000            1     1</span></span>
+<span id="cb7-73"><a href="#cb7-73" tabindex="-1"></a><span class="co">#&gt;  3:            Walmart     USA         OH     3380  490,000            1     1</span></span>
+<span id="cb7-74"><a href="#cb7-74" tabindex="-1"></a><span class="co">#&gt;  4:            Walmart     USA         OH     3380  490,000            1     1</span></span>
+<span id="cb7-75"><a href="#cb7-75" tabindex="-1"></a><span class="co">#&gt;  5: Exxon Mobile Inc.      USA         TX     2222  210,000            4     4</span></span>
+<span id="cb7-76"><a href="#cb7-76" tabindex="-1"></a><span class="co">#&gt;  6: Exxon Mobile Inc.      USA         TX     2222  210,000            4     4</span></span>
+<span id="cb7-77"><a href="#cb7-77" tabindex="-1"></a><span class="co">#&gt;  7: UnitedHealth Group     USA         MA     1130  180,000            6     6</span></span>
+<span id="cb7-78"><a href="#cb7-78" tabindex="-1"></a><span class="co">#&gt;  8:             AT &amp; T     USA         TN     4000  160,000            9     9</span></span>
+<span id="cb7-79"><a href="#cb7-79" tabindex="-1"></a><span class="co">#&gt;  9:             AT &amp; T     USA         TN     4000  160,000            9     9</span></span>
+<span id="cb7-80"><a href="#cb7-80" tabindex="-1"></a><span class="co">#&gt; 10:         Ford Motor     USA         MI     2222  150,000           10    10</span></span>
+<span id="cb7-81"><a href="#cb7-81" tabindex="-1"></a><span class="co">#&gt;     Country_2          Company_2 Country_compare Company_compare multivar_score</span></span>
+<span id="cb7-82"><a href="#cb7-82" tabindex="-1"></a><span class="co">#&gt;        &lt;char&gt;             &lt;char&gt;           &lt;num&gt;           &lt;num&gt;          &lt;num&gt;</span></span>
+<span id="cb7-83"><a href="#cb7-83" tabindex="-1"></a><span class="co">#&gt;  1:       USA            Walmart               1       0.0000000      0.6734819</span></span>
+<span id="cb7-84"><a href="#cb7-84" tabindex="-1"></a><span class="co">#&gt;  2:       USA            Walmart               0       0.0000000      0.6665064</span></span>
+<span id="cb7-85"><a href="#cb7-85" tabindex="-1"></a><span class="co">#&gt;  3:       USA            Walmart               1       0.3650794      0.6713026</span></span>
+<span id="cb7-86"><a href="#cb7-86" tabindex="-1"></a><span class="co">#&gt;  4:       USA            Walmart               1       0.0000000      0.6734819</span></span>
+<span id="cb7-87"><a href="#cb7-87" tabindex="-1"></a><span class="co">#&gt;  5:       USA Exxon Mobile Inc.                1       0.2847222      0.6717829</span></span>
+<span id="cb7-88"><a href="#cb7-88" tabindex="-1"></a><span class="co">#&gt;  6:       USA Exxon Mobile Inc.                1       0.3777778      0.6712266</span></span>
+<span id="cb7-89"><a href="#cb7-89" tabindex="-1"></a><span class="co">#&gt;  7:       USA UnitedHealth Group               1       0.4497354      0.6707962</span></span>
+<span id="cb7-90"><a href="#cb7-90" tabindex="-1"></a><span class="co">#&gt;  8:       USA             AT &amp; T               1       0.0000000      0.6734819</span></span>
+<span id="cb7-91"><a href="#cb7-91" tabindex="-1"></a><span class="co">#&gt;  9:       USA             AT &amp; T               1       0.4126984      0.6710178</span></span>
+<span id="cb7-92"><a href="#cb7-92" tabindex="-1"></a><span class="co">#&gt; 10:       USA         Ford Motor               1       0.0000000      0.6734819</span></span>
+<span id="cb7-93"><a href="#cb7-93" tabindex="-1"></a><span class="co">#&gt;       tier</span></span>
+<span id="cb7-94"><a href="#cb7-94" tabindex="-1"></a><span class="co">#&gt;     &lt;char&gt;</span></span>
+<span id="cb7-95"><a href="#cb7-95" tabindex="-1"></a><span class="co">#&gt;  1:    all</span></span>
+<span id="cb7-96"><a href="#cb7-96" tabindex="-1"></a><span class="co">#&gt;  2:    all</span></span>
+<span id="cb7-97"><a href="#cb7-97" tabindex="-1"></a><span class="co">#&gt;  3:    all</span></span>
+<span id="cb7-98"><a href="#cb7-98" tabindex="-1"></a><span class="co">#&gt;  4:    all</span></span>
+<span id="cb7-99"><a href="#cb7-99" tabindex="-1"></a><span class="co">#&gt;  5:    all</span></span>
+<span id="cb7-100"><a href="#cb7-100" tabindex="-1"></a><span class="co">#&gt;  6:    all</span></span>
+<span id="cb7-101"><a href="#cb7-101" tabindex="-1"></a><span class="co">#&gt;  7:    all</span></span>
+<span id="cb7-102"><a href="#cb7-102" tabindex="-1"></a><span class="co">#&gt;  8:    all</span></span>
+<span id="cb7-103"><a href="#cb7-103" tabindex="-1"></a><span class="co">#&gt;  9:    all</span></span>
+<span id="cb7-104"><a href="#cb7-104" tabindex="-1"></a><span class="co">#&gt; 10:    all</span></span>
+<span id="cb7-105"><a href="#cb7-105" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-106"><a href="#cb7-106" tabindex="-1"></a><span class="co">#&gt; $matches_filter</span></span>
+<span id="cb7-107"><a href="#cb7-107" tabindex="-1"></a><span class="co">#&gt; Null data.table (0 rows and 0 cols)</span></span>
+<span id="cb7-108"><a href="#cb7-108" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-109"><a href="#cb7-109" tabindex="-1"></a><span class="co">#&gt; $data1_nomatch</span></span>
+<span id="cb7-110"><a href="#cb7-110" tabindex="-1"></a><span class="co">#&gt; Empty data.table (0 rows and 7 cols): Company,Country,State,SIC,Revenue,unique_key_1...</span></span>
+<span id="cb7-111"><a href="#cb7-111" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-112"><a href="#cb7-112" tabindex="-1"></a><span class="co">#&gt; $data2_nomatch</span></span>
+<span id="cb7-113"><a href="#cb7-113" tabindex="-1"></a><span class="co">#&gt;                 Name country state_code SIC_code earnings unique_key_2  id_2</span></span>
+<span id="cb7-114"><a href="#cb7-114" tabindex="-1"></a><span class="co">#&gt;               &lt;char&gt;  &lt;char&gt;     &lt;char&gt;    &lt;num&gt;   &lt;char&gt;        &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb7-115"><a href="#cb7-115" tabindex="-1"></a><span class="co">#&gt; 1: Bershire Hathaway     USA         NE     2220  220,000            2     2</span></span>
+<span id="cb7-116"><a href="#cb7-116" tabindex="-1"></a><span class="co">#&gt; 2:    Apple Computer     USA         CA       NA  220,000            3     3</span></span>
+<span id="cb7-117"><a href="#cb7-117" tabindex="-1"></a><span class="co">#&gt; 3:    McKesson Corp.                 MA     2222  190,000            5     5</span></span>
+<span id="cb7-118"><a href="#cb7-118" tabindex="-1"></a><span class="co">#&gt; 4:               CVS                 RI     1122  180,000            7     7</span></span>
+<span id="cb7-119"><a href="#cb7-119" tabindex="-1"></a><span class="co">#&gt; 5:                GM                 MI     2222  170,000            8     8</span></span>
+<span id="cb7-120"><a href="#cb7-120" tabindex="-1"></a><span class="co">#&gt;    Country           Company</span></span>
+<span id="cb7-121"><a href="#cb7-121" tabindex="-1"></a><span class="co">#&gt;     &lt;char&gt;            &lt;char&gt;</span></span>
+<span id="cb7-122"><a href="#cb7-122" tabindex="-1"></a><span class="co">#&gt; 1:     USA Bershire Hathaway</span></span>
+<span id="cb7-123"><a href="#cb7-123" tabindex="-1"></a><span class="co">#&gt; 2:     USA    Apple Computer</span></span>
+<span id="cb7-124"><a href="#cb7-124" tabindex="-1"></a><span class="co">#&gt; 3:            McKesson Corp.</span></span>
+<span id="cb7-125"><a href="#cb7-125" tabindex="-1"></a><span class="co">#&gt; 4:                       CVS</span></span>
+<span id="cb7-126"><a href="#cb7-126" tabindex="-1"></a><span class="co">#&gt; 5:                        GM</span></span>
+<span id="cb7-127"><a href="#cb7-127" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-128"><a href="#cb7-128" tabindex="-1"></a><span class="co">#&gt; $match_evaluation</span></span>
+<span id="cb7-129"><a href="#cb7-129" tabindex="-1"></a><span class="co">#&gt; Index: &lt;tier&gt;</span></span>
+<span id="cb7-130"><a href="#cb7-130" tabindex="-1"></a><span class="co">#&gt;      tier matches in_tier_unique_1 in_tier_unique_2 pct_matched_1 pct_matched_2</span></span>
+<span id="cb7-131"><a href="#cb7-131" tabindex="-1"></a><span class="co">#&gt;    &lt;char&gt;   &lt;int&gt;            &lt;int&gt;            &lt;int&gt;         &lt;num&gt;         &lt;num&gt;</span></span>
+<span id="cb7-132"><a href="#cb7-132" tabindex="-1"></a><span class="co">#&gt; 1:    all      10               10                5             1           0.5</span></span>
+<span id="cb7-133"><a href="#cb7-133" tabindex="-1"></a><span class="co">#&gt;    new_unique_1 new_unique_2</span></span>
+<span id="cb7-134"><a href="#cb7-134" tabindex="-1"></a><span class="co">#&gt;           &lt;int&gt;        &lt;int&gt;</span></span>
+<span id="cb7-135"><a href="#cb7-135" tabindex="-1"></a><span class="co">#&gt; 1:           10            5</span></span></code></pre></div>
 <p>Instead of using a weighted sum of comparison scores, we use
 <code>base::predict</code> to arrive at a multivar_score that can be
 interpreted as a match probability. A word of caution: the logit
@@ -711,7 +741,8 @@ course non-linear. For example, in one project we were working on, there
 was a coefficient of 40 and a coefficient of 3. However, if the variable
 with the coefficient of ‘3’ had a comparison score of 0, then the
 highest the multivar_score could be was only around 0.6! This was very
-unintuitive for us, and shows the complex nature of the logit model.</p>
+un-intuitive for us, and shows the complex nature of the logit
+model.</p>
 <p>All that said, the logit model has the benefit of returning an
 easily-interpretable multivar_score: with a large enough (and clean
 enough) training set, the fitted multivar_score is simply the
@@ -736,59 +767,64 @@ comparisons within those groups, or</li>
 parallel.</li>
 </ol>
 <p>Here’s how the blocking works:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>corp_data1_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data1)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data1_test)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>corp_data2_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data2)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data2_test)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>corp_data1_test[, id_1 <span class="sc">:</span><span class="er">=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, id_2 <span class="sc">:</span><span class="er">=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, Country <span class="sc">:</span><span class="er">=</span> country]</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>corp_data2_test[, Company <span class="sc">:</span><span class="er">=</span> Name]</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">data1 =</span> corp_data1_test,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data2 =</span> corp_data2_test,</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>,</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Company&quot;</span>),</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>   <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>),</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">unique_key_1 =</span> <span class="st">&quot;id_1&quot;</span>,</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">unique_key_2 =</span> <span class="st">&quot;id_2&quot;</span>, </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">compare_type =</span> <span class="fu">c</span>( <span class="st">&quot;stringdist&quot;</span>),</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">wgts =</span> <span class="fu">c</span>(<span class="dv">1</span>), <span class="at">nthread =</span> <span class="dv">1</span>, <span class="at">blocks =</span> <span class="st">&quot;Country&quot;</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>matches</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    unique_key_1 Country          Company_1 State  SIC Revenue id_1</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:            1     USA            Walmart    OH 3300     485    1</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:            2     USA   Bershire Hataway       2222     223    2</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:            3     USA              Apple    CA 3384     215    3</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:            4     USA       Exxon Mobile    TX 2222     205    4</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:            6     USA UnitedHealth Group    MA   NA     184    6</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6:            7     USA         CVS Health    RI 1112     177    7</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7:            9     USA               AT&amp;T    TN 4000     163    9</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8:            8     USA     General Motors    MI 2222     166    8</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9:           10     USA Ford Motor Company    MI   NA     151   10</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  Name country state_code SIC_code earnings unique_key_2 id_2</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:            Walmart     USA         OH     3380  490,000            1    1</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:  Bershire Hathaway     USA         NE     2220  220,000            2    2</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:     Apple Computer     USA         CA       NA  220,000            3    3</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4: Exxon Mobile Inc.      USA         TX     2222  210,000            4    4</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6: UnitedHealth Group     USA         MA     1130  180,000            6    6</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7:             AT &amp; T     USA         TN     4000  160,000            9    9</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9:         Ford Motor     USA         MI     2222  150,000           10   10</span></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Company_2 Company_compare multivar_score tier</span></span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:            Walmart       1.0000000      1.0000000  all</span></span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:  Bershire Hathaway       0.9882353      0.9882353  all</span></span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:     Apple Computer       0.8714286      0.8714286  all</span></span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4: Exxon Mobile Inc.        0.9333333      0.9333333  all</span></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5: UnitedHealth Group       1.0000000      1.0000000  all</span></span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6: UnitedHealth Group       0.5333333      0.5333333  all</span></span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7:             AT &amp; T       0.9111111      0.9111111  all</span></span>
-<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8:         Ford Motor       0.7333333      0.7333333  all</span></span>
-<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9:         Ford Motor       0.9111111      0.9111111  all</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>corp_data1_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data1)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data1_test)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>corp_data2_test <span class="ot">&lt;-</span> <span class="fu">copy</span>(corp_data2)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">setDT</span>(corp_data2_test)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>corp_data1_test[, id_1 <span class="sc">:=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>corp_data2_test[, id_2 <span class="sc">:=</span> <span class="fu">seq</span>(<span class="dv">1</span>, .N)]</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>corp_data2_test[, Country <span class="sc">:=</span> country]</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>corp_data2_test[, Company <span class="sc">:=</span> Name]</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">merge_plus</span>(</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  <span class="at">data1 =</span> corp_data1_test,</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>  <span class="at">data2 =</span> corp_data2_test,</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>  <span class="at">match_type =</span> <span class="st">&quot;multivar&quot;</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Company&quot;</span>),</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>   <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">&quot;_1&quot;</span>, <span class="st">&quot;_2&quot;</span>),</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>  <span class="at">unique_key_1 =</span> <span class="st">&quot;id_1&quot;</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>  <span class="at">unique_key_2 =</span> <span class="st">&quot;id_2&quot;</span>, </span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>  <span class="at">multivar_settings =</span> <span class="fu">build_multivar_settings</span>(</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>  <span class="at">compare_type =</span> <span class="fu">c</span>( <span class="st">&quot;stringdist&quot;</span>),</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>  <span class="at">wgts =</span> <span class="fu">c</span>(<span class="dv">1</span>), <span class="at">nthread =</span> <span class="dv">1</span>, <span class="at">blocks =</span> <span class="st">&quot;Country&quot;</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a> </span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>))</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>result<span class="sc">$</span>matches</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt; Key: &lt;id_2&gt;</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; Index: &lt;tier&gt;</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt;    unique_key_1 Country          Company_1  State   SIC Revenue  id_1</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt;           &lt;int&gt;  &lt;char&gt;             &lt;char&gt; &lt;char&gt; &lt;num&gt;   &lt;num&gt; &lt;int&gt;</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; 1:            1     USA            Walmart     OH  3300     485     1</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; 2:            2     USA   Bershire Hataway         2222     223     2</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; 3:            3     USA              Apple     CA  3384     215     3</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; 4:            4     USA       Exxon Mobile     TX  2222     205     4</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; 5:            6     USA UnitedHealth Group     MA    NA     184     6</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; 6:            7     USA         CVS Health     RI  1112     177     7</span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; 7:            9     USA               AT&amp;T     TN  4000     163     9</span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; 8:            8     USA     General Motors     MI  2222     166     8</span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; 9:           10     USA Ford Motor Company     MI    NA     151    10</span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt;                  Name country state_code SIC_code earnings unique_key_2  id_2</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt;                &lt;char&gt;  &lt;char&gt;     &lt;char&gt;    &lt;num&gt;   &lt;char&gt;        &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; 1:            Walmart     USA         OH     3380  490,000            1     1</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; 2:  Bershire Hathaway     USA         NE     2220  220,000            2     2</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; 3:     Apple Computer     USA         CA       NA  220,000            3     3</span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">#&gt; 4: Exxon Mobile Inc.      USA         TX     2222  210,000            4     4</span></span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="co">#&gt; 5: UnitedHealth Group     USA         MA     1130  180,000            6     6</span></span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="co">#&gt; 6: UnitedHealth Group     USA         MA     1130  180,000            6     6</span></span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a><span class="co">#&gt; 7:             AT &amp; T     USA         TN     4000  160,000            9     9</span></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">#&gt; 8:         Ford Motor     USA         MI     2222  150,000           10    10</span></span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="co">#&gt; 9:         Ford Motor     USA         MI     2222  150,000           10    10</span></span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="co">#&gt;             Company_2 Company_compare multivar_score   tier</span></span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">#&gt;                &lt;char&gt;           &lt;num&gt;          &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="co">#&gt; 1:            Walmart       1.0000000      1.0000000    all</span></span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a><span class="co">#&gt; 2:  Bershire Hathaway       0.9882353      0.9882353    all</span></span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a><span class="co">#&gt; 3:     Apple Computer       0.8714286      0.8714286    all</span></span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a><span class="co">#&gt; 4: Exxon Mobile Inc.        0.9333333      0.9333333    all</span></span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="co">#&gt; 5: UnitedHealth Group       1.0000000      1.0000000    all</span></span>
+<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a><span class="co">#&gt; 6: UnitedHealth Group       0.5333333      0.5333333    all</span></span>
+<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a><span class="co">#&gt; 7:             AT &amp; T       0.9111111      0.9111111    all</span></span>
+<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co">#&gt; 8:         Ford Motor       0.7333333      0.7333333    all</span></span>
+<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a><span class="co">#&gt; 9:         Ford Motor       0.9111111      0.9111111    all</span></span></code></pre></div>
 <p>For our dummy example data, this isn’t that useful (we just drop one
 observation with the Country being Germany). But, if there is a field in
 the data that is well-populated and trusted, it can be used to
