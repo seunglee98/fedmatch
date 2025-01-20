@@ -53,7 +53,7 @@ testthat::test_that("multivar works as part of a tier match", {
 
   tier_list <- list(
     a = list(match_type = "exact"),
-    b = list(match_type = "fuzzy"),
+    b = list(match_type = "fuzzy", fuzzy_settings = build_fuzzy_settings(nthread = 1)),
     c = list(
       match_type = "multivar",
       by.x = c("Company", "Country"),
@@ -61,7 +61,7 @@ testthat::test_that("multivar works as part of a tier match", {
       multivar_settings = list(
         logit = logit_model, missing = FALSE,
         compare_type = c("stringdist", "indicator"), blocks = NULL, blocks.x = NULL, blocks.y = NULL,
-        top = 1, threshold = NULL
+        top = 1, threshold = NULL, nthread = 1
       )
     ),
     d = list(match_type = "exact", clean_settings = list(remove_words = TRUE))
