@@ -1,4 +1,3 @@
-
 test_that("match_evaluate returns matches that are correct number", {
   corp_data1 <- copy(fedmatch::corp_data1)
   corp_data2 <- copy(fedmatch::corp_data2)
