@@ -3,7 +3,7 @@
 
 # fedmatch
 
-<!-- badges: start -->
+# <!-- badges: start -->
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/fedmatch)](https://CRAN.R-project.org/package=fedmatch)
