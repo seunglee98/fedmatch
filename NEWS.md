@@ -1,8 +1,5 @@
 # fedmatch 2.1.0
-
-# fedmatch 2.0.7
-
-# fedmatch 2.1.0
+- Fixed several bugs leading to too many threads being used. Be sure to set number of threads with "Sys.setenv("OMP_THREAD_LIMIT" = N)" to use more threads if you'd like.
 
 # fedmatch 2.0.7
 - Fixed error with stringdist receiving zero-length number of threads
