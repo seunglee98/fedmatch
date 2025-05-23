@@ -246,11 +246,11 @@ merge_plus <- function(data1, data2, by = NULL, by.x = NULL, by.y = NULL,
         # class(matches_filter) <- "data.frame"
       }
       ## redefine no matches to include only those in the filtered dataset
-      setkey(data1, unique_key_1)
-      setkey(matches_filter, unique_key_1)
+      setkeyv(data1, unique_key_1)
+      setkeyv(matches_filter, unique_key_1)
       data1_nomatch <- data1[!matches_filter]
-      setkey(data2, unique_key_2)
-      setkey(matches_filter, unique_key_2)
+      setkeyv(data2, unique_key_2)
+      setkeyv(matches_filter, unique_key_2)
       data2_nomatch <- data2[!matches_filter]
 
       ## checking results
